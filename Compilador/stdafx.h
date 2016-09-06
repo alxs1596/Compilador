@@ -10,6 +10,6 @@
 #include <stdio.h>
 #include <tchar.h>
 
-
+#include <iostream>
 
 // TODO: mencionar aquí los encabezados adicionales que el programa necesita
