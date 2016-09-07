@@ -13,6 +13,7 @@ Automata::~Automata()
 
 bool Automata::mover(char c)
 {
+	return false;
 }
 
 bool Automata::esEstadoFinal()
