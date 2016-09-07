@@ -64,7 +64,16 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 
 int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
 {
-	return 0;
+	if (cadena[index] != EOF || cadena[index] == ' ' || cadena[index] == '\t')
+	{
+
+		EliminarBlancos(cadena, index + 1);
+
+	}
+	else {
+
+		return index;
+	}
 }
 
 int AnalizadorLexico::MapeaEstadoATipoToken(int estado)
