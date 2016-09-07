@@ -28,5 +28,7 @@ private:
 	int* EstadoInicial;
 	// Alfabeto
 	std::map<char, int> Alfabeto;
+	// Matriz
+	typedef std::map<int, std::map<int, std::vector<int> > > Matriz;
 };
 
