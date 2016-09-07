@@ -32,7 +32,7 @@ else
 		automata.reset()
 ir a 2
 */
-void AnalizadorLexico::Analizar(std::string S)
+void AnalizadorLexico::Analizar(std::string S, int linea)
 {
 	int index = 0;
 	char c = S[index];
@@ -56,7 +56,7 @@ void AnalizadorLexico::Analizar(std::string S)
 		}
 		else
 		{
-			listaErrorLexico.push_back(new ErrorLexico(buffer, 1));
+			listaErrorLexico.push_back(new ErrorLexico(buffer, linea));
 			automata.reset();
 		}
 	}

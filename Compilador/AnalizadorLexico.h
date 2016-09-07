@@ -15,7 +15,7 @@ public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
 
-	void Analizar(std::string);
+	void Analizar(std::string, int);
 private:
 	Automata automata;
 	std::string buffer;
