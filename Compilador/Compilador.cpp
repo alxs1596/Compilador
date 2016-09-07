@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 
+#include "Automata.h"
 
 int main()
 {
@@ -27,7 +28,17 @@ int main()
 
 	AnalizadorLexico analizadorLexico;
 
-	analizadorLexico.Analizar(codigo_fuente);
+	analizadorLexico.Analizar(codigo_fuente,1);
+
+	std::map<char, int> alfabeto;
+	int numeroEstados;
+	std::vector<int> estadosFinales;
+	int estadoInicial;
+	Matriz matriz;
+
+	Automata automata(alfabeto,numeroEstados,estadosFinales,estadoInicial,matriz);
+
+	
 
 	system("pause");
     return 0;

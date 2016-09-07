@@ -46,10 +46,10 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 		if (automata.esEstadoFinal())
 		{
 			int TipoToken = MapeaEstadoATipoToken(automata.estado());
-			if (TipoToken == Tipos::IDENTIFICADOR)
+			if (TipoToken == Tipos::TOKEN_IDENTIFICADOR)
 			{
 				if (BuscarEnPalabrasReservadas(buffer))
-					TipoToken = Tipos::PALABRA_RESERVADA;
+					TipoToken = Tipos::TOKEN_PALABRA_RESERVADA;
 			}
 			listaTokens.push_back(new Token(buffer, TipoToken));
 			automata.reset();
