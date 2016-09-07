@@ -6,5 +6,6 @@ public:
 	~Transicion();
 
 	int a;
+	int b;
 };
 
