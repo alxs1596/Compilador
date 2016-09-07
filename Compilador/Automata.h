@@ -3,7 +3,6 @@
 #include <map>
 #include <vector>
 
-#include "Matriz.h"
 
 
 class Automata
@@ -18,6 +17,8 @@ public:
 	void reset();
 	void imprimir();
 private:
+	// Matriz
+	typedef std::map<int, std::map<int, std::vector<int> > > Matriz;
 	// Matriz de Transiciones
 	Matriz MatrizDeTransiciones;
 	// Conjunto de Estados
@@ -28,7 +29,6 @@ private:
 	int* EstadoInicial;
 	// Alfabeto
 	std::map<char, int> Alfabeto;
-	// Matriz
-	typedef std::map<int, std::map<int, std::vector<int> > > Matriz;
+	
 };
 
