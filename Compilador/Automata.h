@@ -3,22 +3,26 @@
 #include <map>
 #include <vector>
 
+// Matriz
+typedef std::map<int, std::map<int, std::vector<int> > > Matriz;
 
 
 class Automata
 {
+
 public:
+	
+	Automata();
 	Automata(std::map<char, int>, int, std::vector<int>, int, Matriz);
 	~Automata();
-
+	
 	bool mover(char c);
 	bool esEstadoFinal();
 	int estado();
 	void reset();
 	void imprimir();
 private:
-	// Matriz
-	typedef std::map<int, std::map<int, std::vector<int> > > Matriz;
+	
 	// Matriz de Transiciones
 	Matriz MatrizDeTransiciones;
 	// Conjunto de Estados
@@ -29,6 +33,8 @@ private:
 	int* EstadoInicial;
 	// Alfabeto
 	std::map<char, int> Alfabeto;
+
+	
 	
 };
 

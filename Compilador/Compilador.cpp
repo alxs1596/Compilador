@@ -31,14 +31,25 @@ int main()
 	analizadorLexico.Analizar(codigo_fuente,1);
 
 	std::map<char, int> alfabeto;
-	int numeroEstados;
+	int numeroEstados = 1;
 	std::vector<int> estadosFinales;
-	int estadoInicial;
+	int estadoInicial = 0;
 	Matriz matriz;
+
+	alfabeto['a'] = Tipos::LETRA;
+	alfabeto['b'] = Tipos::LETRA;
+	alfabeto['c'] = Tipos::LETRA;
+	alfabeto['d'] = Tipos::LETRA;
+	alfabeto['e'] = Tipos::LETRA;
+	alfabeto['f'] = Tipos::LETRA;
+	alfabeto['g'] = Tipos::LETRA;
+	alfabeto['h'] = Tipos::LETRA;
+	alfabeto['i'] = Tipos::LETRA;
+	alfabeto['j'] = Tipos::LETRA;
 
 	Automata automata(alfabeto,numeroEstados,estadosFinales,estadoInicial,matriz);
 
-	
+	automata.imprimir();
 
 	system("pause");
     return 0;
