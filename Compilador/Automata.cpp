@@ -32,9 +32,9 @@ Automata::~Automata()
 
 bool Automata::mover(char c)
 {
-	bool sePuedeMover = false;
 
 	for (int i = 0; i < Estados.size(); i++) {
+		if (MatrizDeTransiciones[*EstadoActual][i] != 0)
 		if (std::binary_search(MatrizDeTransiciones[*EstadoActual][i]->begin(), MatrizDeTransiciones[*EstadoActual][i]->end(), Alfabeto[c])) {
 			EstadoActual = &Estados[i];
 			return true;
@@ -56,6 +56,7 @@ int Automata::estado()
 
 void Automata::reset()
 {
+	EstadoActual = EstadoInicial;
 }
 
 void Automata::imprimir()
