@@ -243,11 +243,9 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 			if (automata->mover(c)) {
 				buffer.push_back(c);
 				index++;
-				//EliminarComentario(S, index);
 			}
 			else
 			{
-				//EliminarComentario(S,index);
 				index = EliminarBlancos(S, index);
 				if (automata->esEstadoFinal())
 				{
@@ -267,7 +265,6 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 						listaErrorLexico.push_back(new ErrorLexico(S, linea, index));
 					buffer = "";
 					index++;
-					//EliminarComentario(S, index);
 					automata->reset();
 				}
 			}
