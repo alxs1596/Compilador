@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AnalizadorLexico">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAgAAKAEgAAAIAAICAAAAwAAACAAIABBAIAAAAAA=</HashCode>
+      <FileName>AnalizadorLexico.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Automata">
+    <Position X="4.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAEAAACEAAAAAAAAAACAAAAAAAAAA4AAAIAAQg=</HashCode>
+      <FileName>Automata.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErrorLexico">
+    <Position X="6.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAIMAIAAAAAEAAAAAAACAAAAAAAgAAgAAACA=</HashCode>
+      <FileName>ErrorLexico.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tipos">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAgAAgAAQACgCAAAAAAABAAAAEAACE=</HashCode>
+      <FileName>Tipos.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Token">
+    <Position X="8.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACACAAAAAAACAAAAAAAAAAAAAAAAABEARAAQ=</HashCode>
+      <FileName>Token.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="Matriz" Collapsed="true">
+    <Position X="0.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Automata.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

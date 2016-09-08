@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 class Tipos
 {
 public:
@@ -15,5 +16,8 @@ public:
 	static const int OPERADOR = 9;
 	static const int DELIMITADOR = 10;
 	static const int COMILLA = 11;
+
+	 
+	
 };
 

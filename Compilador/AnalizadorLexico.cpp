@@ -17,18 +17,41 @@ void AnalizadorLexico::ejecutar(std::string archivo )
 		std::string linea;
 		std::ifstream nombre;
 		nombre.open(archivo);
+		int nLinea = 1;
+		std::cout << "#############################\n\tCodigo Fuente:\n\n";
 		while (!nombre.eof())
 		{
 			getline(nombre, linea);
-			Analizar(linea, 1);
+			Analizar(linea, nLinea++);
+			std::cout << linea << std::endl;
 		}
+		std::cout << "#############################\n\tTokens:\n\n";
 		imprimirTokens();
-	
+		std::cout << "#############################\n\tErrores:\n\n";
+		imprimirErrores();
 }
 
 
 void AnalizadorLexico::cargarDatos()
 {
+
+	//Comentario
+
+	comentario = false;
+
+	//######################
+	//TOKENS
+
+	TOKENS[1] = "TOKEN_IDENTIFICADOR";
+	
+	TOKENS[2] = "TOKEN_PALABRA_RESERVADA";
+	TOKENS[3] = "TOKEN_LITERAL_DE_CADENA";
+	TOKENS[4] = "TOKEN_VARIABLE_ENTERA";
+	TOKENS[5] = "TOKEN_DELIMITADOR";
+	TOKENS[6] = "TOKEN_OPERADOR";
+
+	//######################
+
 	std::map<char, int> alfabeto;
 	int numeroEstados = 7;
 	std::vector<int> estadosFinales;
@@ -207,36 +230,53 @@ ir a 2
 */
 void AnalizadorLexico::Analizar(std::string S, int linea)
 {
-	S.push_back('-');
+	S.push_back('@');
 	int index = 0;
+	EliminarComentario(S,index);
+	index = EliminarBlancos(S, index);
 	while(index < S.size()) {
-		char c = S[index];
-		if (automata->mover(c)) {
-			buffer.push_back(c);
-			index++;
-		}
-		else
-		{
-			index = EliminarBlancos(S, index);
-			if (automata->esEstadoFinal())
-			{
-				int TipoToken = MapeaEstadoATipoToken(automata->estado());
-				if (TipoToken == Tipos::TOKEN_IDENTIFICADOR)
-				{
-					if (BuscarEnPalabrasReservadas(buffer))
-						TipoToken = Tipos::TOKEN_PALABRA_RESERVADA;
-				}
-				listaTokens.push_back(new Token(buffer, TipoToken));
-				buffer = "";
-				automata->reset();
+		if (S[index] == '/' && S[index + 1] == '/') return;
+		if (S[index] == '/' && S[index + 1] == '*') comentario = true;
+		if (S[index] == '*' && S[index + 1] == '/') { comentario = false; index = index + 2; }
+		if (!comentario) {
+			char c = S[index];
+			if (automata->mover(c)) {
+				buffer.push_back(c);
+				index++;
+				//EliminarComentario(S, index);
 			}
 			else
 			{
-				listaErrorLexico.push_back(new ErrorLexico(buffer, linea));
-				buffer = "";
-				automata->reset();
+				//EliminarComentario(S,index);
+				index = EliminarBlancos(S, index);
+				if (automata->esEstadoFinal())
+				{
+					int TipoToken = MapeaEstadoATipoToken(automata->estado());
+					if (TipoToken == Tipos::TOKEN_IDENTIFICADOR)
+					{
+						if (BuscarEnPalabrasReservadas(buffer))
+							TipoToken = Tipos::TOKEN_PALABRA_RESERVADA;
+					}
+					listaTokens.push_back(new Token(buffer, TipoToken));
+					buffer = "";
+					automata->reset();
+				}
+				else
+				{
+					if (index != S.size() - 1)
+						listaErrorLexico.push_back(new ErrorLexico(S, linea, index));
+					buffer = "";
+					index++;
+					//EliminarComentario(S, index);
+					automata->reset();
+				}
 			}
 		}
+		else
+		{
+			index++;
+		}
+		
 	}
 	//imprimirTokens();
 }
@@ -245,8 +285,21 @@ void AnalizadorLexico::imprimirTokens()
 {
 	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
 	{
-		std::cout << (*it)->getLexema() << " " << (*it)->getTipo() << std::endl;
+		std::cout << (*it)->getLexema() << "\t\t" << TOKENS[(*it)->getTipo()] << std::endl;
 	}
+}
+
+void AnalizadorLexico::imprimirErrores()
+{
+	for (std::vector<ErrorLexico*>::iterator it = listaErrorLexico.begin(); it != listaErrorLexico.end(); ++it)
+	{
+		std::cout << (*it)->getError() << "\t" <<(*it)->getLinea() << "\t" << std::endl;
+		for (int i = 0; i < (*it)->getCaracter(); i++)
+			std::cout << " ";
+		char a = 238;
+		std::cout << a << std::endl;
+	}
+	
 }
 
 int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
@@ -261,6 +314,21 @@ int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
 
 		return index;
 	}
+}
+
+void AnalizadorLexico::EliminarComentario(std::string cadena , int index)
+{
+	/*if (index < cadena.size() - 2) 
+		if (cadena[index] == '/' && cadena[index + 1] == '*') comentario = true;
+	if (cadena[index] == '@')
+	{
+
+	}
+	if (index > 1)
+		if (cadena[index - 2] == '*' && cadena[index - 1] == '/') comentario = false;
+	//    abc*/
+
+
 }
 
 int AnalizadorLexico::MapeaEstadoATipoToken(int estado)

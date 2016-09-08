@@ -11,10 +11,12 @@ ErrorLexico::~ErrorLexico()
 {
 }
 
-ErrorLexico::ErrorLexico(std::string mensaje, int linea)
+ErrorLexico::ErrorLexico(std::string mensaje, int linea, int _caracter)
 {
+	mensaje.pop_back();
 	error = mensaje;
 	lineaError = linea;
+	caracter = _caracter;
 }
 
 void ErrorLexico::setError(const std::string& er) 
@@ -35,4 +37,14 @@ int ErrorLexico::getLinea() const
 void ErrorLexico::setLinea(int linea)
 {
 	lineaError = linea;
+}
+
+int ErrorLexico::getCaracter() const
+{
+	return caracter;
+}
+
+void ErrorLexico::setCaracter(int c)
+{
+	caracter = c;
 }

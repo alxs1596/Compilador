@@ -9,7 +9,6 @@
 #include "Tipos.h"
 #include "Token.h"
 #include "ErrorLexico.h"
-#include "File.h"
 #include <fstream>
 class AnalizadorLexico
 {
@@ -21,6 +20,7 @@ public:
 	void Analizar(std::string, int);
 
 	void imprimirTokens();
+	void imprimirErrores();
 private:
 	Automata *automata;
 	std::string buffer;
@@ -28,8 +28,13 @@ private:
 	std::vector<Token*> listaTokens;
 	std::vector<ErrorLexico*> listaErrorLexico;
 	std::map<int, int> EstadoAToken;
+	std::map<int, std::string > TOKENS;
 
-	int EliminarBlancos(std::string cadena, int index);
+	bool comentario;
+
+
+	int EliminarBlancos(std::string,int);
+	void EliminarComentario(std::string, int);
 	int MapeaEstadoATipoToken(int estado);
 	bool BuscarEnPalabrasReservadas(std::string palabra);
 };
