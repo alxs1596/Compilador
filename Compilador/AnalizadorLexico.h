@@ -9,13 +9,14 @@
 #include "Tipos.h"
 #include "Token.h"
 #include "ErrorLexico.h"
-
+#include "File.h"
+#include <fstream>
 class AnalizadorLexico
 {
 public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
-
+	void ejecutar(std::string);
 	void cargarDatos();
 	void Analizar(std::string, int);
 

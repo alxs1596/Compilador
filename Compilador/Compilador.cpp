@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-
+#include "File.h"
 #include "Automata.h"
 
 int main()
@@ -12,12 +12,8 @@ int main()
 
 	analizador.cargarDatos();
 
-
-	std::string codigo_fuente = "";
-	codigo_fuente += "\tentero a,b,c,defg     \"Adriana\"  \"entero\";";
-
-	analizador.Analizar(codigo_fuente,1);
-
+	analizador.ejecutar("Source.txt");
+	
 
 	system("pause");
     return 0;

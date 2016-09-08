@@ -11,6 +11,21 @@ AnalizadorLexico::~AnalizadorLexico()
 {
 }
 
+void AnalizadorLexico::ejecutar(std::string archivo )
+{
+	
+		std::string linea;
+		std::ifstream nombre;
+		nombre.open(archivo);
+		while (!nombre.eof())
+		{
+			getline(nombre, linea);
+			Analizar(linea, 1);
+		}
+		imprimirTokens();
+	
+}
+
 
 void AnalizadorLexico::cargarDatos()
 {
@@ -192,7 +207,7 @@ ir a 2
 */
 void AnalizadorLexico::Analizar(std::string S, int linea)
 {
-	S.push_back(';');
+	S.push_back('-');
 	int index = 0;
 	while(index < S.size()) {
 		char c = S[index];
@@ -223,7 +238,7 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 			}
 		}
 	}
-	imprimirTokens();
+	//imprimirTokens();
 }
 
 void AnalizadorLexico::imprimirTokens()
