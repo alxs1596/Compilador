@@ -48,9 +48,11 @@ void Automata::reset()
 
 void Automata::imprimir()
 {
+	std::cout << "Alfabeto" << std::endl;
 	for (std::map<char,int>::iterator it = Alfabeto.begin(); it != Alfabeto.end(); ++it)
-	{
 		std::cout << it->first << ":" << it->second << std::endl;
-	}
+	std::cout << "Estados" << std::endl;
+	for (std::map<int, int>::iterator it = Estados.begin(); it != Estados.end(); ++it)
+		std::cout << it->second << std::endl;
 }
 
