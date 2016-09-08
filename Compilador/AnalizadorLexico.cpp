@@ -64,10 +64,10 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 
 int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
 {
-	if (cadena[index] != EOF || cadena[index] == ' ' || cadena[index] == '\t')
+	if (index == cadena.length() || cadena[index] == ' ' || cadena[index] == '\t')
 	{
 
-		EliminarBlancos(cadena, index + 1);
+		return EliminarBlancos(cadena, index + 1);
 
 	}
 	else {

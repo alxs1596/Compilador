@@ -3,17 +3,21 @@
 
 
 
+Automata::Automata()
+{
+}
+
 Automata::Automata(std::map<char, int> _alfabeto, int _numeroDeEstados, std::vector<int> _estadosFinales, int _estadoInicial, Matriz _matrizDeTransiciones)
 {
 	Alfabeto = _alfabeto;
 	MatrizDeTransiciones = _matrizDeTransiciones;
 
 	for (int i = 0; i < _numeroDeEstados; i++)
-		Estados.insert(i, i);
-	
-	for (std::vector<int>::iterator it = _estadosFinales.begin; it != _estadosFinales.end(); ++it)
+		Estados[i] = i;
+
+	for (unsigned int i = 0; i < _estadosFinales.size(); i++)
 	{
-		EstadosFinales.insert(*it, Estados[*it]);
+		EstadosFinales[_estadosFinales[i]] = &Estados[*EstadosFinales[i]];
 	}
 
 	EstadoInicial = &Estados[_estadoInicial];
@@ -46,7 +50,7 @@ void Automata::imprimir()
 {
 	for (std::map<char,int>::iterator it = Alfabeto.begin(); it != Alfabeto.end(); ++it)
 	{
-		std::cout << it->first;
+		std::cout << it->first << ":" << it->second << std::endl;
 	}
 }
 
