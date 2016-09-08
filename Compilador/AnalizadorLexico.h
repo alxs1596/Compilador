@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
 
 #include "Automata.h"
 #include "Tipos.h"
@@ -15,13 +16,17 @@ public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
 
+	void cargarDatos();
 	void Analizar(std::string, int);
+
+	void imprimirTokens();
 private:
-	Automata automata;
+	Automata *automata;
 	std::string buffer;
-	std::vector<std::string> listaPalabrasReservadas;
+	std::map<std::string, bool> listaPalabrasReservadas;
 	std::vector<Token*> listaTokens;
 	std::vector<ErrorLexico*> listaErrorLexico;
+	std::map<int, int> EstadoAToken;
 
 	int EliminarBlancos(std::string cadena, int index);
 	int MapeaEstadoATipoToken(int estado);

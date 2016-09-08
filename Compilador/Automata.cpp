@@ -18,6 +18,7 @@ Automata::Automata(std::map<char, int> _alfabeto, int _numeroDeEstados, std::vec
 
 	for (unsigned int i = 0; i < _estadosFinales.size(); i++)
 	{
+		//int* p = &Estados[_estadosFinales[i]];
 		EstadosFinales[_estadosFinales[i]] = &Estados[_estadosFinales[i]];
 	}
 
