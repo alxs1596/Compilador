@@ -31,7 +31,7 @@ int main()
 	analizadorLexico.Analizar(codigo_fuente,1);
 
 	std::map<char, int> alfabeto;
-	int numeroEstados = 1;
+	int numeroEstados = 5;
 	std::vector<int> estadosFinales;
 	int estadoInicial = 0;
 	Matriz matriz;
@@ -47,9 +47,18 @@ int main()
 	alfabeto['i'] = Tipos::LETRA;
 	alfabeto['j'] = Tipos::LETRA;
 
+	//estadosFinales.push_back(0);
+	estadosFinales.push_back(3);
+	estadosFinales.push_back(4);
+
+	matriz[0][1] = new std::vector<int>();
+	matriz[0][1]->push_back(Tipos::LETRA);
+
 	Automata automata(alfabeto,numeroEstados,estadosFinales,estadoInicial,matriz);
 
 	automata.imprimir();
+
+	std::cout << automata.esEstadoFinal();
 
 	system("pause");
     return 0;

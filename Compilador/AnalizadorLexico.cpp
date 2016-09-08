@@ -34,7 +34,7 @@ ir a 2
 */
 void AnalizadorLexico::Analizar(std::string S, int linea)
 {
-	int index = 0;
+	/*int index = 0;
 	char c = S[index];
 	if (automata.mover(c)) {
 		buffer.push_back(c);
@@ -59,7 +59,7 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 			listaErrorLexico.push_back(new ErrorLexico(buffer, linea));
 			automata.reset();
 		}
-	}
+	}*/
 }
 
 int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)

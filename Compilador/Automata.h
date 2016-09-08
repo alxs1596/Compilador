@@ -2,9 +2,10 @@
 
 #include <map>
 #include <vector>
+#include <algorithm>
 
 // Matriz
-typedef std::map<int, std::map<int, std::vector<int> > > Matriz;
+typedef std::map<int, std::map<int, std::vector<int>* > > Matriz;
 
 
 class Automata
@@ -33,6 +34,10 @@ private:
 	int* EstadoInicial;
 	// Alfabeto
 	std::map<char, int> Alfabeto;
+
+
+	//Estado Actual
+	int* EstadoActual;
 
 	
 	
