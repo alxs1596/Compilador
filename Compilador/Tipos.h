@@ -11,5 +11,9 @@ public:
 	static const int TOKEN_OPERADOR = 6;
 
 	static const int LETRA = 7;
+	static const int NUMERO = 8;
+	static const int OPERADOR = 9;
+	static const int DELIMITADOR = 10;
+	static const int COMILLA = 11;
 };
 
