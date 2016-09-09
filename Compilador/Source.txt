@@ -5,10 +5,11 @@ Programa()
 	a=(50 + 8) * d - (c + f * g);
 	Mientras(a + 1 > c)
 	{
-		entero d,z,o;
+		entero@ d,z,o;
 		Mientras(a<b)
 		{ //hola amigos
 			/*asd
-		asd*/}
+		asd}
 	}
 }
+

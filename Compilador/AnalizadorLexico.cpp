@@ -75,6 +75,7 @@ void AnalizadorLexico::cargarDatos()
 	EstadoAToken[3] = Tipos::TOKEN_OPERADOR;
 	EstadoAToken[4] = Tipos::TOKEN_DELIMITADOR;
 	EstadoAToken[6] = Tipos::TOKEN_LITERAL_DE_CADENA;
+	
 
 	//Alfabeto
 	alfabeto['a'] = Tipos::LETRA;
@@ -151,9 +152,9 @@ void AnalizadorLexico::cargarDatos()
 	alfabeto['='] = Tipos::OPERADOR;
 	alfabeto['<'] = Tipos::OPERADOR;
 	alfabeto['>'] = Tipos::OPERADOR;
-	alfabeto['=='] = Tipos::OPERADOR;
-	alfabeto['>='] = Tipos::OPERADOR;
-	alfabeto['<='] = Tipos::OPERADOR;
+	//alfabeto['=='] = Tipos::OPERADOR;
+	//alfabeto['>='] = Tipos::OPERADOR;
+	//alfabeto['<='] = Tipos::OPERADOR;
 
 	alfabeto['('] = Tipos::DELIMITADOR;
 	alfabeto[')'] = Tipos::DELIMITADOR;
@@ -290,9 +291,14 @@ void AnalizadorLexico::imprimirErrores()
 {
 	for (std::vector<ErrorLexico*>::iterator it = listaErrorLexico.begin(); it != listaErrorLexico.end(); ++it)
 	{
-		std::cout << (*it)->getError() << "\t" <<(*it)->getLinea() << "\t" << std::endl;
-		for (int i = 0; i < (*it)->getCaracter(); i++)
-			std::cout << " ";
+		std::string cadena = (*it)->getError();
+		//cadena.replace(cadena.begin(), cadena.end(), '\t', ' ');
+		std::cout << (*it)->getError() << " " << "Linea: " << (*it)->getLinea() << " " << "Caracter: " << (*it)->getCaracter() << std::endl;
+		for (int i = 0; i < (*it)->getCaracter(); i++) {
+			if (cadena[i] == '\t')
+				std::cout << '\t';
+			else std::cout << " ";
+		}
 		char a = 238;
 		std::cout << a << std::endl;
 	}

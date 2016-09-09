@@ -3,13 +3,14 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <fstream>
 #include <map>
 
 #include "Automata.h"
 #include "Tipos.h"
 #include "Token.h"
 #include "ErrorLexico.h"
-#include <fstream>
+
 class AnalizadorLexico
 {
 public:
