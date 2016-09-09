@@ -9,7 +9,7 @@ Programa()
 		Mientras(a<b)
 		{ //hola amigos
 			/*asd
-		asd}
+		asd*/{
 	}
 }
 
