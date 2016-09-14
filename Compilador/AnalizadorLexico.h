@@ -17,8 +17,6 @@ public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
 	void ejecutar(std::string);
-	void cargarDatos();
-	void Analizar(std::string, int);
 
 	void imprimirTokens();
 	void imprimirErrores();
@@ -33,6 +31,8 @@ private:
 
 	bool comentario;
 
+	void cargarDatos();
+	void Analizar(std::string, int);
 
 	int EliminarBlancos(std::string,int);
 	void EliminarComentario(std::string, int);

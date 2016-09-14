@@ -5,7 +5,11 @@ Programa()
 	a=(50 + 8) * d - (c + f * g);
 	Mientras(a + 1 > c)
 	{
-		entero@ d,z,o;
+		entero d,z,o;
+		Mientras(1 == 2)
+		Mientras(1 != 2)
+		Mientras(1 <= 2)
+		Mientras(1 >= 2)
 		Mientras(a<b)
 		{ //hola amigos
 			/*asd

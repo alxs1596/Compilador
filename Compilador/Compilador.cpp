@@ -10,8 +10,6 @@ int main()
 
 	AnalizadorLexico analizador;
 
-	analizador.cargarDatos();
-
 	analizador.ejecutar("Source.txt");
 	
 

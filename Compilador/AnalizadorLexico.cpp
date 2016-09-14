@@ -4,6 +4,7 @@
 
 AnalizadorLexico::AnalizadorLexico()
 {
+	cargarDatos();
 }
 
 
@@ -53,7 +54,7 @@ void AnalizadorLexico::cargarDatos()
 	//######################
 
 	std::map<char, int> alfabeto;
-	int numeroEstados = 7;
+	int numeroEstados = 12;
 	std::vector<int> estadosFinales;
 	int estadoInicial = 0;
 	Matriz matriz;
@@ -73,8 +74,12 @@ void AnalizadorLexico::cargarDatos()
 	EstadoAToken[1] = Tipos::TOKEN_IDENTIFICADOR;
 	EstadoAToken[2] = Tipos::TOKEN_VARIABLE_ENTERA;
 	EstadoAToken[3] = Tipos::TOKEN_OPERADOR;
-	EstadoAToken[4] = Tipos::TOKEN_DELIMITADOR;
-	EstadoAToken[6] = Tipos::TOKEN_LITERAL_DE_CADENA;
+	EstadoAToken[9] = Tipos::TOKEN_DELIMITADOR;
+	EstadoAToken[5] = Tipos::TOKEN_OPERADOR;
+	EstadoAToken[6] = Tipos::TOKEN_OPERADOR;
+	EstadoAToken[7] = Tipos::TOKEN_OPERADOR;
+	EstadoAToken[8] = Tipos::TOKEN_OPERADOR;
+	EstadoAToken[11] = Tipos::TOKEN_LITERAL_DE_CADENA;
 	
 
 	//Alfabeto
@@ -149,9 +154,10 @@ void AnalizadorLexico::cargarDatos()
 	alfabeto['*'] = Tipos::OPERADOR;
 	alfabeto['/'] = Tipos::OPERADOR;
 	alfabeto['%'] = Tipos::OPERADOR;
-	alfabeto['='] = Tipos::OPERADOR;
-	alfabeto['<'] = Tipos::OPERADOR;
-	alfabeto['>'] = Tipos::OPERADOR;
+	alfabeto['='] = Tipos::IGUAL;
+	alfabeto['<'] = Tipos::MENOR;
+	alfabeto['>'] = Tipos::MAYOR;
+	alfabeto['!'] = Tipos::ADMIRACION;
 	//alfabeto['=='] = Tipos::OPERADOR;
 	//alfabeto['>='] = Tipos::OPERADOR;
 	//alfabeto['<='] = Tipos::OPERADOR;
@@ -169,8 +175,12 @@ void AnalizadorLexico::cargarDatos()
 	estadosFinales.push_back(1);
 	estadosFinales.push_back(2);
 	estadosFinales.push_back(3);
-	estadosFinales.push_back(4);
+	estadosFinales.push_back(5);
 	estadosFinales.push_back(6);
+	estadosFinales.push_back(7);
+	estadosFinales.push_back(8);
+	estadosFinales.push_back(9);
+	estadosFinales.push_back(11);
 
 	//Matriz de transiciones
 	matriz[0][1] = new std::vector<int>();
@@ -190,17 +200,41 @@ void AnalizadorLexico::cargarDatos()
 	matriz[0][3]->push_back(Tipos::OPERADOR);
 
 	matriz[0][4] = new std::vector<int>();
-	matriz[0][4]->push_back(Tipos::DELIMITADOR);
+	matriz[0][4]->push_back(Tipos::ADMIRACION);
 
-	matriz[0][5] = new std::vector<int>();
-	matriz[0][5]->push_back(Tipos::COMILLA);
+	matriz[4][5] = new std::vector<int>();
+	matriz[4][5]->push_back(Tipos::IGUAL);
 
-	matriz[5][5] = new std::vector<int>();
-	matriz[5][5]->push_back(Tipos::LETRA);
-	matriz[5][5]->push_back(Tipos::NUMERO);
+	matriz[0][6] = new std::vector<int>();
+	matriz[0][6]->push_back(Tipos::IGUAL);
 
-	matriz[5][6] = new std::vector<int>();
-	matriz[5][6]->push_back(Tipos::COMILLA);
+	matriz[6][5] = new std::vector<int>();
+	matriz[6][5]->push_back(Tipos::IGUAL);
+
+	matriz[0][7] = new std::vector<int>();
+	matriz[0][7]->push_back(Tipos::MENOR);
+
+	matriz[7][5] = new std::vector<int>();
+	matriz[7][5]->push_back(Tipos::IGUAL);
+
+	matriz[0][8] = new std::vector<int>();
+	matriz[0][8]->push_back(Tipos::MAYOR);
+
+	matriz[8][5] = new std::vector<int>();
+	matriz[8][5]->push_back(Tipos::IGUAL);
+
+	matriz[0][9] = new std::vector<int>();
+	matriz[0][9]->push_back(Tipos::DELIMITADOR);
+
+	matriz[0][10] = new std::vector<int>();
+	matriz[0][10]->push_back(Tipos::COMILLA);
+
+	matriz[10][10] = new std::vector<int>();
+	matriz[10][10]->push_back(Tipos::LETRA);
+	matriz[10][10]->push_back(Tipos::NUMERO);
+
+	matriz[10][11] = new std::vector<int>();
+	matriz[10][11]->push_back(Tipos::COMILLA);
 
 	automata = new Automata(alfabeto, numeroEstados, estadosFinales, estadoInicial, matriz);
 
