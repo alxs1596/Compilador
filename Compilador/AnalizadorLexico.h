@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <streambuf>
 #include <map>
 
 #include "Automata.h"
@@ -11,13 +12,15 @@
 #include "Token.h"
 #include "ErrorLexico.h"
 
+using namespace std;
+
 class AnalizadorLexico
 {
 public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
 	void ejecutar(std::string);
-
+	void analizarProfe(std::string);
 	void imprimirTokens();
 	void imprimirErrores();
 private:
@@ -34,10 +37,17 @@ private:
 	void cargarDatos();
 	void Analizar(std::string, int);
 
+	void ReiniciarTodo();
+
 	int EliminarBlancos(std::string,int);
 	void EliminarComentario(std::string, int);
 	int MapeaEstadoATipoToken(int estado);
 	bool BuscarEnPalabrasReservadas(std::string palabra);
+
+	/////////////////////////////////////////////
+
+	string leerArchivo(string rutaArchivo);
+	bool esBlanco(char c);
 };
 
 /*

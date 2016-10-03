@@ -1,5 +1,15 @@
 #pragma once
-#include <map>
+
+enum TipoToken
+{
+	Identificador,
+	PalabraReservada,
+	Delimitador,
+	LiteralCadena,
+	ConstanteEntera,
+	Operador
+};
+
 class Tipos
 {
 public:

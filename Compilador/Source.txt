@@ -1,5 +1,5 @@
-Programa()
-//adskjgnsadjkgn
+Programa ()
+
 {
 	entero a,b,c,defg;
 	a=(50 + 8) * d - (c + f * g);
@@ -11,9 +11,8 @@ Programa()
 		Mientras(1 <= 2)
 		Mientras(1 >= 2)
 		Mientras(a<b)
-		{ //hola amigos
-			/*asd
-		asd*/{
+		{ 
+		}
 	}
 }
 

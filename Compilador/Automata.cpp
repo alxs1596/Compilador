@@ -5,6 +5,15 @@
 
 Automata::Automata()
 {
+	conjuntoEstadosFinales[1] = TipoToken::Identificador;
+	conjuntoEstadosFinales[2] = TipoToken::ConstanteEntera;
+	conjuntoEstadosFinales[3] = TipoToken::Operador;
+	conjuntoEstadosFinales[9] = TipoToken::Delimitador;
+	conjuntoEstadosFinales[5] = TipoToken::Operador;
+	conjuntoEstadosFinales[6] = TipoToken::Operador;
+	conjuntoEstadosFinales[7] = TipoToken::Operador;
+	conjuntoEstadosFinales[8] = TipoToken::Operador;
+	conjuntoEstadosFinales[11] = TipoToken::LiteralCadena;
 }
 
 Automata::Automata(std::map<char, int> _alfabeto, int _numeroDeEstados, std::vector<int> _estadosFinales, int _estadoInicial, Matriz _matrizDeTransiciones)
@@ -89,5 +98,10 @@ void Automata::imprimir()
 		std::cout << std::endl;
 	}
 	
+}
+
+TipoToken Automata::obtenerTipo()
+{
+	return conjuntoEstadosFinales[estado()];
 }
 

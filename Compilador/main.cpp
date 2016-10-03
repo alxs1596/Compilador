@@ -10,8 +10,10 @@ int main()
 
 	AnalizadorLexico analizador;
 
-	analizador.ejecutar("Source.txt");
+	analizador.analizarProfe("Source.txt");
 	
+	analizador.imprimirTokens();
+	analizador.imprimirErrores();
 
 	system("pause");
     return 0;

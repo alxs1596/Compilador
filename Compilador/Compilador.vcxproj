@@ -157,7 +157,7 @@
   <ItemGroup>
     <ClCompile Include="AnalizadorLexico.cpp" />
     <ClCompile Include="Automata.cpp" />
-    <ClCompile Include="Compilador.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="ErrorLexico.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

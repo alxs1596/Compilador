@@ -1,6 +1,9 @@
 #include "stdafx.h"
-#include "AnalizadorLexico.h"
 
+#include "AnalizadorLexico.h"
+#include <iostream>
+
+using namespace std;
 
 AnalizadorLexico::AnalizadorLexico()
 {
@@ -13,24 +16,32 @@ AnalizadorLexico::~AnalizadorLexico()
 }
 
 void AnalizadorLexico::ejecutar(std::string archivo )
-{
-	
-		std::string linea;
-		std::ifstream nombre;
-		nombre.open(archivo);
-		int nLinea = 1;
-		std::cout << "#############################\n\tCodigo Fuente:\n\n";
-		while (!nombre.eof())
+{	
+		string linea;
+		ifstream codigoFuente;
+		codigoFuente.open(archivo);
+
+		if (codigoFuente.fail())
 		{
-			getline(nombre, linea);
-			Analizar(linea, nLinea++);
-			std::cout << linea << std::endl;
+			//Manejar con excepciones
+			cout << "No se abre archivo" << endl;
 		}
+		else
+		{
+			int numeroLinea = 1;
+			while (!codigoFuente.eof())
+			{
+				getline(codigoFuente, linea);
+				Analizar(linea, numeroLinea++);
+			}
+		}
+
 		std::cout << "#############################\n\tTokens:\n\n";
 		imprimirTokens();
 		std::cout << "#############################\n\tErrores:\n\n";
 		imprimirErrores();
 }
+
 
 
 void AnalizadorLexico::cargarDatos()
@@ -267,8 +278,7 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 {
 	S.push_back('@');
 	int index = 0;
-	EliminarComentario(S,index);
-	index = EliminarBlancos(S, index);
+	index =EliminarBlancos(S, index);
 	while(index < S.size()) {
 		if (S[index] == '/' && S[index + 1] == '/') return;
 		if (S[index] == '/' && S[index + 1] == '*') comentario = true;
@@ -313,6 +323,95 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 	//imprimirTokens();
 }
 
+void AnalizadorLexico::ReiniciarTodo()
+{
+	automata->reset();
+	buffer = "";
+}
+
+string AnalizadorLexico::leerArchivo(string rutaArchivo)
+{
+	string codigoFuente = "";
+
+	string linea;
+	ifstream archivoCodigoFuente;
+	archivoCodigoFuente.open(rutaArchivo);
+
+	if (archivoCodigoFuente.fail())
+	{
+		//Manejar con excepciones
+		cout << "No se abre archivo" << endl;
+	}
+	else
+	{
+		int numeroLinea = 1;
+		while (!archivoCodigoFuente.eof())
+		{
+			getline(archivoCodigoFuente, linea);
+			codigoFuente += linea + '\n';
+		}
+	}
+
+	return codigoFuente;
+}
+
+bool AnalizadorLexico::esBlanco(char c)
+{
+	return c == ' ' || c == '\t' || c == '\n';
+}
+
+void AnalizadorLexico::analizarProfe(std::string rutaArchivo)
+{
+	string codigoFuente = leerArchivo(rutaArchivo);
+	char buffer[1024];
+	int indexBuffer = 0;
+
+	for (int index=0; index< codigoFuente.size();)
+	{
+		char caracter = codigoFuente[index];
+		if (automata->mover(caracter))
+		{
+			buffer[indexBuffer++] = caracter;
+			index++;
+		}
+		else
+		{
+			if (automata->esEstadoFinal())
+			{
+				TipoToken tipo = automata->obtenerTipo();
+				buffer[indexBuffer] = 0;
+				string lexema = buffer;
+				this->listaTokens.push_back(new Token(lexema,tipo));
+
+				automata->reset();
+				indexBuffer = 0;
+			}
+			else
+			{
+				if ( indexBuffer>0 )
+				{
+					//Error
+					index++;
+				}
+				else
+				{
+					if (esBlanco(caracter))
+					{
+						do
+							caracter = codigoFuente[++index];
+						while (esBlanco(caracter));
+					}
+					else
+					{
+						//Error
+						index++;
+					}
+				}
+			}
+		}
+	}
+}
+
 void AnalizadorLexico::imprimirTokens()
 {
 	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
@@ -328,13 +427,13 @@ void AnalizadorLexico::imprimirErrores()
 		std::string cadena = (*it)->getError();
 		//cadena.replace(cadena.begin(), cadena.end(), '\t', ' ');
 		std::cout << (*it)->getError() << " " << "Linea: " << (*it)->getLinea() << " " << "Caracter: " << (*it)->getCaracter() << std::endl;
-		for (int i = 0; i < (*it)->getCaracter(); i++) {
+		/* (int i = 0; i < (*it)->getCaracter(); i++) {
 			if (cadena[i] == '\t')
 				std::cout << '\t';
 			else std::cout << " ";
 		}
 		char a = 238;
-		std::cout << a << std::endl;
+		std::cout << a << std::endl;*/
 	}
 	
 }

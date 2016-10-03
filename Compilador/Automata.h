@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include "Tipos.h"
 
 // Matriz
 typedef std::map<int, std::map<int, std::vector<int>* > > Matriz;
@@ -22,6 +23,7 @@ public:
 	int estado();
 	void reset();
 	void imprimir();
+	TipoToken obtenerTipo();
 private:
 	
 	// Matriz de Transiciones
@@ -34,6 +36,9 @@ private:
 	int* EstadoInicial;
 	// Alfabeto
 	std::map<char, int> Alfabeto;
+
+	// Estados Finales Profe
+	std::map<int, TipoToken> conjuntoEstadosFinales;
 
 
 	//Estado Actual
