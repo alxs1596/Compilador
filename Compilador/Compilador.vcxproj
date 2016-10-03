@@ -170,6 +170,20 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="AnalizadorLexico\AnalizadorLexico.vcxproj">
+      <Project>{0ec25b5d-e2a9-4cd5-a2b8-8a602108c208}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AnalizadorSemantico\AnalizadorSemantico.vcxproj">
+      <Project>{1bde0d49-80c8-4572-b360-3e0e070a1040}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AnalizadorSintactico\AnalizadorSintactico.vcxproj">
+      <Project>{8d835a81-3a8f-42d1-b2ee-3b69c0a93874}</Project>
+    </ProjectReference>
+    <ProjectReference Include="CompiladorLib\CompiladorLib.vcxproj">
+      <Project>{e37d0223-e936-4d7c-8320-77ed89feba84}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
