@@ -3,7 +3,11 @@
 #include <map>
 #include <vector>
 #include <algorithm>
-#include "Tipos.h"
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include "../CompiladorLib/Tipos.h"
+#include "../CompiladorLib/Token.h"
 
 // Matriz
 typedef std::map<int, std::map<int, std::vector<int>* > > Matriz;
@@ -24,6 +28,8 @@ public:
 	void reset();
 	void imprimir();
 	TipoToken obtenerTipo();
+
+	void dibujarAutomata();
 private:
 	
 	// Matriz de Transiciones

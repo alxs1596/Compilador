@@ -3,18 +3,16 @@
 
 #include "stdafx.h"
 
-#include "Automata.h"
+#include "AnalizadorLexico\AnalizadorLexico.h"
 
 int main()
 {
 
 	AnalizadorLexico analizador;
 
-	analizador.analizarProfe("Source.txt");
+	analizador.ejecutar("Source.txt");
 	
-	analizador.imprimirTokens();
-	analizador.imprimirErrores();
-
+	analizador.dibujarAutomata();
 	system("pause");
     return 0;
 }

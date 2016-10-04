@@ -54,13 +54,12 @@ void AnalizadorLexico::cargarDatos()
 	//######################
 	//TOKENS
 
-	TOKENS[1] = "TOKEN_IDENTIFICADOR";
-	
-	TOKENS[2] = "TOKEN_PALABRA_RESERVADA";
-	TOKENS[3] = "TOKEN_LITERAL_DE_CADENA";
-	TOKENS[4] = "TOKEN_VARIABLE_ENTERA";
-	TOKENS[5] = "TOKEN_DELIMITADOR";
-	TOKENS[6] = "TOKEN_OPERADOR";
+	TOKENS[TipoToken::Identificador] = "TOKEN_IDENTIFICADOR";
+	TOKENS[TipoToken::PalabraReservada] = "TOKEN_PALABRA_RESERVADA";
+	TOKENS[TipoToken::LiteralCadena] = "TOKEN_LITERAL_DE_CADENA";
+	TOKENS[TipoToken::ConstanteEntera] = "TOKEN_VARIABLE_ENTERA";
+	TOKENS[TipoToken::Delimitador] = "TOKEN_DELIMITADOR";
+	TOKENS[TipoToken::Operador] = "TOKEN_OPERADOR";
 
 	//######################
 
@@ -82,15 +81,15 @@ void AnalizadorLexico::cargarDatos()
 
 	//Estados A TipoToken
 
-	EstadoAToken[1] = Tipos::TOKEN_IDENTIFICADOR;
-	EstadoAToken[2] = Tipos::TOKEN_VARIABLE_ENTERA;
-	EstadoAToken[3] = Tipos::TOKEN_OPERADOR;
-	EstadoAToken[9] = Tipos::TOKEN_DELIMITADOR;
-	EstadoAToken[5] = Tipos::TOKEN_OPERADOR;
-	EstadoAToken[6] = Tipos::TOKEN_OPERADOR;
-	EstadoAToken[7] = Tipos::TOKEN_OPERADOR;
-	EstadoAToken[8] = Tipos::TOKEN_OPERADOR;
-	EstadoAToken[11] = Tipos::TOKEN_LITERAL_DE_CADENA;
+	EstadoAToken[1] = TipoToken::Identificador;// Tipos::TOKEN_IDENTIFICADOR;
+	EstadoAToken[2] = TipoToken::ConstanteEntera;// Tipos::TOKEN_VARIABLE_ENTERA;
+	EstadoAToken[3] = TipoToken::Operador;// Tipos::TOKEN_OPERADOR;
+	EstadoAToken[9] = TipoToken::Delimitador;// Tipos::TOKEN_DELIMITADOR;
+	EstadoAToken[5] = TipoToken::Operador;// Tipos::TOKEN_OPERADOR;
+	EstadoAToken[6] = TipoToken::Operador;//Tipos::TOKEN_OPERADOR;
+	EstadoAToken[7] = TipoToken::Operador;//Tipos::TOKEN_OPERADOR;
+	EstadoAToken[8] = TipoToken::Operador;//Tipos::TOKEN_OPERADOR;
+	EstadoAToken[11] = TipoToken::LiteralCadena;//Tipos::TOKEN_LITERAL_DE_CADENA;
 	
 
 	//Alfabeto
@@ -295,10 +294,10 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 				if (automata->esEstadoFinal())
 				{
 					int TipoToken = MapeaEstadoATipoToken(automata->estado());
-					if (TipoToken == Tipos::TOKEN_IDENTIFICADOR)
+					if (TipoToken == TipoToken::Identificador)
 					{
 						if (BuscarEnPalabrasReservadas(buffer))
-							TipoToken = Tipos::TOKEN_PALABRA_RESERVADA;
+							TipoToken = TipoToken::PalabraReservada;
 					}
 					listaTokens.push_back(new Token(buffer, TipoToken));
 					buffer = "";
@@ -378,8 +377,14 @@ void AnalizadorLexico::analizarProfe(std::string rutaArchivo)
 		{
 			if (automata->esEstadoFinal())
 			{
-				TipoToken tipo = automata->obtenerTipo();
+				TipoToken tipo = MapeaEstadoATipoToken(automata->estado());
+				//TipoToken tipo = automata->obtenerTipo();
 				buffer[indexBuffer] = 0;
+				if (tipo == TipoToken::Identificador)
+				{
+					if (BuscarEnPalabrasReservadas(buffer))
+						tipo = TipoToken::PalabraReservada;
+				}
 				string lexema = buffer;
 				this->listaTokens.push_back(new Token(lexema,tipo));
 
@@ -438,6 +443,11 @@ void AnalizadorLexico::imprimirErrores()
 	
 }
 
+void AnalizadorLexico::dibujarAutomata()
+{
+	automata->dibujarAutomata();
+}
+
 int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
 {
 	if (index == cadena.length() || cadena[index] == ' ' || cadena[index] == '\t')
@@ -467,7 +477,7 @@ void AnalizadorLexico::EliminarComentario(std::string cadena , int index)
 
 }
 
-int AnalizadorLexico::MapeaEstadoATipoToken(int estado)
+TipoToken AnalizadorLexico::MapeaEstadoATipoToken(int estado)
 {
 	return EstadoAToken[estado];
 }

@@ -36,3 +36,16 @@ void Token::setTipo(int tipo)
 {
 	Tipo = tipo;
 }
+
+bool Token::esIgual(Token * otroToken)
+{
+	if (this->Tipo == TipoToken::Identificador)
+		return this->Tipo == otroToken->getTipo();
+	else if (this->Tipo == TipoToken::ConstanteEntera)
+	{
+		return this->Tipo == otroToken->getTipo();
+	}
+	else {
+		return ((this->Tipo == otroToken->getTipo()) && (this->PalabraLexema == otroToken->getLexema()));
+	}
+}
