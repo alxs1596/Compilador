@@ -196,9 +196,21 @@ bool AnalizadorSintactico::buscarRegla(int noT, ElementoGramatical* primerElemen
 	return false;
 }
 
+void AnalizadorSintactico::llenarNombresNoTerminales()
+{
+	NombresNoTerminales[NoTerminales::A] = "A";
+	NombresNoTerminales[NoTerminales::EM] = "EM";
+	NombresNoTerminales[NoTerminales::LS] = "LS";
+	NombresNoTerminales[NoTerminales::RD] = "RD";
+	NombresNoTerminales[NoTerminales::S] = "S";
+	NombresNoTerminales[NoTerminales::SD] = "SD";
+	NombresNoTerminales[NoTerminales::TD] = "TD";
+	NombresNoTerminales[NoTerminales::VA] = "VA";
+}
+
 AnalizadorSintactico::AnalizadorSintactico()
 {
-
+	llenarNombresNoTerminales();
 	llenarReglas();
 	llenarMatriz();
 	noTerminalBase = new NoTerminal(NoTerminales::LS);
@@ -271,5 +283,32 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			pila.pop();
 		
 		return false;
+	}
+}
+
+void AnalizadorSintactico::imprimirReglas()
+{
+	cout << "################### Reglas Gramaticales" << endl;
+	for (int i = 0; i < cantidadReglas; i++) {
+		Regla* regla = reglasGramaticales[i];
+		NoTerminal *noTerminal = regla->getNoTerminal();
+		cout << NombresNoTerminales[noTerminal->getID()] << " -> ";
+		ElementoGramatical** produccion = regla->getProduccion();
+		for (int j = 0; j < regla->getNumeroProducciones(); j++) {
+			ElementoGramatical *elemento = produccion[j];
+			if (elemento == LAMBDA) {
+				cout << char(955) << " | ";
+				continue;
+			}
+			if (elemento->getTipo() == TERMINAL) {
+				Terminal* terminal = (Terminal*)elemento;
+				cout << terminal->getID() << " | ";
+			}
+			else {
+				NoTerminal* nterminal = (NoTerminal*)elemento;
+				cout << NombresNoTerminales[nterminal->getID()] << "| ";
+			}
+		}
+		cout << endl;
 	}
 }

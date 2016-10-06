@@ -19,7 +19,7 @@ class AnalizadorLexico
 public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
-	void ejecutar(std::string);
+	std::vector<Token*> ejecutar(std::string);
 	void analizarProfe(std::string);
 	void imprimirTokens();
 	void imprimirErrores();

@@ -5,6 +5,7 @@
 #include <vector>
 #include <stack>
 #include <map>
+#include <iostream>
 
 #include "../CompiladorLib/Token.h"
 #include "ElementoGramatical.h"
@@ -17,6 +18,7 @@ using namespace std;
 class AnalizadorSintactico
 {
 private:
+	map<int, string> NombresNoTerminales;
 	vector<Terminal*> terminales;
 	//NoTerminal** noTerminales;
 	NoTerminal* noTerminalBase;
@@ -29,10 +31,13 @@ private:
 	void llenarMatriz();
 	int buscarEnReglas(int, string);
 	bool buscarRegla(int, ElementoGramatical*);
+	void llenarNombresNoTerminales();
 public:
-	__declspec(dllexport) AnalizadorSintactico();
-	__declspec(dllexport) ~AnalizadorSintactico();
+	AnalizadorSintactico();
+	~AnalizadorSintactico();
 
-	__declspec(dllexport) bool Analizar(vector<Token*>);
+	bool Analizar(vector<Token*>);
+
+	void imprimirReglas();
 };
 

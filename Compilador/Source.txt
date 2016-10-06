@@ -1,10 +1,10 @@
-Programa ()
+/*Programa ()
 
 {
-/*hola*/
+
 	entero a,b,c,defg;
 
-	//hola
+
 	a=(50 + 8) * d - (c + f * g);
 	Mientras(a + 1 > c)
 	{
@@ -17,5 +17,7 @@ Programa ()
 		{ 
 		}
 	}
-}
+}*/
+
+int a = 5;
 

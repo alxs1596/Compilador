@@ -4,15 +4,25 @@
 #include "stdafx.h"
 
 #include "AnalizadorLexico\AnalizadorLexico.h"
+#include "AnalizadorSintactico\AnalizadorSintactico.h"
 
 int main()
 {
 
 	AnalizadorLexico analizador;
 
-	analizador.ejecutar("Source.txt");
+	std::vector<Token*> tokens =  analizador.ejecutar("Source.txt");
 	
-	analizador.dibujarAutomata();
+	//analizador.dibujarAutomata();
+
+	AnalizadorSintactico analizadorSintactico;
+
+	bool res = analizadorSintactico.Analizar(tokens);
+
+	cout << (res == true ? "True": "False") << std::endl;
+
+	//analizadorSintactico.imprimirReglas();
+
 	system("pause");
     return 0;
 }

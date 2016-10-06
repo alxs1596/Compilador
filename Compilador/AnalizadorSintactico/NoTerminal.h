@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 #include "ElementoGramatical.h"
 
@@ -31,4 +32,6 @@ public:
 
 	int getID() { return id; }
 };
+
+
 

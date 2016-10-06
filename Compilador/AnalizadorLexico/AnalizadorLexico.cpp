@@ -15,7 +15,7 @@ AnalizadorLexico::~AnalizadorLexico()
 {
 }
 
-void AnalizadorLexico::ejecutar(std::string archivo )
+std::vector<Token*> AnalizadorLexico::ejecutar(std::string archivo )
 {	
 		string linea;
 		ifstream codigoFuente;
@@ -36,10 +36,11 @@ void AnalizadorLexico::ejecutar(std::string archivo )
 			}
 		}
 
-		std::cout << "#############################\n\tTokens:\n\n";
+		/*std::cout << "#############################\n\tTokens:\n\n";
 		imprimirTokens();
 		std::cout << "#############################\n\tErrores:\n\n";
-		imprimirErrores();
+		imprimirErrores();*/
+		return listaTokens;
 }
 
 
@@ -78,6 +79,7 @@ void AnalizadorLexico::cargarDatos()
 	listaPalabrasReservadas["Mientras"] = true;
 	listaPalabrasReservadas["leerTeclado"] = true;
 	listaPalabrasReservadas["leerPantalla"] = true;
+	listaPalabrasReservadas["int"] = true;
 
 	//Estados A TipoToken
 
