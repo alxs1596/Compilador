@@ -42,5 +42,32 @@ namespace Testing
 			Assert::AreEqual(-1, res);
 		}
 
+		TEST_METHOD(testReiniciarTodo)
+		{
+			//Arrange
+			int tipoLetra = 0;
+			int NumeroEstados = 2;
+			vector<int> EstadosFinales;
+			EstadosFinales.push_back(1);
+			int inicial = 0;
+
+			Matriz matriz;
+			matriz[0][1] = new vector<int>();
+			matriz[0][1]->push_back(tipoLetra);
+
+			map<char, int> Alfabeto;
+			Alfabeto['a'] = tipoLetra;
+
+			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
+
+			//Act
+			automata->mover('a');
+			
+			automata->reset();
+			int estadoAutomata = automata->estado();
+			//Assert
+
+			Assert::AreEqual(0,estadoAutomata);
+		}
 	};
 }
