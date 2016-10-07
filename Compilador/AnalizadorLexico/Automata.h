@@ -30,7 +30,7 @@ public:
 	TipoToken obtenerTipo();
 
 	void dibujarAutomata();
-private:
+// private:
 	
 	// Matriz de Transiciones
 	Matriz MatrizDeTransiciones;
