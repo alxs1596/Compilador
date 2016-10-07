@@ -13,7 +13,7 @@ int main()
 
 	std::vector<Token*> tokens =  analizador.ejecutar("Source.txt");
 	
-	//analizador.dibujarAutomata();
+	analizador.dibujarAutomata();
 
 	AnalizadorSintactico analizadorSintactico;
 
@@ -21,7 +21,7 @@ int main()
 
 	cout << (res == true ? "True": "False") << std::endl;
 
-	//analizadorSintactico.imprimirReglas();
+	analizadorSintactico.imprimirReglas();
 
 	system("pause");
     return 0;

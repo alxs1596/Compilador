@@ -164,6 +164,7 @@
     </ClCompile>
     <ClCompile Include="AnalizadorLexicoTest.cpp" />
     <ClCompile Include="AnalizadorSintacticoTest.cpp" />
+    <ClCompile Include="TerminalTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Compilador\AnalizadorLexico\AnalizadorLexico.vcxproj">

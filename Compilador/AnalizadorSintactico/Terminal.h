@@ -10,9 +10,7 @@ using namespace std;
 class Terminal :
 	public ElementoGramatical
 {
-private:
-	string id;
-	Token* token;
+
 public:
 	Terminal(Token* token) :ElementoGramatical(TERMINAL) 
 	{ 
@@ -28,5 +26,9 @@ public:
 
 	Token* getToken() { return token; }
 	string getID() { return id; }
+
+	private:
+	string id;
+	Token* token;
 };
 
