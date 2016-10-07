@@ -24,7 +24,7 @@ public:
 	void imprimirTokens();
 	void imprimirErrores();
 	void dibujarAutomata();
-private:
+//private:
 	Automata *automata;
 	std::string buffer;
 	std::map<std::string, bool> listaPalabrasReservadas;
