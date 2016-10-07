@@ -99,7 +99,7 @@ void AnalizadorSintactico::llenarReglas()
 
 	cantidadProducciones = 1;
 	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("int", TipoToken::PalabraReservada));
+	produccion[0] = new Terminal(new Token("entero", TipoToken::PalabraReservada));
 	reglasGramaticales[9] = new Regla(new NoTerminal(NoTerminales::TD), produccion, cantidadProducciones);
 
 	terminales.push_back((Terminal*)produccion[0]);
