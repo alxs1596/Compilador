@@ -26,7 +26,7 @@ namespace Testing
 			vectorToken.push_back(new Token("a", TipoToken::Identificador));
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
  
-			bool esperado = true;
+			bool esperado = false;
 			//Act
 
 			bool respuesta = analizaSintactico->Analizar(vectorToken);
@@ -48,7 +48,7 @@ namespace Testing
 			vectorToken.push_back(new Token("5", TipoToken::ConstanteEntera));
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
 
-			bool esperado = true;
+			bool esperado = false;
 			//Act
 			
 				bool respuesta = analizaSintactico->Analizar(vectorToken);
@@ -72,7 +72,7 @@ namespace Testing
 			vectorToken.push_back(new Token("3", TipoToken::ConstanteEntera));
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
 
-			bool esperado = true;
+			bool esperado = false;
 			//Act
 
 			bool respuesta = analizaSintactico->Analizar(vectorToken);
@@ -98,7 +98,7 @@ namespace Testing
 			vectorToken.push_back(new Token("3", TipoToken::ConstanteEntera));
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
 
-			bool esperado = true;
+			bool esperado = false;
 			//Act
 
 			bool respuesta = analizaSintactico->Analizar(vectorToken);
@@ -115,11 +115,11 @@ namespace Testing
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
 			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Identificador));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
 			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Identificador));
-			vectorToken.push_back(new Token("int", TipoToken::Operador));
-			vectorToken.push_back(new Token("a", TipoToken::ConstanteEntera));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador));
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
 
@@ -139,6 +139,10 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
+			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
 			vectorToken.push_back(new Token("i", TipoToken::Identificador));
 			vectorToken.push_back(new Token("=", TipoToken::Operador));
@@ -146,8 +150,6 @@ namespace Testing
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
 			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("i", TipoToken::Identificador));
-			vectorToken.push_back(new Token("!=", TipoToken::Operador));
 			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera));
 			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
@@ -162,6 +164,7 @@ namespace Testing
 			vectorToken.push_back(new Token("=", TipoToken::Operador));
 			vectorToken.push_back(new Token("2", TipoToken::ConstanteEntera));
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
 
 
@@ -182,6 +185,10 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
+			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
 			vectorToken.push_back(new Token("num1", TipoToken::Identificador));
 			vectorToken.push_back(new Token("=", TipoToken::Operador));
@@ -200,15 +207,11 @@ namespace Testing
 			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
 			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("num1", TipoToken::Identificador));
-			vectorToken.push_back(new Token("<", TipoToken::Operador));
-			vectorToken.push_back(new Token("num2", TipoToken::ConstanteEntera));
 			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
 			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("num2", TipoToken::Identificador));
-			vectorToken.push_back(new Token("<", TipoToken::Operador));
-			vectorToken.push_back(new Token("num3", TipoToken::Identificador));
 			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
@@ -227,8 +230,6 @@ namespace Testing
 			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
 			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("num1", TipoToken::Identificador));
-			vectorToken.push_back(new Token("<", TipoToken::Operador));
-			vectorToken.push_back(new Token("num3", TipoToken::Identificador));
 			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
@@ -242,9 +243,7 @@ namespace Testing
 			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
 			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-
-
-
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
 
 
 			bool esperado = true;

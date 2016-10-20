@@ -1,23 +1,8 @@
-/*Programa ()
-
-{
-
-	entero a,b,c,defg;
-
-
-	a=(50 + 8) * d - (c + f * g);
-	Mientras(a + 1 > c)
-	{
-		entero d,z,o;
-		Mientras(1 == 2)
-		Mientras(1 != 2)
-		Mientras(1 <= 2)
-		Mientras(1 >= 2)
-		Mientras(a<b)
-		{ 
-		}
+Programa(){
+	entero i = 4;
+	Si(4){
+		i = 1;
+	}Osino{
+		i = 2;
 	}
-}*/
-
-entero a = 5;
-
+}
