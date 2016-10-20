@@ -111,10 +111,10 @@ namespace Testing
 			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
 			//Act
 			int estadoInicial = automata->estado();
-			automata->mover('c');
+			bool respuesta = automata->mover('c');
 			int estadoDespuesMover = automata->estado();
 			//Assert
-			Assert::AreEqual(estadoInicial, estadoDespuesMover);
+			Assert::AreEqual(false, respuesta);
 		}
 	};
 }
