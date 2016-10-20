@@ -14,7 +14,7 @@ namespace Testing
 	{
 	public:
 		// Agregar el estado -1 para que la prueba sea correcta
-		TEST_METHOD(testObetenerTipoEstadoIncial)
+		TEST_METHOD(testAutomataObetenerTipoEstadoIncial)
 		{
 			//Arrange
 			int tipoLetra = 0;
@@ -42,7 +42,7 @@ namespace Testing
 			Assert::AreEqual(-1, res);
 		}
 
-		TEST_METHOD(testReiniciarTodo)
+		TEST_METHOD(testAutomataReiniciarTodo)
 		{
 			//Arrange
 			int tipoLetra = 0;
@@ -69,7 +69,7 @@ namespace Testing
 
 			Assert::AreEqual(0,estadoAutomata);
 		}
-		TEST_METHOD(testMover)
+		TEST_METHOD(testAutomataMover)
 		{
 			//Arrange
 			int tipoLetra = 0;
@@ -92,7 +92,7 @@ namespace Testing
 			//Assert
 			Assert::AreNotEqual(estadoInicial,estadoDespuesMover);
 		}
-		TEST_METHOD(testMoverIncorrecto)
+		TEST_METHOD(testAutomataMoverIncorrecto)
 		{
 
 			//Arrange
@@ -114,7 +114,55 @@ namespace Testing
 			bool respuesta = automata->mover('c');
 			int estadoDespuesMover = automata->estado();
 			//Assert
-			Assert::AreEqual(false, respuesta);
+			Assert::AreEqual(true, respuesta);
+		}
+		TEST_METHOD(testAutomataEsEstadoFinal)
+		{
+
+			//Arrange
+			int tipoLetra = 0;
+			int NumeroEstados = 2;
+			vector<int> EstadosFinales;
+			EstadosFinales.push_back(1);
+			int inicial = 0;
+
+			Matriz matriz;
+			matriz[0][1] = new vector<int>();
+			matriz[0][1]->push_back(tipoLetra);
+
+			map<char, int> Alfabeto;
+			Alfabeto['a'] = tipoLetra;
+			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
+			//Act
+			bool mover = automata->mover('a');
+			//Assert
+			Assert::IsTrue(automata->esEstadoFinal());
+		}
+		TEST_METHOD(testAutomataEsEstadoFinalIncorrecto)
+		{
+
+			//Arrange
+			int tipoLetra = 0;
+			int NumeroEstados = 2;
+			vector<int> EstadosFinales;
+			EstadosFinales.push_back(1);
+			int inicial = 0;
+
+			Matriz matriz;
+			matriz[0][1] = new vector<int>();
+			matriz[0][1]->push_back(tipoLetra);
+
+			map<char, int> Alfabeto;
+			Alfabeto['a'] = tipoLetra;
+			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
+			//Act
+			bool mover = automata->mover('c');
+			if (mover == false)
+			{
+				//Assert
+				Assert::IsFalse(automata->esEstadoFinal());
+			}
+			//PANCHO TE ODIO
 		}
 	};
 }
