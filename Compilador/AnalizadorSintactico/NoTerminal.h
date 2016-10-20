@@ -17,7 +17,14 @@ enum NoTerminales
 	A = 5,
 	TD = 6,
 	EM = 7,
-	Cantidad = 8
+	EXP = 8,
+	T = 9,
+	LT = 10,
+	OP1 = 11,
+	F = 12,
+	LF = 13,
+	OP2 = 14,
+	Cantidad = 15
 };
 
 class NoTerminal :
