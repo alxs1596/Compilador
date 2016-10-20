@@ -116,22 +116,51 @@ void AnalizadorSintactico::llenarReglas()
 
 void AnalizadorSintactico::llenarMatriz()
 {
-	/*
+	
 	for (unsigned int j = 0; j < terminales.size(); j++) {
 		cout << "\t" << terminales[j]->getID() << "\t";
 	}
 	cout << endl << endl;
-	*/
+	
 	for (int i = 0; i < NoTerminales::Cantidad; i++) {
+		switch (i)
+		{
+		case 0:
+			cout << "LS";
+			break;
+		case 1:
+			cout << "S";
+			break;
+		case 2:
+			cout << "SD";
+			break;
+		case 3:
+			cout << "RD";
+			break;
+		case 4:
+			cout << "VA";
+			break;
+		case 5:
+			cout << "A";
+			break;
+		case 6:
+			cout << "TD";
+			break;
+		case 7:
+			cout << "EM";
+			break;
+		default:
+			break;
+		}
 		//cout << i;
 		for (unsigned int j = 0; j < terminales.size(); j++) {
 			Terminal* temp = terminales[j];
 			string id = temp->getID();
 			int r = buscarEnReglas(i, (id));
 			matriz[i][temp->getID()] = r;
-			//cout << "\t" << matriz[i][temp->getID()] << "\t";
+			cout << "\t" << matriz[i][temp->getID()] << "\t";
 		}
-		//cout << endl;
+		cout << endl;
 	}
 
 	
@@ -247,7 +276,9 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			}
 			else
 			{
-				regla = matriz[((NoTerminal*)(pila.top()))->getID()][terminalesEntrada[i]->getID()];
+				int x = ((NoTerminal*)(pila.top()))->getID();
+				string y = terminalesEntrada[i]->getID();
+				regla = matriz[x][y];
 				if (regla == -1) {
 					while (!pila.empty())
 						pila.pop();

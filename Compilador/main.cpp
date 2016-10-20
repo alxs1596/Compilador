@@ -14,15 +14,17 @@ int main()
 
 	std::vector<Token*> tokens = analizador.ejecutar("Source.txt");
 
-	analizador.dibujarAutomata();
+	//analizador.dibujarAutomata();
 
 	AnalizadorSintactico analizadorSintactico;
 
+	analizadorSintactico.imprimirReglas();
+	
 	bool res = analizadorSintactico.Analizar(tokens);
 
 	cout << (res == true ? "True" : "False") << std::endl;
 
-	analizadorSintactico.imprimirReglas(); 
+
 
 
 
