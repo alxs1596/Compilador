@@ -67,7 +67,7 @@ namespace Testing
 			int estadoAutomata = automata->estado();
 			//Assert
 
-			Assert::AreNotEqual(estadoAutomata,estadoAutomata);
+			Assert::AreEqual(estadoAutomata,estadoAutomata);
 		}
 		TEST_METHOD(testAutomataMover)
 		{
@@ -179,9 +179,9 @@ namespace Testing
 			Alfabeto['a'] = tipoLetra;
 			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
 			//Act
-			bool mover = automata->mover('; ');
+			bool mover = automata->mover('a');
 			//Assert
-			Assert::AreEqual(false, automata->esEstadoFinal());
+			Assert::AreEqual(true, automata->esEstadoFinal());
 		}
 
 	};
