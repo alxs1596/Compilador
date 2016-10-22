@@ -1,8 +1,22 @@
-Programa(){
-	entero i = 4;
-	Si(4){
+Programa()
+
+{
+	/* Este es un comentario de prueba 
+
+	*/
+	entero i = 4; /*este es otro comentario de prueba 
+	*/
+	Si(4) // Este es otro comentario
+	{
 		i = 1;
-	}Osino{
+	}
+	Osino // Hola a todos
+	{
 		i = 2;
+		Mientras( 10 )
+		{
+			Si()
+
+		}
 	}
 }

@@ -11,10 +11,11 @@ Token::~Token()
 {
 }
 
-Token::Token(std::string lexema, int tipo_token)
+Token::Token(std::string lexema, int tipo_token, int linea)
 {
 	PalabraLexema = lexema;
 	Tipo = tipo_token;
+	this->linea = linea;
 }
 
 const std::string& Token::getLexema() const 
@@ -48,4 +49,9 @@ bool Token::esIgual(Token * otroToken)
 	else {
 		return ((this->Tipo == otroToken->getTipo()) && (this->PalabraLexema == otroToken->getLexema()));
 	}
+}
+
+int Token::getLinea()
+{
+	return linea;
 }

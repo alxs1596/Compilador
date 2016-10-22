@@ -301,7 +301,7 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 						if (BuscarEnPalabrasReservadas(buffer))
 							TipoToken = TipoToken::PalabraReservada;
 					}
-					listaTokens.push_back(new Token(buffer, TipoToken));
+					listaTokens.push_back(new Token(buffer, TipoToken, linea));
 					buffer = "";
 					automata->reset();
 				}
@@ -361,6 +361,7 @@ bool AnalizadorLexico::esBlanco(char c)
 	return c == ' ' || c == '\t' || c == '\n';
 }
 
+
 void AnalizadorLexico::analizarProfe(std::string rutaArchivo)
 {
 	string codigoFuente = leerArchivo(rutaArchivo);
@@ -388,7 +389,7 @@ void AnalizadorLexico::analizarProfe(std::string rutaArchivo)
 						tipo = TipoToken::PalabraReservada;
 				}
 				string lexema = buffer;
-				this->listaTokens.push_back(new Token(lexema,tipo));
+				this->listaTokens.push_back(new Token(lexema,tipo, 0));
 
 				automata->reset();
 				indexBuffer = 0;
