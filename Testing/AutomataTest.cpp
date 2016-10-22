@@ -80,10 +80,10 @@ namespace Testing
 
 			Matriz matriz;
 			matriz[0][1] = new vector<int>();
-			matriz[0][1]->push_back(tipoLetra);
+			matriz[0][1]->push_back(Tipos::LETRA);
 
 			map<char, int> Alfabeto;
-			Alfabeto['a'] = tipoLetra;
+			Alfabeto['a'] = Tipos::LETRA;
 
 
 			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
