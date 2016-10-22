@@ -16,7 +16,7 @@ namespace Testing
 		{
 			
 			//Arrange
-			Token* token = new Token("variable", TipoToken::Identificador);
+			Token* token = new Token("variable", TipoToken::Identificador,0);
 			string esperado = "id";
 			//Act
 
@@ -31,7 +31,7 @@ namespace Testing
 		TEST_METHOD(testTerminalConstructorNumero)
 		{
 			//Arrange
-				Token* token = new Token("5", TipoToken::ConstanteEntera);
+				Token* token = new Token("5", TipoToken::ConstanteEntera,0);
 				string esperado = "Numero";
 			//Act
 
@@ -45,7 +45,7 @@ namespace Testing
 		TEST_METHOD(testTerminalConstructorDiferenteNumero)
 		{
 			//Arrange
-			Token* token = new Token("holis", TipoToken::ConstanteEntera);
+			Token* token = new Token("holis", TipoToken::ConstanteEntera,0);
 			string esperado = "Numero";
 
 			regex entero("[[:digit:]]+");
@@ -62,7 +62,7 @@ namespace Testing
 		TEST_METHOD(testTerminalConstructorOtro)
 		{
 			//Arrange
-			Token* token = new Token("+", TipoToken::Operador);
+			Token* token = new Token("+", TipoToken::Operador,0);
 			string esperado = token->getLexema();
 			//Act
 

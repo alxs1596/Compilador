@@ -84,6 +84,8 @@ namespace Testing
 
 			map<char, int> Alfabeto;
 			Alfabeto['a'] = tipoLetra;
+
+
 			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
 			//Act
 			int estadoInicial = automata->estado();

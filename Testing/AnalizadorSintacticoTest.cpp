@@ -22,9 +22,9 @@ namespace Testing
 
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("a", TipoToken::Identificador));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada,0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador,0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador,0));
  
 			bool esperado = false;
 			//Act
@@ -42,11 +42,11 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("a", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("5", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada,0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("5", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
 
 			bool esperado = false;
 			//Act
@@ -64,13 +64,13 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("a", TipoToken::Identificador));
-			vectorToken.push_back(new Token(",", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("b", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("3", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(",", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("b", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("3", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
 
 			bool esperado = false;
 			//Act
@@ -90,13 +90,13 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("a", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("5", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token("*", TipoToken::Operador));
-			vectorToken.push_back(new Token("3", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("5", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token("*", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("3", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
 
 			bool esperado = false;
 			//Act
@@ -114,14 +114,14 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("a", TipoToken::Identificador));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
 
 			bool esperado = true;
 			//Act
@@ -139,33 +139,33 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("i", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("i", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("1", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("i", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("2", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("i", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("i", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("1", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("i", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("2", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
 
 
 			bool esperado = true;
@@ -185,65 +185,65 @@ namespace Testing
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
 			vector<Token*> vectorToken;
-			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("num1", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("num2", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("10", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("num3", TipoToken::Identificador));
-			vectorToken.push_back(new Token("=", TipoToken::Operador));
-			vectorToken.push_back(new Token("2", TipoToken::ConstanteEntera));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("num1", TipoToken::Identificador));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("num2", TipoToken::Identificador));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("a", TipoToken::Identificador));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("b", TipoToken::Identificador));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("(", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("num1", TipoToken::Identificador));
-			vectorToken.push_back(new Token(")", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("c", TipoToken::Identificador));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("{", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada));
-			vectorToken.push_back(new Token("d", TipoToken::Identificador));
-			vectorToken.push_back(new Token(";", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
-			vectorToken.push_back(new Token("}", TipoToken::Delimitador));
+			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("num1", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("4", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("num2", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("10", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("num3", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token("=", TipoToken::Operador, 0));
+			vectorToken.push_back(new Token("2", TipoToken::ConstanteEntera, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("num1", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("num2", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("b", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Si", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("num1", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("c", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("Osino", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("entero", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("d", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
 
 
 			bool esperado = true;
