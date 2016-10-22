@@ -165,9 +165,7 @@ void AnalizadorLexico::cargarDatos()
 	alfabeto['<'] = Tipos::MENOR;
 	alfabeto['>'] = Tipos::MAYOR;
 	alfabeto['!'] = Tipos::ADMIRACION;
-	//alfabeto['=='] = Tipos::OPERADOR;
-	//alfabeto['>='] = Tipos::OPERADOR;
-	//alfabeto['<='] = Tipos::OPERADOR;
+
 
 	alfabeto['('] = Tipos::DELIMITADOR;
 	alfabeto[')'] = Tipos::DELIMITADOR;
@@ -297,11 +295,12 @@ void AnalizadorLexico::Analizar(std::string S, int linea)
 	//imprimirTokens();
 }
 
-void AnalizadorLexico::ReiniciarTodo()
+/* void AnalizadorLexico::ReiniciarTodo()
 {
 	automata->reset();
 	buffer = "";
 }
+*/ 
 
 string AnalizadorLexico::leerArchivo(string rutaArchivo)
 {
@@ -328,10 +327,11 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 
 	return codigoFuente;
 }
-bool AnalizadorLexico::esBlanco(char c)
+/*bool AnalizadorLexico::esBlanco(char c)
 {
 	return c == ' ' || c == '\t' || c == '\n';
 }
+*/
 void AnalizadorLexico::imprimirTokens()
 {
 	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
