@@ -20,7 +20,6 @@ public:
 	AnalizadorLexico();
 	~AnalizadorLexico();
 	std::vector<Token*> ejecutar(std::string);
-	void analizarProfe(std::string);
 	void imprimirTokens();
 	void imprimirErrores();
 	void dibujarAutomata();
@@ -41,7 +40,6 @@ public:
 	void ReiniciarTodo();
 
 	int EliminarBlancos(std::string,int);
-	void EliminarComentario(std::string, int);
 	TipoToken MapeaEstadoATipoToken(int estado);
 	bool BuscarEnPalabrasReservadas(std::string palabra);
 
@@ -50,26 +48,3 @@ public:
 	string leerArchivo(string rutaArchivo);
 	bool esBlanco(char c);
 };
-
-/*
-
-Analizar(S)
-index = 0
-2: c = S[index]
-if(automata.mover(c))
-	buffer.add(c)
-	index++;
-else
-	index = EliminarBlancos(index)
-	if(automata.esEstadoFinal())
-		TipoToken = MapeaEstadoATipoToken(automata.estado())
-		if (TipoToken == Tipos.IDENTIFICADOR)
-			if(listaPalabrasReservadas.buscar(buffer))
-				TipoToken = Tipos.PALABRA_RESERVADA
-		listaTokens.add(new Token(buffer,TipoToken))
-		automata.reset()
-	else
-		listaErrorLexico.add(new Error(bufer,linea))
-		automata.reset()
-ir a 2
-*/

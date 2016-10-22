@@ -165,14 +165,6 @@ void AnalizadorSintactico::llenarReglas()
 	reglasGramaticales[17] = new Regla(new NoTerminal(NoTerminales::A), produccion, cantidadProducciones);
 
 
-	//Regla 18: <S> → <SM>
-	/*
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new NoTerminal(NoTerminales::SM);
-	reglasGramaticales[18] = new Regla(new NoTerminal(NoTerminales::S), produccion, cantidadProducciones);
-	*/
-
 	//Regla 18: <SA> → id = <EM>
 
 	cantidadProducciones = 4;
@@ -240,16 +232,6 @@ void AnalizadorSintactico::llenarReglas()
 
 	terminales.push_back((Terminal*)produccion[0]);
 	
-
-
-
-
-
-
-
-
-
-
 	//Regla 24: <ELSE> → LAMBDA
 	cantidadProducciones = 1;
 	produccion = new ElementoGramatical*[cantidadProducciones];
@@ -488,16 +470,6 @@ bool AnalizadorSintactico::buscarRegla(int noT, ElementoGramatical* primerElemen
 
 void AnalizadorSintactico::llenarNombresNoTerminales()
 {
-	/*
-	NombresNoTerminales[NoTerminales::A] = "A";
-	NombresNoTerminales[NoTerminales::EM] = "EM";
-	NombresNoTerminales[NoTerminales::LS] = "LS";
-	NombresNoTerminales[NoTerminales::RD] = "RD";
-	NombresNoTerminales[NoTerminales::S] = "S";
-	NombresNoTerminales[NoTerminales::SD] = "SD";
-	NombresNoTerminales[NoTerminales::TD] = "TD";
-	NombresNoTerminales[NoTerminales::VA] = "VA";
-	*/
 	NombresNoTerminales[NoTerminales::P] = "P";
 	NombresNoTerminales[NoTerminales::BS] = "BS";
 	NombresNoTerminales[NoTerminales::LS] = "LS";

@@ -35,11 +35,6 @@ std::vector<Token*> AnalizadorLexico::ejecutar(std::string archivo )
 				Analizar(linea, numeroLinea++);
 			}
 		}
-
-		/*std::cout << "#############################\n\tTokens:\n\n";
-		imprimirTokens();
-		std::cout << "#############################\n\tErrores:\n\n";
-		imprimirErrores();*/
 		return listaTokens;
 }
 
@@ -253,28 +248,6 @@ void AnalizadorLexico::cargarDatos()
 	//automata->imprimir();
 
 }
-/*
-
-Analizar(S)
-index = 0
-2: c = S[index]
-if(automata.mover(c))
-	buffer.add(c)
-	index++;
-else
-	index = EliminarBlancos(index)
-	if(automata.esEstadoFinal())
-		TipoToken = MapeaEstadoATipoToken(automata.estado())
-		if (TipoToken == Tipos.IDENTIFICADOR)
-			if(listaPalabrasReservadas.buscar(buffer))
-				TipoToken = Tipos.PALABRA_RESERVADA
-		listaTokens.add(new Token(buffer,TipoToken))
-		automata.reset()
-	else
-		listaErrorLexico.add(new Error(bufer,linea))
-		automata.reset()
-ir a 2
-*/
 void AnalizadorLexico::Analizar(std::string S, int linea)
 {
 	S.push_back('@');
@@ -355,71 +328,10 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 
 	return codigoFuente;
 }
-
 bool AnalizadorLexico::esBlanco(char c)
 {
 	return c == ' ' || c == '\t' || c == '\n';
 }
-
-
-void AnalizadorLexico::analizarProfe(std::string rutaArchivo)
-{
-	string codigoFuente = leerArchivo(rutaArchivo);
-	char buffer[1024];
-	int indexBuffer = 0;
-
-	for (int index=0; index< codigoFuente.size();)
-	{
-		char caracter = codigoFuente[index];
-		if (automata->mover(caracter))
-		{
-			buffer[indexBuffer++] = caracter;
-			index++;
-		}
-		else
-		{
-			if (automata->esEstadoFinal())
-			{
-				TipoToken tipo = MapeaEstadoATipoToken(automata->estado());
-				//TipoToken tipo = automata->obtenerTipo();
-				buffer[indexBuffer] = 0;
-				if (tipo == TipoToken::Identificador)
-				{
-					if (BuscarEnPalabrasReservadas(buffer))
-						tipo = TipoToken::PalabraReservada;
-				}
-				string lexema = buffer;
-				this->listaTokens.push_back(new Token(lexema,tipo, 0));
-
-				automata->reset();
-				indexBuffer = 0;
-			}
-			else
-			{
-				if ( indexBuffer>0 )
-				{
-					//Error
-					index++;
-				}
-				else
-				{
-					if (esBlanco(caracter))
-					{
-						do
-							caracter = codigoFuente[++index];
-						while (esBlanco(caracter));
-					}
-					else
-					{
-						//Error
-						index++;
-					}
-				}
-			}
-		}
-	}
-}
-
 void AnalizadorLexico::imprimirTokens()
 {
 	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
@@ -433,15 +345,7 @@ void AnalizadorLexico::imprimirErrores()
 	for (std::vector<ErrorLexico*>::iterator it = listaErrorLexico.begin(); it != listaErrorLexico.end(); ++it)
 	{
 		std::string cadena = (*it)->getError();
-		//cadena.replace(cadena.begin(), cadena.end(), '\t', ' ');
 		std::cout << (*it)->getError() << " " << "Linea: " << (*it)->getLinea() << " " << "Caracter: " << (*it)->getCaracter() << std::endl;
-		/* (int i = 0; i < (*it)->getCaracter(); i++) {
-			if (cadena[i] == '\t')
-				std::cout << '\t';
-			else std::cout << " ";
-		}
-		char a = 238;
-		std::cout << a << std::endl;*/
 	}
 	
 }
@@ -463,21 +367,6 @@ int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
 
 		return index;
 	}
-}
-
-void AnalizadorLexico::EliminarComentario(std::string cadena , int index)
-{
-	/*if (index < cadena.size() - 2) 
-		if (cadena[index] == '/' && cadena[index + 1] == '*') comentario = true;
-	if (cadena[index] == '@')
-	{
-
-	}
-	if (index > 1)
-		if (cadena[index - 2] == '*' && cadena[index - 1] == '/') comentario = false;
-	//    abc*/
-
-
 }
 
 TipoToken AnalizadorLexico::MapeaEstadoATipoToken(int estado)
