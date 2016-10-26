@@ -8,12 +8,11 @@ Automata::Automata()
 	conjuntoEstadosFinales[1] = TipoToken::Identificador;
 	conjuntoEstadosFinales[2] = TipoToken::ConstanteEntera;
 	conjuntoEstadosFinales[3] = TipoToken::Operador;
-	conjuntoEstadosFinales[9] = TipoToken::Delimitador;
 	conjuntoEstadosFinales[5] = TipoToken::Operador;
 	conjuntoEstadosFinales[6] = TipoToken::Operador;
 	conjuntoEstadosFinales[7] = TipoToken::Operador;
-	conjuntoEstadosFinales[8] = TipoToken::Operador;
-	conjuntoEstadosFinales[11] = TipoToken::LiteralCadena;
+	conjuntoEstadosFinales[8] = TipoToken::Delimitador;
+	conjuntoEstadosFinales[10] = TipoToken::LiteralCadena;
 }
 
 Automata::Automata(std::map<char, int> _alfabeto, int _numeroDeEstados, std::vector<int> _estadosFinales, int _estadoInicial, Matriz _matrizDeTransiciones)
@@ -118,6 +117,8 @@ void Automata::dibujarAutomata()
 	T[13] = "=";
 	T[14] = ">";
 	T[15] = "<";
+	T[16] = "|";
+	T[17] = "&";
 
 	std::ofstream archivo;
 	archivo.open("automata.gv");

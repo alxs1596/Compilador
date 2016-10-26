@@ -14,5 +14,11 @@ public:
 	static const int IGUAL = 13;
 	static const int MAYOR = 14;
 	static const int MENOR = 15;
+	//static const int O = 16;
+	static const int OR = 16;
+	//static const int Y = 18;
+	static const int AND = 17;
+	static const int ESPACIO = 18;
+
 };
 
