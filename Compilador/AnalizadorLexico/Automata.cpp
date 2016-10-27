@@ -13,6 +13,9 @@ Automata::Automata()
 	conjuntoEstadosFinales[7] = TipoToken::Operador;
 	conjuntoEstadosFinales[8] = TipoToken::Delimitador;
 	conjuntoEstadosFinales[10] = TipoToken::LiteralCadena;
+	conjuntoEstadosFinales[13] = TipoToken::Operador;
+	conjuntoEstadosFinales[14] = TipoToken::CometarioLinea;
+	conjuntoEstadosFinales[17] = TipoToken::ComentarioMultilinea;
 }
 
 Automata::Automata(std::map<char, int> _alfabeto, int _numeroDeEstados, std::vector<int> _estadosFinales, int _estadoInicial, Matriz _matrizDeTransiciones)

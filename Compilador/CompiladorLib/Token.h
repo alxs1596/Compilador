@@ -10,7 +10,9 @@ enum TipoToken
 	Delimitador,
 	LiteralCadena,
 	ConstanteEntera,
-	Operador
+	Operador,
+	CometarioLinea,
+	ComentarioMultilinea
 };
 
 class Token
