@@ -18,9 +18,9 @@ public:
 	static const int OR = 16;
 	//static const int Y = 18;
 	static const int AND = 17;
-	static const int ESPACIO = 18;
+	static const int BLANCO = 18;
 	static const int ASTERISCO = 19;
 	static const int DIVISION = 20;
-	
+	static const int SALTO_LINEA = 21;
 };
 

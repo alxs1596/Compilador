@@ -14,7 +14,7 @@ Automata::Automata()
 	conjuntoEstadosFinales[8] = TipoToken::Delimitador;
 	conjuntoEstadosFinales[10] = TipoToken::LiteralCadena;
 	conjuntoEstadosFinales[13] = TipoToken::Operador;
-	conjuntoEstadosFinales[14] = TipoToken::CometarioLinea;
+	conjuntoEstadosFinales[18] = TipoToken::CometarioLinea;
 	conjuntoEstadosFinales[17] = TipoToken::ComentarioMultilinea;
 }
 
@@ -47,7 +47,7 @@ bool Automata::mover(char c)
 
 	for (int i = 0; i < Estados.size(); i++)
 		if (MatrizDeTransiciones[*EstadoActual][i] != 0)
-		if (std::binary_search(MatrizDeTransiciones[*EstadoActual][i]->begin(), MatrizDeTransiciones[*EstadoActual][i]->end(), Alfabeto[c])) 
+		if (std::find(MatrizDeTransiciones[*EstadoActual][i]->begin(), MatrizDeTransiciones[*EstadoActual][i]->end(), Alfabeto[c])!= MatrizDeTransiciones[*EstadoActual][i]->end())
 		{
 				EstadoActual = &Estados[i];
 				return true;

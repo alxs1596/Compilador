@@ -15,31 +15,6 @@ AnalizadorLexico::~AnalizadorLexico()
 {
 }
 
-std::vector<Token*> AnalizadorLexico::ejecutar(std::string archivo )
-{	
-		string linea;
-		ifstream codigoFuente;
-		codigoFuente.open(archivo);
-
-		if (codigoFuente.fail())
-		{
-			//Manejar con excepciones
-			cout << "No se abre archivo" << endl;
-		}
-		else
-		{
-			int numeroLinea = 1;
-			while (!codigoFuente.eof())
-			{
-				getline(codigoFuente, linea);
-				Analizar(linea, numeroLinea++);
-			}
-		}
-		return listaTokens;
-}
-
-
-
 void AnalizadorLexico::cargarDatos()
 {
 
@@ -59,7 +34,7 @@ void AnalizadorLexico::cargarDatos()
 	//######################
 
 	std::map<char, int> alfabeto;
-	int numeroEstados = 18;
+	int numeroEstados = 19;
 	std::vector<int> estadosFinales;
 	int estadoInicial = 0;
 	Matriz matriz;
@@ -86,7 +61,7 @@ void AnalizadorLexico::cargarDatos()
 	EstadoAToken[8] = TipoToken::Delimitador;//Tipos::TOKEN_DELIMITADOR;
 	EstadoAToken[10] = TipoToken::LiteralCadena;// Tipos::TOKEN_LITERAL_DE_CADENA;
 	EstadoAToken[13] = TipoToken::Operador;//Tipos::TOKEN_COMENTARIO_OPERADOR;
-	EstadoAToken[14] = TipoToken::CometarioLinea;//TIPOS::TOKEN_COMENTARIO_LINEA;
+	EstadoAToken[18] = TipoToken::CometarioLinea;//TIPOS::TOKEN_COMENTARIO_LINEA;
 	EstadoAToken[17] = TipoToken::ComentarioMultilinea;//TIPOS::TOKEN_COMENTARIO_MILTILINEA;
 	
 
@@ -169,7 +144,9 @@ void AnalizadorLexico::cargarDatos()
 	alfabeto['|'] = Tipos::OR;
 	alfabeto['&'] = Tipos::AND;
 
-	alfabeto[' '] = Tipos::ESPACIO;
+	alfabeto[' '] = Tipos::BLANCO;
+	alfabeto['\n'] = Tipos::SALTO_LINEA;
+	alfabeto['\t'] = Tipos::BLANCO;
 
 	alfabeto['('] = Tipos::DELIMITADOR;
 	alfabeto[')'] = Tipos::DELIMITADOR;
@@ -182,6 +159,7 @@ void AnalizadorLexico::cargarDatos()
 
 	alfabeto['*'] = Tipos::ASTERISCO;
 
+
 	//estadosFinales
 	
 	estadosFinales.push_back(1);
@@ -193,9 +171,9 @@ void AnalizadorLexico::cargarDatos()
 	estadosFinales.push_back(8);
 	estadosFinales.push_back(10);
 	estadosFinales.push_back(13);
-	estadosFinales.push_back(14);
 	estadosFinales.push_back(17);
-	
+	estadosFinales.push_back(18);
+
 
 	//Matriz de transiciones
 	matriz[0][1] = new std::vector<int>();
@@ -257,7 +235,8 @@ void AnalizadorLexico::cargarDatos()
 	matriz[9][9]->push_back(Tipos::OR);
 	matriz[9][9]->push_back(Tipos::ASTERISCO);
 	matriz[9][9]->push_back(Tipos::DIVISION);
-	matriz[9][9]->push_back(Tipos::ESPACIO);
+	matriz[9][9]->push_back(Tipos::BLANCO);
+	matriz[9][9]->push_back(Tipos::SALTO_LINEA);
 	
 	
 	matriz[9][10] = new std::vector<int>();
@@ -289,12 +268,15 @@ void AnalizadorLexico::cargarDatos()
 	matriz[14][14]->push_back(Tipos::ASTERISCO);
 	matriz[14][14]->push_back(Tipos::DELIMITADOR);
 	matriz[14][14]->push_back(Tipos::DIVISION);
-	matriz[14][14]->push_back(Tipos::ESPACIO);
+	matriz[14][14]->push_back(Tipos::BLANCO);
 	matriz[14][14]->push_back(Tipos::IGUAL);
 	matriz[14][14]->push_back(Tipos::MAYOR);
 	matriz[14][14]->push_back(Tipos::MENOR);
 	matriz[14][14]->push_back(Tipos::OPERADOR);
 	matriz[14][14]->push_back(Tipos::OR);
+
+	matriz[14][18] = new std::vector<int>();
+	matriz[14][18]->push_back(Tipos::SALTO_LINEA);
 
 
 	matriz[13][15] = new std::vector<int>();
@@ -307,13 +289,14 @@ void AnalizadorLexico::cargarDatos()
 	matriz[15][15]->push_back(Tipos::AND);
 	matriz[15][15]->push_back(Tipos::DELIMITADOR);
 	matriz[15][15]->push_back(Tipos::DIVISION);
-	matriz[15][15]->push_back(Tipos::ESPACIO);
+	matriz[15][15]->push_back(Tipos::BLANCO);
+	matriz[15][15]->push_back(Tipos::SALTO_LINEA);
 	matriz[15][15]->push_back(Tipos::IGUAL);
 	matriz[15][15]->push_back(Tipos::MAYOR);
 	matriz[15][15]->push_back(Tipos::MENOR);
 	matriz[15][15]->push_back(Tipos::OPERADOR);
 	matriz[15][15]->push_back(Tipos::OR);
-
+	
 	matriz[15][16] = new std::vector<int>();
 	matriz[15][16]->push_back(Tipos::ASTERISCO);
 
@@ -323,8 +306,8 @@ void AnalizadorLexico::cargarDatos()
 	matriz[16][15]->push_back(Tipos::ADMIRACION);
 	matriz[16][15]->push_back(Tipos::AND);
 	matriz[16][15]->push_back(Tipos::DELIMITADOR);
-	matriz[16][15]->push_back(Tipos::DIVISION);
-	matriz[16][15]->push_back(Tipos::ESPACIO);
+	matriz[16][15]->push_back(Tipos::BLANCO);
+	matriz[16][15]->push_back(Tipos::SALTO_LINEA);
 	matriz[16][15]->push_back(Tipos::IGUAL);
 	matriz[16][15]->push_back(Tipos::MAYOR);
 	matriz[16][15]->push_back(Tipos::MENOR);
@@ -339,57 +322,64 @@ void AnalizadorLexico::cargarDatos()
 	//automata->imprimir();
 
 }
-void AnalizadorLexico::Analizar(std::string S, int linea)
-{
-	S.push_back('@');
-	int index = 0;
-	index =EliminarBlancos(S, index);
-	while(index < S.size()) {
-		
-			char c = S[index];
 
-			if (automata->mover(c)) {
-				buffer.push_back(c);
-				index++;
+std::vector<Token*> AnalizadorLexico::ejecutar(std::string archivo)
+{
+	listaTokens.clear();
+
+	string codigoFuente = leerArchivo(archivo);
+
+	analizar(codigoFuente);
+
+	return listaTokens;
+}
+
+void AnalizadorLexico::analizar(string codigoFuente)
+{
+	int linea = 0;
+	string buffer;
+	automata->reset();
+	int index = 0;
+	while ( index<codigoFuente.size() )
+	{
+		char c = codigoFuente[index];
+
+		if (automata->mover(c))
+		{
+			buffer.push_back(c);
+			index++;
+		}
+		else
+		{
+			if (automata->esEstadoFinal())
+			{
+				int TipoToken = MapeaEstadoATipoToken(automata->estado());
+				if (TipoToken == TipoToken::Identificador)
+				{
+					if (BuscarEnPalabrasReservadas(buffer))
+						TipoToken = TipoToken::PalabraReservada;
+				}
+				listaTokens.push_back(new Token(buffer, TipoToken, linea));
+				buffer = "";
+				automata->reset();
 			}
 			else
 			{
-				index = EliminarBlancos(S, index);
-				if (automata->esEstadoFinal())
+				if (buffer.size() > 0)
 				{
-					int TipoToken = MapeaEstadoATipoToken(automata->estado());
-					
-					if (TipoToken == TipoToken::Identificador)
-					{
-						if (BuscarEnPalabrasReservadas(buffer))
-							TipoToken = TipoToken::PalabraReservada;
-					}
-					listaTokens.push_back(new Token(buffer, TipoToken, linea));
-					buffer = "";
-					automata->reset();
+					listaErrorLexico.push_back(new ErrorLexico(buffer, linea, index));
+					index++;
 				}
 				else
-				{
-					if (index != S.size() - 1)
-						listaErrorLexico.push_back(new ErrorLexico(S, linea, index));
-					buffer = "";
-					index++;
-					automata->reset();
-				}
+					EliminarBlancos(codigoFuente, index, linea);
+
+				buffer = "";
+				automata->reset();
 			}
 		}
-		
 	}
-	//imprimirTokens();
-
-/*
- void AnalizadorLexico::ReiniciarTodo()
-{
-	automata->reset();
-	buffer = "";
 }
 
-*/
 string AnalizadorLexico::leerArchivo(string rutaArchivo)
 {
 	string codigoFuente = "";
@@ -412,14 +402,10 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 			codigoFuente += linea + '\n';
 		}
 	}
-
+	
 	return codigoFuente;
 }
-/*bool AnalizadorLexico::esBlanco(char c)
-{
-	return c == ' ' || c == '\t' || c == '\n';
-}
-*/
+
 void AnalizadorLexico::imprimirTokens()
 {
 	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
@@ -443,17 +429,13 @@ void AnalizadorLexico::dibujarAutomata()
 	automata->dibujarAutomata();
 }
 
-int AnalizadorLexico::EliminarBlancos(std::string cadena, int index)
+void AnalizadorLexico::EliminarBlancos(std::string cadena, int& index, int& linea)
 {
-	if (index == cadena.length() || cadena[index] == ' ' || cadena[index] == '\t')
+	while (index < cadena.size() && (cadena[index] == ' ' || cadena[index] == '\t' || cadena[index] == '\n'))
 	{
-
-		return EliminarBlancos(cadena, index + 1);
-
-	}
-	else {
-
-		return index;
+		if (cadena[index] == '\n')
+			linea++;
+		index++;
 	}
 }
 

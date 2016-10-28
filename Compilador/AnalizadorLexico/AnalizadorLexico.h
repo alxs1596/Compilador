@@ -23,6 +23,7 @@ public:
 	void imprimirTokens();
 	void imprimirErrores();
 	void dibujarAutomata();
+
 //private:
 	Automata *automata;
 	std::string buffer;
@@ -35,16 +36,13 @@ public:
 	bool comentario;
 
 	void cargarDatos();
-	void Analizar(std::string, int);
-
-	void ReiniciarTodo();
-
-	int EliminarBlancos(std::string,int);
+	void EliminarBlancos(std::string,int& index, int& linea);
 	TipoToken MapeaEstadoATipoToken(int estado);
 	bool BuscarEnPalabrasReservadas(std::string palabra);
 
 	/////////////////////////////////////////////
 
 	string leerArchivo(string rutaArchivo);
-	bool esBlanco(char c);
+private:
+	void analizar(string codigoFuente);
 };

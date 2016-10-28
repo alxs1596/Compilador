@@ -1,12 +1,13 @@
 Programa()
 {
-	/
-	/*dghefnwiurehn*/
-	Mientras((6==6)|| (a!=3)){
-    a=10 //H o l a;
-    MostrarPantalla("El nuevo valor de A es 10");
+	/*
+		Hola a todos
+		soy Yo
+		Un comentario
+	*/
+
+	//Hola a todos soy	un			comentario que no puede ser ;
+
+	 MostrarPantalla("El nuevo valor de A es 10");
    
-  }
- 
- 
- }
+}
