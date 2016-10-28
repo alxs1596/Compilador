@@ -354,14 +354,30 @@ void AnalizadorLexico::analizar(string codigoFuente)
 			if (automata->esEstadoFinal())
 			{
 				int TipoToken = MapeaEstadoATipoToken(automata->estado());
-				if (TipoToken == TipoToken::Identificador)
+				if (TipoToken == TipoToken::ComentarioMultilinea)
 				{
-					if (BuscarEnPalabrasReservadas(buffer))
-						TipoToken = TipoToken::PalabraReservada;
+					buffer = "";
+					automata->reset();
 				}
-				listaTokens.push_back(new Token(buffer, TipoToken, linea));
-				buffer = "";
-				automata->reset();
+				if (TipoToken == TipoToken::CometarioLinea)
+				{
+					buffer = "";
+					automata->reset();
+				}
+				else
+				{
+					if (buffer != "")
+					{
+						if (TipoToken == TipoToken::Identificador)
+						{
+							if (BuscarEnPalabrasReservadas(buffer))
+								TipoToken = TipoToken::PalabraReservada;
+						}
+						listaTokens.push_back(new Token(buffer, TipoToken, linea));
+						buffer = "";
+						automata->reset();
+					}
+				}
 			}
 			else
 			{
