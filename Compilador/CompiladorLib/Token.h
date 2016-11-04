@@ -5,14 +5,14 @@
 
 enum TipoToken
 {
-	Identificador,
-	PalabraReservada,
-	Delimitador,
-	LiteralCadena,
-	ConstanteEntera,
-	Operador,
-	CometarioLinea,
-	ComentarioMultilinea
+	Identificador= 1,
+	PalabraReservada = 2,
+	Delimitador = 3,
+	LiteralCadena = 4,
+	ConstanteEntera = 5,
+	Operador = 6,
+	CometarioLinea = 7,
+	ComentarioMultilinea = 8
 };
 
 class Token

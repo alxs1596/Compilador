@@ -12,19 +12,19 @@ namespace Testing
 	{
 	public:
 
-		TEST_METHOD(testCodigoFuenteDeclaracionAsignacionIncompleta)
-		{
-			//Arrange
-			string codigoFuente = "entero a = ;";
-			AnalizadorLexico lexico;
-			AnalizadorSintactico sintactico;
-			bool esperado = false;
-			//Act
-			lexico.Analizar(codigoFuente, 0);
-			bool res = sintactico.Analizar(lexico.listaTokens);
-			//Assert
-			Assert::AreEqual(esperado, res);
-		}
+		//TEST_METHOD(testCodigoFuenteDeclaracionAsignacionIncompleta)
+		//{
+		//	//Arrange
+		//	string codigoFuente = "entero a = ;";
+		//	AnalizadorLexico lexico;
+		//	AnalizadorSintactico sintactico;
+		//	bool esperado = false;
+		//	//Act
+		//	lexico.Analizar(codigoFuente, 0);
+		//	bool res = sintactico.Analizar(lexico.listaTokens);
+		//	//Assert
+		//	Assert::AreEqual(esperado, res);
+		//}
 
 	};
 }

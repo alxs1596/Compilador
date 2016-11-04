@@ -14,7 +14,7 @@ namespace Testing
 	public:
 		
 		//Declaracion de variables
-		TEST_METHOD(testAnalizar1)
+		TEST_METHOD(testAnalizarSintactico1)
 		{
 
 			// Si se da un int en vez de entero da un bucle infinito
@@ -37,7 +37,7 @@ namespace Testing
 		}
 
 		//Declaracion de variable con asignacion
-		TEST_METHOD(testAnalizar2) {
+		TEST_METHOD(testAnalizarSintactico2) {
 
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
@@ -59,7 +59,7 @@ namespace Testing
 		}
 
 		//Declaracion de variables y declaracion de variable con asignacion
-		TEST_METHOD(testAnalizar3) {
+		TEST_METHOD(testAnalizarSintactico3) {
 
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
@@ -84,7 +84,7 @@ namespace Testing
 
 
 		//Declaracion de variable con asignacion de una operacion matematica
-		TEST_METHOD(testAnalizar4) {
+		TEST_METHOD(testAnalizarSintactico4) {
 
 			// No termina
 			//Arrange
@@ -109,7 +109,7 @@ namespace Testing
 		}
 
 		// Programa(){int a;}
-		TEST_METHOD(testAnalizar5) {
+		TEST_METHOD(testAnalizarSintactico5) {
 
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
@@ -134,7 +134,7 @@ namespace Testing
 		}
 
 		//probando si funciona el if else con imprimir pantalla
-		TEST_METHOD(testAnalizar6) {
+		TEST_METHOD(testAnalizarSintactico6) {
 
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
@@ -180,7 +180,7 @@ namespace Testing
 
 
 
-		TEST_METHOD(testAnalizar7) {
+		TEST_METHOD(testAnalizarSintactico7) {
 
 			//Arrange
 			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
@@ -247,6 +247,32 @@ namespace Testing
 
 
 			bool esperado = true;
+			//Act
+
+			bool respuesta = analizaSintactico->Analizar(vectorToken);
+
+			//Assert
+
+			Assert::AreEqual(esperado, respuesta);
+		}
+
+		TEST_METHOD(testAnalizarSintactico8)
+		{
+
+			
+			//Arrange
+
+			AnalizadorSintactico* analizaSintactico = new AnalizadorSintactico();
+			vector<Token*> vectorToken;
+			vectorToken.push_back(new Token("Programa", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("(", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token(")", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("{", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("int", TipoToken::PalabraReservada, 0));
+			vectorToken.push_back(new Token("a", TipoToken::Identificador, 0));
+			vectorToken.push_back(new Token(";", TipoToken::Delimitador, 0));
+			vectorToken.push_back(new Token("}", TipoToken::Delimitador, 0));
+			bool esperado = false;
 			//Act
 
 			bool respuesta = analizaSintactico->Analizar(vectorToken);

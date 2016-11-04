@@ -47,7 +47,7 @@ bool Automata::mover(char c)
 
 	for (int i = 0; i < Estados.size(); i++)
 		if (MatrizDeTransiciones[*EstadoActual][i] != 0)
-		if (std::find(MatrizDeTransiciones[*EstadoActual][i]->begin(), MatrizDeTransiciones[*EstadoActual][i]->end(), Alfabeto[c])!= MatrizDeTransiciones[*EstadoActual][i]->end())
+		if ((std::find(MatrizDeTransiciones[*EstadoActual][i]->begin(), MatrizDeTransiciones[*EstadoActual][i]->end(), Alfabeto[c])!= MatrizDeTransiciones[*EstadoActual][i]->end()) && Alfabeto[c] != NULL)
 		{
 				EstadoActual = &Estados[i];
 				return true;
@@ -105,6 +105,7 @@ void Automata::imprimir()
 
 TipoToken Automata::obtenerTipo()
 {
+	//Si no es estado final devuelve 0
 	return conjuntoEstadosFinales[estado()];
 }
 

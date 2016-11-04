@@ -39,7 +39,7 @@ namespace Testing
 			
 			//Assert
 			
-			Assert::AreEqual(-1, res);
+			Assert::AreEqual(0, res);
 		}
 
 		TEST_METHOD(testAutomataReiniciarTodo)

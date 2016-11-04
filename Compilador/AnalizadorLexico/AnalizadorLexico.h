@@ -24,7 +24,7 @@ public:
 	void imprimirErrores();
 	void dibujarAutomata();
 
-//private:
+private:
 	Automata *automata;
 	std::string buffer;
 	std::map<std::string, bool> listaPalabrasReservadas;
@@ -43,6 +43,6 @@ public:
 	/////////////////////////////////////////////
 
 	string leerArchivo(string rutaArchivo);
-private:
+//private:
 	void analizar(string codigoFuente);
 };
