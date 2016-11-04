@@ -629,12 +629,12 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	}
 
 	pila.push(noTerminalBase);
-	//for (unsigned int i = 0; i < entrada.size(); i++) {
 	unsigned int i = 0;
 	int regla;
 	while (i < entrada.size()) 
 	{
-		if (pila.empty()) {
+		if (pila.empty())
+		{
 			cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
 			return false;
 		}
@@ -683,13 +683,6 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	}
 	else
 	{
-		
-		/*Terminal* t1 = (Terminal*)(pila.top());*/
-		/*if (!pila.empty())
-		{
-			NoTerminal* t = (NoTerminal*)(pila.top());
-
-		}*/
 		if (buscarRegla(((NoTerminal*)(pila.top()))->getID(),LAMBDA))
 			return true;
 		cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;

@@ -1,4 +1,4 @@
 Programa()
 {
-	 EscribirPantalla("El nuevo valor de A es 10");
+EscribirPantalla(5+6);
 }
