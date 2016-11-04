@@ -12,6 +12,7 @@
 #include "Terminal.h"
 #include "NoTerminal.h"
 #include "Regla.h"
+#include "Cuadruplo.h"
 
 using namespace std;
 
@@ -25,6 +26,8 @@ private:
 	int cantidadReglas;
 	stack<ElementoGramatical*> pila;
 	map<int, map< string, int> > matriz;
+	vector<Cuadruplo*> listaCuadruplos;
+	vector<Cuadruplo*> listaCuadruplosTemporal;
 
 	void llenarReglas();
 	void llenarMatriz();
@@ -32,6 +35,7 @@ private:
 	bool buscarRegla(int, ElementoGramatical*);
 	void llenarNombresNoTerminales();
 	void vaciarPila();
+	void llenarCuadruplos(int nregla, Terminal* terminal);
 public:
 	AnalizadorSintactico();
 	~AnalizadorSintactico();

@@ -625,6 +625,50 @@ void AnalizadorSintactico::vaciarPila() {
 		pila.pop();
 }
 
+void AnalizadorSintactico::llenarCuadruplos(int nregla, Terminal * terminal)
+{
+	Regla* regla = reglasGramaticales[nregla];
+	Cuadruplo* cuadruplo  = regla->getCuadruplo();
+	ElementoGramatical* produccion = regla->getProduccion()[0];
+	NoTerminal* noT = regla->getNoTerminal();
+
+	if (cuadruplo != NULL) {
+		if (produccion->getTipo() == TERMINAL) {
+			if (((Terminal*)(cuadruplo->Resultado))->getTipo() == TipoToken::Identificador)
+				cuadruplo->Resultado = terminal;
+			int tipo = ((Terminal*)(cuadruplo->Operando1))->getTipo();
+			if ((tipo == TipoToken::Identificador) || (tipo == TipoToken::ConstanteEntera))
+				cuadruplo->Operando1 = terminal;
+			if (((Terminal*)produccion)->getToken()->getLexema() != "=") {
+				cuadruplo->Resultado = listaCuadruplos[listaCuadruplos.size() - 1]->Resultado;
+			}
+		}
+		
+	
+		listaCuadruplos.push_back(cuadruplo);
+	}
+	else {
+		if (((Terminal*)produccion)->getToken()->getTipo() == TipoToken::Operador) {
+			
+			for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+				if (((NoTerminal*)(listaCuadruplos[i]->Operando2))->getID() == regla->getNoTerminal()->getID()) {
+					listaCuadruplos[i]->Operador = terminal;
+					break;
+				}
+			}
+		}
+		if (produccion == LAMBDA) {
+			for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+				if (((NoTerminal*)(listaCuadruplos[i]->Operando2))->getID() == regla->getNoTerminal()->getID()) {
+					listaCuadruplos[i]->Operador = new Terminal(new Token("=", TipoToken::Operador, 0));
+					listaCuadruplos[i]->Operando2 = NULL;
+					break;
+				}
+			}
+		}
+	}
+}
+
 bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 {
 
@@ -668,6 +712,8 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 					}
 					else
 					{
+
+						llenarCuadruplos(regla,terminalesEntrada[i]);
 						pila.pop();
 
 						for (int i = 0; i < reglasGramaticales[regla]->getNumeroProducciones(); i++)

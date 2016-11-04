@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnalizadorSintactico.h" />
+    <ClInclude Include="Cuadruplo.h" />
     <ClInclude Include="ElementoGramatical.h" />
     <ClInclude Include="NoTerminal.h" />
     <ClInclude Include="Regla.h" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnalizadorSintactico.cpp" />
+    <ClCompile Include="Cuadruplo.cpp" />
     <ClCompile Include="ElementoGramatical.cpp" />
     <ClCompile Include="NoTerminal.cpp" />
     <ClCompile Include="Regla.cpp" />

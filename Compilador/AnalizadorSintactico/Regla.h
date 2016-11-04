@@ -2,6 +2,7 @@
 
 #include "NoTerminal.h"
 #include "ElementoGramatical.h"
+#include "Cuadruplo.h"
 
 class Regla
 {
@@ -10,6 +11,8 @@ private:
 	ElementoGramatical** produccion;
 	ElementoGramatical** genera;
 	int elementosProduccion;
+
+	Cuadruplo* plantilla;
 public:
 	Regla(NoTerminal*, ElementoGramatical**, int);
 	~Regla();
@@ -17,5 +20,9 @@ public:
 	ElementoGramatical** getProduccion();
 	int getNumeroProducciones();
 	NoTerminal* getNoTerminal();
+
+	void setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2);
+	Cuadruplo* getCuadruplo();
+
 };
 

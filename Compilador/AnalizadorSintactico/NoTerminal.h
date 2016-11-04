@@ -52,7 +52,9 @@ private:
 public:
 	NoTerminal(int id) :ElementoGramatical(NOTERMINAL), id(id) {}
 	~NoTerminal();
-
+	ElementoGramatical* clonar() {
+		return new NoTerminal(this->id);
+	}
 	int getID() { return id; }
 };
 
