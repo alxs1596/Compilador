@@ -1,0 +1,4 @@
+Programa()
+{
+EscribirPantalla(5<=6);
+}

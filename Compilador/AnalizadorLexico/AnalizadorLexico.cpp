@@ -334,7 +334,7 @@ std::vector<Token*> AnalizadorLexico::ejecutar(std::string archivo)
 	return listaTokens;
 }
 
-void AnalizadorLexico::analizar(string codigoFuente)
+std::vector<Token*> AnalizadorLexico::analizar(string codigoFuente)
 {
 	int linea = 0;
 	string buffer;
@@ -394,6 +394,7 @@ void AnalizadorLexico::analizar(string codigoFuente)
 			}
 		}
 	}
+	return listaTokens;
 }
 
 string AnalizadorLexico::leerArchivo(string rutaArchivo)
@@ -407,6 +408,7 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 	if (archivoCodigoFuente.fail())
 	{
 		//Manejar con excepciones
+		throw new exception("No se pudo abrir el archivo");
 		cout << "No se abre archivo" << endl;
 	}
 	else

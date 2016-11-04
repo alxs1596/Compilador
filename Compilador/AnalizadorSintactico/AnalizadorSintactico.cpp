@@ -683,11 +683,12 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	}
 	else
 	{
-		if (buscarRegla(((NoTerminal*)(pila.top()))->getID(),LAMBDA))
+		/*if (buscarRegla(((NoTerminal*)(pila.top()))->getID(),LAMBDA))
 			return true;
 		cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
 		while (!pila.empty()) 
 			pila.pop();
+			*/
 		return false;
 	}
 }

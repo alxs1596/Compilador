@@ -24,6 +24,8 @@ public:
 	void imprimirErrores();
 	void dibujarAutomata();
 
+	std::vector<Token*> analizar(string codigoFuente);
+
 private:
 	Automata *automata;
 	std::string buffer;
@@ -44,5 +46,5 @@ private:
 
 	string leerArchivo(string rutaArchivo);
 //private:
-	void analizar(string codigoFuente);
+	
 };

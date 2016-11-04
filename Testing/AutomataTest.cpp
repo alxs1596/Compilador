@@ -122,7 +122,7 @@ namespace Testing
 		TEST_METHOD(testAutomataEsEstadoFinalCorrecto)
 		{
 			//Arrange
-			int tipoLetra = 0;
+			int tipoLetra = Tipos::LETRA;
 			int NumeroEstados = 2;
 			vector<int> EstadosFinales;
 			EstadosFinales.push_back(1);
@@ -145,7 +145,7 @@ namespace Testing
 		{
 
 			//Arrange
-			int tipoLetra = 0;
+			int tipoLetra = Tipos::LETRA;
 			int NumeroEstados = 2;
 			vector<int> EstadosFinales;
 			EstadosFinales.push_back(1);
@@ -159,7 +159,7 @@ namespace Testing
 			Alfabeto['a'] = tipoLetra;
 			Automata *automata = new Automata(Alfabeto, NumeroEstados, EstadosFinales, inicial, matriz);
 			//Act
-			bool mover = automata->mover('; ');
+			bool mover = automata->mover(';');
 			//Assert
 			Assert::AreEqual(false,automata->esEstadoFinal());
 		}
@@ -167,7 +167,7 @@ namespace Testing
 		{
 
 			//Arrange
-			int tipoLetra = 0;
+			int tipoLetra = Tipos::LETRA;
 			int NumeroEstados = 2;
 			vector<int> EstadosFinales;
 			EstadosFinales.push_back(1);

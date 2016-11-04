@@ -13,7 +13,7 @@ int main()
 	AnalizadorLexico analizador;
 
 	std::vector<Token*> vectorToken = analizador.ejecutar("Source.txt");
-	analizador.ejecutar("Source.txt");
+	//analizador.ejecutar("Source.txt");
 	//analizador.dibujarAutomata();
 	analizador.imprimirTokens();
 
