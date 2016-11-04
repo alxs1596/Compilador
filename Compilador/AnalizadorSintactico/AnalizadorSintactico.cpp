@@ -620,6 +620,11 @@ AnalizadorSintactico::~AnalizadorSintactico()
 {
 }
 
+void AnalizadorSintactico::vaciarPila() {
+	while (!pila.empty())
+		pila.pop();
+}
+
 bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 {
 
@@ -627,7 +632,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	for (unsigned int i = 0; i < entrada.size(); i++) {
 		terminalesEntrada.push_back(new Terminal(entrada[i]));
 	}
-
+	vaciarPila();
 	pila.push(noTerminalBase);
 	unsigned int i = 0;
 	int regla;
@@ -648,8 +653,6 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			{
 				if ((pila.top()->getTipo() == TERMINAL)) {
 					cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
-					while (!pila.empty())
-						pila.pop();
 					return false;	//error
 
 				}
@@ -661,8 +664,6 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 					if (regla == -1) {
 
 						cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
-						while (!pila.empty())
-							pila.pop();
 						return false; // error
 					}
 					else
@@ -677,20 +678,20 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			}
 		}
 	}
-	
-	if (pila.size() == 0) {
+	return pila.size() == 0;
+	/*if (pila.size() == 0) {
 		return true;
 	}
 	else
 	{
-		/*if (buscarRegla(((NoTerminal*)(pila.top()))->getID(),LAMBDA))
+		if (buscarRegla(((NoTerminal*)(pila.top()))->getID(),LAMBDA))
 			return true;
 		cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
 		while (!pila.empty()) 
 			pila.pop();
-			*/
+			
 		return false;
-	}
+	}*/
 }
 
 void AnalizadorSintactico::imprimirReglas()

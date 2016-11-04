@@ -31,6 +31,7 @@ private:
 	int buscarEnReglas(int, string);
 	bool buscarRegla(int, ElementoGramatical*);
 	void llenarNombresNoTerminales();
+	void vaciarPila();
 public:
 	AnalizadorSintactico();
 	~AnalizadorSintactico();
