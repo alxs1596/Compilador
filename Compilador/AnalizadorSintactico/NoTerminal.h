@@ -25,22 +25,24 @@ enum NoTerminales
 	RD = 13,
 	A = 14,
 	EM = 15,
-	EXP = 16,
-	T = 17,
-	LT = 18,
-	OP1 = 19,
-	F = 20,
-	LF = 21,
-	OP2 = 22,
-	SUBBS = 23,
-	ELSE = 24, 
-	OL = 25,
-	C = 26,
-	OP3 = 27,
-	OP4 = 28,
+	T = 16,
+	LT = 17,
+	OP1 = 18,
+	F = 29,
+	LF = 20,
+	OP2 = 21,
+	SUBBS = 22,
+	ELSE = 23, 
+	OL = 24,
+	C = 25,
+	OP3 = 26,
+	OP4 = 27,
+	LOL = 28,
+	LC = 29,
+	//EXP = 16,
 
 
-	Cantidad = 29
+	Cantidad = 30
 };
 
 class NoTerminal :
