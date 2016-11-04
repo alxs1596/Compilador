@@ -20,7 +20,6 @@ class AnalizadorSintactico
 private:
 	map<int, string> NombresNoTerminales;
 	vector<Terminal*> terminales;
-	//NoTerminal** noTerminales;
 	NoTerminal* noTerminalBase;
 	Regla** reglasGramaticales;
 	int cantidadReglas;

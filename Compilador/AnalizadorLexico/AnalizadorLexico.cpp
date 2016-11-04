@@ -46,8 +46,8 @@ void AnalizadorLexico::cargarDatos()
 	listaPalabrasReservadas["Si"] = true;
 	listaPalabrasReservadas["Osino"] = true;
 	listaPalabrasReservadas["Mientras"] = true;
-	listaPalabrasReservadas["leerTeclado"] = true;
-	listaPalabrasReservadas["MostrarPantalla"] = true;
+	listaPalabrasReservadas["LeerTeclado"] = true;
+	listaPalabrasReservadas["EscribirPantalla"] = true;
 	listaPalabrasReservadas["Hacer"] = true;
 
 	//Estados A TipoToken

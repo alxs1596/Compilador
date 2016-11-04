@@ -1,13 +1,4 @@
 Programa()
 {
-	/*
-		Hola a todos
-		soy Yo
-		Un comentario
-	*/
-
-	//Hola a todos soy	un			comentario que no puede ser ;
-
-	 MostrarPantalla("El nuevo valor de A es 10");
-   
+	 EscribirPantalla("El nuevo valor de A es 10");
 }

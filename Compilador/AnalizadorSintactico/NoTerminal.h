@@ -34,8 +34,13 @@ enum NoTerminales
 	OP2 = 22,
 	SUBBS = 23,
 	ELSE = 24, 
+	OL = 25,
+	C = 26,
+	OP3 = 27,
+	OP4 = 28,
 
-	Cantidad = 25
+
+	Cantidad = 29
 };
 
 class NoTerminal :

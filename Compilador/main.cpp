@@ -12,18 +12,18 @@ int main()
 
 	AnalizadorLexico analizador;
 
-	//std::vector<Token*> vectorToken = analizador.ejecutar("Source.txt");
+	std::vector<Token*> vectorToken = analizador.ejecutar("Source.txt");
 	analizador.ejecutar("Source.txt");
 	//analizador.dibujarAutomata();
 	analizador.imprimirTokens();
 
-	//AnalizadorSintactico analizadorSintactico;
+	AnalizadorSintactico analizadorSintactico;
 
 	//analizadorSintactico.imprimirReglas();
 	
-	//bool res = analizadorSintactico.Analizar(vectorToken);
+	bool res = analizadorSintactico.Analizar(vectorToken);
 
-	//cout << (res == true ? "True" : "False") << std::endl;
+	cout << (res == true ? "True" : "False") << std::endl;
 
 	system("pause");
 	return 0;

@@ -8,6 +8,7 @@ class Regla
 private:
 	NoTerminal* noTerminal;
 	ElementoGramatical** produccion;
+	ElementoGramatical** genera;
 	int elementosProduccion;
 public:
 	Regla(NoTerminal*, ElementoGramatical**, int);
