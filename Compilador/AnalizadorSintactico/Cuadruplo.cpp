@@ -4,43 +4,45 @@
 
 Cuadruplo * Cuadruplo::clonar()
 {
-	Cuadruplo c;
+	Cuadruplo* c = new Cuadruplo();
 	
-	if (Resultado->getTipo() == TERMINAL) {
-		Terminal* res = (Terminal*)Resultado;
-		c.Resultado = res->clonar();
-	}
-	else {
-		NoTerminal* res = (NoTerminal*)Resultado;
-		c.Resultado = res->clonar();
+	if (Resultado != 0) {
+		if (Resultado->getTipo() == TERMINAL) {
+			Terminal* res = (Terminal*)Resultado;
+			c->Resultado = res->clonar();
+		}
+		else {
+			NoTerminal* res = (NoTerminal*)Resultado;
+			c->Resultado = res->clonar();
+		}
 	}
 
 	if (Operando1->getTipo() == TERMINAL) {
 		Terminal* op1 = (Terminal*)Operando1;
-		c.Operando1 = op1->clonar();
+		c->Operando1 = op1->clonar();
 	}
 	else {
 		NoTerminal* op1 = (NoTerminal*)Operando1;
-		c.Operando1 = op1->clonar();
+		c->Operando1 = op1->clonar();
 	}
 
 	if (Operador != 0) {
 		Terminal* op = (Terminal*)Operador;
-		c.Operador = op->clonar();
+		c->Operador = op->clonar();
 	}
 
-	if (Operador != 0) {
+	if (Operando2 != 0) {
 		if (Operando2->getTipo() == TERMINAL) {
 			Terminal* op2 = (Terminal*)Operando2;
-			c.Operando2 = op2->clonar();
+			c->Operando2 = op2->clonar();
 		}
 		else {
 			NoTerminal* op2 = (NoTerminal*)Operando2;
-			c.Operando2 = op2->clonar();
+			c->Operando2 = op2->clonar();
 		}
 	}
 
-	return &c;
+	return c;
 }
 
 Cuadruplo::Cuadruplo()

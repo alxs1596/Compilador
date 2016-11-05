@@ -29,6 +29,8 @@ private:
 	vector<Cuadruplo*> listaCuadruplos;
 	vector<Cuadruplo*> listaCuadruplosTemporal;
 
+	bool voltear;
+
 	void llenarReglas();
 	void llenarMatriz();
 	int buscarEnReglas(int, string);
@@ -43,5 +45,7 @@ public:
 	bool Analizar(vector<Token*>);
 
 	void imprimirReglas();
+
+	void imprimirCuadruplos();
 };
 

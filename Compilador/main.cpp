@@ -25,8 +25,9 @@ int main()
 
 	cout << (res == true ? "True" : "False") << std::endl;
 
+	analizadorSintactico.imprimirCuadruplos();
 
-
+	
 
 	system("pause");
 	return 0;
