@@ -1,5 +1,7 @@
 Programa()
 {
-//EscribirPantalla(5<=6);
+EscribirPantalla(5<=6);
 entero a = 8+ 1;
+a = 5 + 2;
+LeerTeclado(a);
 }

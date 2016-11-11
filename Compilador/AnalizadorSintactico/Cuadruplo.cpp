@@ -17,13 +17,15 @@ Cuadruplo * Cuadruplo::clonar()
 		}
 	}
 
-	if (Operando1->getTipo() == TERMINAL) {
-		Terminal* op1 = (Terminal*)Operando1;
-		c->Operando1 = op1->clonar();
-	}
-	else {
-		NoTerminal* op1 = (NoTerminal*)Operando1;
-		c->Operando1 = op1->clonar();
+	if (Operando1 != 0) {
+		if (Operando1->getTipo() == TERMINAL) {
+			Terminal* op1 = (Terminal*)Operando1;
+			c->Operando1 = op1->clonar();
+		}
+		else {
+			NoTerminal* op1 = (NoTerminal*)Operando1;
+			c->Operando1 = op1->clonar();
+		}
 	}
 
 	if (Operador != 0) {

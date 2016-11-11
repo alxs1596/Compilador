@@ -28,7 +28,7 @@ enum NoTerminales
 	T = 16,
 	LT = 17,
 	OP1 = 18,
-	F = 29,
+	F = 19,
 	LF = 20,
 	OP2 = 21,
 	SUBBS = 22,

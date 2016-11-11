@@ -652,6 +652,7 @@ AnalizadorSintactico::AnalizadorSintactico()
 	llenarNombresNoTerminales();
 	llenarReglas();
 	llenarMatriz();
+	
 	noTerminalBase = new NoTerminal(NoTerminales::P);
 }
 
@@ -664,9 +665,9 @@ void AnalizadorSintactico::vaciarPila() {
 		pila.pop();
 }
 
-void AnalizadorSintactico::llenarCuadruplos(int nregla, Terminal * terminal)
+void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entrada, int i)
 {
-	Regla* regla = reglasGramaticales[nregla];
+	/*Regla* regla = reglasGramaticales[nregla];
 	Cuadruplo* cuadruplo  = regla->getCuadruplo();
 	ElementoGramatical* produccion = regla->getProduccion()[0];
 	NoTerminal* noT = regla->getNoTerminal();
@@ -691,9 +692,9 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, Terminal * terminal)
 		}
 		
 	
-		/*if (voltear)
-			listaCuadruplosTemporal.push_back(cuadruplo);
-		else*/
+		//if (voltear)
+		//	listaCuadruplosTemporal.push_back(cuadruplo);
+		//else
 			listaCuadruplos.push_back(cuadruplo);
 	}
 	else {
@@ -720,7 +721,137 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, Terminal * terminal)
 					}
 				}
 		}
+	}*/
+	if (nregla == 25) {
+		int a = 5 + 5;
+		a = a + 1;
 	}
+	Terminal* terminal = (*entrada)[i];
+	Cuadruplo* cuadruplo = reglasGramaticales[nregla]->getCuadruplo();
+	switch (nregla) {
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		break;
+	case 8:
+		break;
+	case 9:
+		break;
+	case 10:
+		break;
+	case 11:
+		break;
+	case 12:
+		break;
+	case 13:
+		break;
+	case 14:
+		break;
+	case 15:
+		cuadruplo->Resultado = terminal;
+		listaCuadruplos.push_back(cuadruplo);
+		break;
+	case 16:
+		cuadruplo->Resultado = listaCuadruplos[listaCuadruplos.size() - 1]->Resultado;
+		listaCuadruplos.push_back(cuadruplo);
+		break;
+	case 17:
+		break;
+	case 18:
+		cuadruplo->Resultado = terminal;
+		listaCuadruplos.push_back(cuadruplo);
+		break;
+	case 19:
+		break;
+	case 20:
+		break;
+	case 21:
+		break;
+	case 22:
+		break;
+	case 23:
+		break;
+	case 24:
+		break;
+	case 25:
+		cuadruplo->Resultado = (*entrada)[i + 2];
+		listaCuadruplos.push_back(cuadruplo);
+		break;
+	case 26:
+		listaCuadruplos.push_back(cuadruplo);
+		break;
+	case 27:
+		break;
+	case 28:
+		break;
+	case 29:
+		break;
+	case 30:
+		break;
+	case 31:
+		break;
+	case 32:
+		break;
+	case 33:
+		break;
+	case 34:
+		break;
+	case 35:
+		break;
+	case 36:
+		break;
+	case 37:
+		break;
+	case 38:
+		break;
+	case 39:
+		break;
+	case 40:
+		break;
+	case 41:
+		break;
+	case 42:
+		break;
+	case 43:
+		break;
+	case 44:
+		break;
+	case 45:
+		break;
+	case 46:
+		break;
+	case 47:
+		break;
+	case 48:
+		break;
+	case 49:
+		break;
+	case 50:
+		break;
+	case 51:
+		break;
+	case 52:
+		break;
+	case 53:
+		break;
+	case 54:
+		break;
+	case 55:
+		break;
+	}
+
 }
 
 bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
@@ -738,19 +869,22 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	{
 		if (pila.empty())
 		{
-			cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
+			cout << "1 - Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
 			return false;
 		}
 		else
 		{
+			Token* a = ((Terminal*)(pila.top()))->getToken();
 			if ((pila.top()->getTipo() == TERMINAL) && (((Terminal*)(pila.top()))->getToken()->esIgual(entrada[i]))) {
 				pila.pop();
+				imprimirPila();
 				i++;
 			}
 			else
 			{
 				if ((pila.top()->getTipo() == TERMINAL)) {
-					cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
+					//imprimirPila();
+					cout << "2 - Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
 					return false;	//error
 
 				}
@@ -761,7 +895,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 					regla = matriz[x][y];
 					if (regla == -1) {
 
-						cout << "Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
+						cout << "3 - Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
 						return false; // error
 					}
 					else
@@ -774,12 +908,13 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 								for (int i = listaCuadruplosTemporal.size(); i >= 0; i--)
 									listaCuadruplos.push_back(listaCuadruplosTemporal[i]);
 						}*/
-						llenarCuadruplos(regla,terminalesEntrada[i]);
+						llenarCuadruplos(regla,&terminalesEntrada, i);
 						pila.pop();
 
 						for (int i = 0; i < reglasGramaticales[regla]->getNumeroProducciones(); i++)
 							if (reglasGramaticales[regla]->getProduccion()[reglasGramaticales[regla]->getNumeroProducciones() - i - 1] != LAMBDA)
 								pila.push(reglasGramaticales[regla]->getProduccion()[reglasGramaticales[regla]->getNumeroProducciones() - i - 1]);
+						imprimirPila();
 					}
 				}
 			}
@@ -799,6 +934,11 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			
 		return false;
 	}*/
+}
+
+vector<Cuadruplo*> AnalizadorSintactico::Cuadruplos()
+{
+	return this->listaCuadruplos;
 }
 
 void AnalizadorSintactico::imprimirReglas()
@@ -827,6 +967,37 @@ void AnalizadorSintactico::imprimirReglas()
 		}
 		cout << endl;
 	}
+}
+
+void AnalizadorSintactico::imprimirPila()
+{
+	cout << "Pila: -----------------" << endl;
+	vector<ElementoGramatical*> temp;
+	if (pila.empty()) {
+		cout << "vacia" << endl;
+		return;
+	}
+	while (!pila.empty()) {
+		ElementoGramatical* e = pila.top();
+		if (e->getTipo() == TERMINAL) {
+			Terminal* t = (Terminal*)e;
+			cout << t->getToken()->getLexema() << endl;
+		}
+		else {
+			NoTerminal* t = (NoTerminal*)e;
+			cout << NombresNoTerminales[t->getID()] << endl;
+		}
+		temp.push_back(e);
+		pila.pop();
+	}
+	
+	for (vector<ElementoGramatical*>::iterator it = temp.end() - 1; it != temp.begin(); --it) {
+		pila.push(*it);
+	}
+
+	pila.push(temp[0]);
+
+	cout << "-----------------------" << endl;
 }
 
 void AnalizadorSintactico::imprimirCuadruplos()
