@@ -308,232 +308,236 @@ void AnalizadorSintactico::llenarReglas()
 
 	reglasGramaticales[28]->setPlantilla(reglasGramaticales[28]->getNoTerminal(), produccion[0], NULL, produccion[1]);
 
-	//Regla 29: <LOL> → <OP1> <OL> <LOL>
+	//REGLA 29: OL -> <C> <LC>
+	cantidadProducciones = 2;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new NoTerminal(NoTerminales::C);
+	produccion[1] = new NoTerminal(NoTerminales::LC);
+	reglasGramaticales[29] = new Regla(new NoTerminal(NoTerminales::OL), produccion, cantidadProducciones);
+
+	reglasGramaticales[29]->setPlantilla(reglasGramaticales[29]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+
+
+	//Regla 30: <LOL> → <OP1> <OL> <LOL>
 	cantidadProducciones = 3;
 	produccion = new ElementoGramatical*[cantidadProducciones];
 	produccion[0] = new NoTerminal(NoTerminales::OP1);
 	produccion[1] = new NoTerminal(NoTerminales::OL);
 	produccion[2] = new NoTerminal(NoTerminales::LOL);
-	reglasGramaticales[29] = new Regla(new NoTerminal(NoTerminales::LOL), produccion, cantidadProducciones);
-
-	reglasGramaticales[29]->setPlantilla(reglasGramaticales[29]->getNoTerminal(), produccion[1], NULL, produccion[2]);
-
-	//Regla 30: <LT> → <OP3> <T> <LT>
-	cantidadProducciones = 3;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new NoTerminal(NoTerminales::OP3);
-	produccion[1] = new NoTerminal(NoTerminales::T);
-	produccion[2] = new NoTerminal(NoTerminales::LT);
-	reglasGramaticales[30] = new Regla(new NoTerminal(NoTerminales::LT), produccion, cantidadProducciones);
+	reglasGramaticales[30] = new Regla(new NoTerminal(NoTerminales::LOL), produccion, cantidadProducciones);
 
 	reglasGramaticales[30]->setPlantilla(reglasGramaticales[30]->getNoTerminal(), produccion[1], NULL, produccion[2]);
 
-	//Regla 31: <LT> → LAMBDA
+	//Regla 31: LOL -> Lambda
 	cantidadProducciones = 1;
 	produccion = new ElementoGramatical*[cantidadProducciones];
 	produccion[0] = LAMBDA;
-	reglasGramaticales[31] = new Regla(new NoTerminal(NoTerminales::LT), produccion, cantidadProducciones);
+	reglasGramaticales[31] = new Regla(new NoTerminal(NoTerminales::LOL), produccion, cantidadProducciones);
 
-	//Regla 32: <OP3> → +
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("+", TipoToken::Operador, 0));
-	reglasGramaticales[32] = new Regla(new NoTerminal(NoTerminales::OP3), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-
-
-	//Regla 33: <OP3> → -
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("-", TipoToken::Operador, 0));
-	reglasGramaticales[33] = new Regla(new NoTerminal(NoTerminales::OP3), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-
-
-	//Regla 34: <T> → <F> <LF>
-	cantidadProducciones = 2;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new NoTerminal(NoTerminales::F);
-	produccion[1] = new NoTerminal(NoTerminales::LF);
-	reglasGramaticales[34] = new Regla(new NoTerminal(NoTerminales::T), produccion, cantidadProducciones);
-
-	reglasGramaticales[34]->setPlantilla(reglasGramaticales[34]->getNoTerminal(), produccion[0], NULL, produccion[1]);
-
-	//Regla 35: <LF> → <OP4> <F> <LF>
-	cantidadProducciones = 3;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new NoTerminal(NoTerminales::OP4);
-	produccion[1] = new NoTerminal(NoTerminales::F);
-	produccion[2] = new NoTerminal(NoTerminales::LF);
-	reglasGramaticales[35] = new Regla(new NoTerminal(NoTerminales::LF), produccion, cantidadProducciones);
-
-
-	reglasGramaticales[35]->setPlantilla(reglasGramaticales[35]->getNoTerminal(), produccion[1], NULL, produccion[2]);
-
-	//Regla 36: <LF> → LAMBDA
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = LAMBDA;
-	reglasGramaticales[36] = new Regla(new NoTerminal(NoTerminales::LF), produccion, cantidadProducciones);
-
-
-	//Regla 37: <F> → ( <EM> )
-	cantidadProducciones = 3;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("(", TipoToken::Delimitador, 0));
-	produccion[1] = new NoTerminal(NoTerminales::EM);
-	produccion[2] = new Terminal(new Token(")", TipoToken::Delimitador, 0));
-	reglasGramaticales[37] = new Regla(new NoTerminal(NoTerminales::F), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-	terminales.push_back((Terminal*)produccion[2]);
-
-	reglasGramaticales[37]->setPlantilla(reglasGramaticales[37]->getNoTerminal(), produccion[1], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
-
-	//Regla 38: <F> → Numero
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("Numero", TipoToken::ConstanteEntera, 0));
-	reglasGramaticales[38] = new Regla(new NoTerminal(NoTerminales::F), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-
-	reglasGramaticales[38]->setPlantilla(reglasGramaticales[38]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
-
-	//Regla 39: <F> → id
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("id", TipoToken::Identificador, 0));
-	reglasGramaticales[39] = new Regla(new NoTerminal(NoTerminales::F), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-
-	reglasGramaticales[39]->setPlantilla(reglasGramaticales[39]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
-
-	//Regla 40: <OP4> → *
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("*", TipoToken::Operador, 0));
-	reglasGramaticales[40] = new Regla(new NoTerminal(NoTerminales::OP4), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-
-
-	//Regla 41: <OP4> → /
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("/", TipoToken::Operador, 0));
-	reglasGramaticales[41] = new Regla(new NoTerminal(NoTerminales::OP4), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-
-
-	//Regla 42: <OP4> → %
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("%", TipoToken::Operador, 0));
-	reglasGramaticales[42] = new Regla(new NoTerminal(NoTerminales::OP4), produccion, cantidadProducciones);
-
-	terminales.push_back((Terminal*)produccion[0]);
-	
-	// REGLA 43 : C -> <T> <LT>
+	// REGLA 32 : C -> <T> <LT>
 	cantidadProducciones = 2;
 	produccion = new ElementoGramatical*[cantidadProducciones];
 	produccion[0] = new NoTerminal(NoTerminales::T);
-	produccion[1] = new NoTerminal(NoTerminales::LT); 
-	reglasGramaticales[43] = new Regla(new NoTerminal(NoTerminales::C), produccion, cantidadProducciones);
+	produccion[1] = new NoTerminal(NoTerminales::LT);
+	reglasGramaticales[32] = new Regla(new NoTerminal(NoTerminales::C), produccion, cantidadProducciones);
 
-	reglasGramaticales[43]->setPlantilla(reglasGramaticales[43]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+	reglasGramaticales[32]->setPlantilla(reglasGramaticales[32]->getNoTerminal(), produccion[0], NULL, produccion[1]);
 
-	//Regla 44: LC -> Lambda
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = LAMBDA;
-	reglasGramaticales[44] = new Regla(new NoTerminal(NoTerminales::LC), produccion, cantidadProducciones);
-
-	//Regla 45 op2-> <=
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("<=", TipoToken::Operador, 0));
-	reglasGramaticales[45] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 46 op2-> >=
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token(">=", TipoToken::Operador, 0));
-	reglasGramaticales[46] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 47 op2-> ==
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("==", TipoToken::Operador, 0));
-	reglasGramaticales[47] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 48 op2-> !=
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("!=", TipoToken::Operador, 0));
-	reglasGramaticales[48] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 49 op2-> <
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("<", TipoToken::Operador, 0));
-	reglasGramaticales[49] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 50 op2-> >
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token(">", TipoToken::Operador, 0));
-	reglasGramaticales[50] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//REGLA 51: OL -> C <LC>
-	cantidadProducciones = 2;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new NoTerminal(NoTerminales::C);
-	produccion[1] = new NoTerminal(NoTerminales::LC);
-	reglasGramaticales[51] = new Regla(new NoTerminal(NoTerminales::OL), produccion, cantidadProducciones);
-
-	reglasGramaticales[51]->setPlantilla(reglasGramaticales[51]->getNoTerminal(), produccion[0], NULL, produccion[1]);
-
-	//Regla 52: LOL -> Lambda
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = LAMBDA;
-	reglasGramaticales[52] = new Regla(new NoTerminal(NoTerminales::LOL), produccion, cantidadProducciones);
-
-	//Regla 53: OP1 -> ||
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("||", TipoToken::Operador, 0));
-	reglasGramaticales[53] = new Regla(new NoTerminal(NoTerminales::OP1), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 54: OP1 -> &&
-	cantidadProducciones = 1;
-	produccion = new ElementoGramatical*[cantidadProducciones];
-	produccion[0] = new Terminal(new Token("&&", TipoToken::Operador, 0));
-	reglasGramaticales[54] = new Regla(new NoTerminal(NoTerminales::OP1), produccion, cantidadProducciones);
-	terminales.push_back((Terminal*)produccion[0]);
-
-	//Regla 55: <LC> → <OP2> <C> <LC>
+	//Regla 33: <LC> → <OP2> <C> <LC>
 	cantidadProducciones = 3;
 	produccion = new ElementoGramatical*[cantidadProducciones];
 	produccion[0] = new NoTerminal(NoTerminales::OP2);
 	produccion[1] = new NoTerminal(NoTerminales::C);
 	produccion[2] = new NoTerminal(NoTerminales::LC);
-	reglasGramaticales[55] = new Regla(new NoTerminal(NoTerminales::LC), produccion, cantidadProducciones);
+	reglasGramaticales[33] = new Regla(new NoTerminal(NoTerminales::LC), produccion, cantidadProducciones);
 
-	reglasGramaticales[55]->setPlantilla(reglasGramaticales[55]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+	reglasGramaticales[33]->setPlantilla(reglasGramaticales[33]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+
+	//Regla 34: LC -> Lambda
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = LAMBDA;
+	reglasGramaticales[34] = new Regla(new NoTerminal(NoTerminales::LC), produccion, cantidadProducciones);
+
+	//Regla 35: OP1 -> ||
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("||", TipoToken::Operador, 0));
+	reglasGramaticales[35] = new Regla(new NoTerminal(NoTerminales::OP1), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 36: OP1 -> &&
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("&&", TipoToken::Operador, 0));
+	reglasGramaticales[36] = new Regla(new NoTerminal(NoTerminales::OP1), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 37: <T> → <F> <LF>
+	cantidadProducciones = 2;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new NoTerminal(NoTerminales::F);
+	produccion[1] = new NoTerminal(NoTerminales::LF);
+	reglasGramaticales[37] = new Regla(new NoTerminal(NoTerminales::T), produccion, cantidadProducciones);
+
+	reglasGramaticales[37]->setPlantilla(reglasGramaticales[37]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+
+	//Regla 38: <LT> → <OP3> <T> <LT>
+	cantidadProducciones = 3;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new NoTerminal(NoTerminales::OP3);
+	produccion[1] = new NoTerminal(NoTerminales::T);
+	produccion[2] = new NoTerminal(NoTerminales::LT);
+	reglasGramaticales[38] = new Regla(new NoTerminal(NoTerminales::LT), produccion, cantidadProducciones);
+
+	reglasGramaticales[38]->setPlantilla(reglasGramaticales[38]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+
+	//Regla 39: <LT> → LAMBDA
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = LAMBDA;
+	reglasGramaticales[39] = new Regla(new NoTerminal(NoTerminales::LT), produccion, cantidadProducciones);
+
+	//Regla 40 op2-> <=
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("<=", TipoToken::Operador, 0));
+	reglasGramaticales[40] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 41 op2-> >=
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token(">=", TipoToken::Operador, 0));
+	reglasGramaticales[41] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 42 op2-> ==
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("==", TipoToken::Operador, 0));
+	reglasGramaticales[42] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 43 op2-> !=
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("!=", TipoToken::Operador, 0));
+	reglasGramaticales[43] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 44 op2-> <
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("<", TipoToken::Operador, 0));
+	reglasGramaticales[44] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 45 op2-> >
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token(">", TipoToken::Operador, 0));
+	reglasGramaticales[45] = new Regla(new NoTerminal(NoTerminales::OP2), produccion, cantidadProducciones);
+	terminales.push_back((Terminal*)produccion[0]);
+
+	//Regla 46: <F> → ( <EM> )
+	cantidadProducciones = 3;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("(", TipoToken::Delimitador, 0));
+	produccion[1] = new NoTerminal(NoTerminales::EM);
+	produccion[2] = new Terminal(new Token(")", TipoToken::Delimitador, 0));
+	reglasGramaticales[46] = new Regla(new NoTerminal(NoTerminales::F), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+	terminales.push_back((Terminal*)produccion[2]);
+
+	reglasGramaticales[46]->setPlantilla(reglasGramaticales[46]->getNoTerminal(), produccion[1], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
+
+	//Regla 47: <F> → Numero
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("Numero", TipoToken::ConstanteEntera, 0));
+	reglasGramaticales[47] = new Regla(new NoTerminal(NoTerminales::F), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+
+	reglasGramaticales[47]->setPlantilla(reglasGramaticales[47]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
+
+	//Regla 48: <F> → id
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("id", TipoToken::Identificador, 0));
+	reglasGramaticales[48] = new Regla(new NoTerminal(NoTerminales::F), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+
+	reglasGramaticales[48]->setPlantilla(reglasGramaticales[48]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
+
+	//Regla 49: <LF> → <OP4> <F> <LF>
+	cantidadProducciones = 3;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new NoTerminal(NoTerminales::OP4);
+	produccion[1] = new NoTerminal(NoTerminales::F);
+	produccion[2] = new NoTerminal(NoTerminales::LF);
+	reglasGramaticales[49] = new Regla(new NoTerminal(NoTerminales::LF), produccion, cantidadProducciones);
+
+	reglasGramaticales[49]->setPlantilla(reglasGramaticales[49]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+
+
+	//Regla 50: <LF> → LAMBDA
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = LAMBDA;
+	reglasGramaticales[50] = new Regla(new NoTerminal(NoTerminales::LF), produccion, cantidadProducciones);
+
+
+	//Regla 51: <OP3> → +
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("+", TipoToken::Operador, 0));
+	reglasGramaticales[51] = new Regla(new NoTerminal(NoTerminales::OP3), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+
+
+	//Regla 52: <OP3> → -
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("-", TipoToken::Operador, 0));
+	reglasGramaticales[52] = new Regla(new NoTerminal(NoTerminales::OP3), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+
+
+	//Regla 53: <OP4> → *
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("*", TipoToken::Operador, 0));
+	reglasGramaticales[53] = new Regla(new NoTerminal(NoTerminales::OP4), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+
+
+	//Regla 54: <OP4> → /
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("/", TipoToken::Operador, 0));
+	reglasGramaticales[54] = new Regla(new NoTerminal(NoTerminales::OP4), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+
+
+	//Regla 55: <OP4> → %
+	cantidadProducciones = 1;
+	produccion = new ElementoGramatical*[cantidadProducciones];
+	produccion[0] = new Terminal(new Token("%", TipoToken::Operador, 0));
+	reglasGramaticales[55] = new Regla(new NoTerminal(NoTerminales::OP4), produccion, cantidadProducciones);
+
+	terminales.push_back((Terminal*)produccion[0]);
+	
+
 }
+
 
 void AnalizadorSintactico::llenarMatriz()
 {
