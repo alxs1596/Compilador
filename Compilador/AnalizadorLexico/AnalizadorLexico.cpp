@@ -191,6 +191,7 @@ void AnalizadorLexico::cargarDatos()
 
 	matriz[0][3] = new std::vector<int>();
 	matriz[0][3]->push_back(Tipos::OPERADOR);
+	matriz[0][3]->push_back(Tipos::ASTERISCO);
 
 	matriz[0][4] = new std::vector<int>();
 	matriz[0][4]->push_back(Tipos::ADMIRACION);
@@ -343,7 +344,6 @@ std::vector<Token*> AnalizadorLexico::analizar(string codigoFuente)
 	while ( index<codigoFuente.size() )
 	{
 		char c = codigoFuente[index];
-
 		if (automata->mover(c))
 		{
 			buffer.push_back(c);
