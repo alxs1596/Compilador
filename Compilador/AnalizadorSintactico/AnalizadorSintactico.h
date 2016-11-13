@@ -30,6 +30,8 @@ private:
 	vector<Cuadruplo*> listaCuadruplosTemporal;
 
 	bool voltear;
+	int voltearDesde;
+	int voltearHasta;
 
 	void llenarReglas();
 	void llenarMatriz();
@@ -38,6 +40,7 @@ private:
 	void llenarNombresNoTerminales();
 	void vaciarPila();
 	void llenarCuadruplos(int nregla, vector<Terminal*>* entrada, int i);
+	void voltearTemporal(int desde, int hasta);
 public:
 	AnalizadorSintactico();
 	~AnalizadorSintactico();
