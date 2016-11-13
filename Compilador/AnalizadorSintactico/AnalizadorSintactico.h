@@ -41,6 +41,7 @@ private:
 	void vaciarPila();
 	void llenarCuadruplos(int nregla, vector<Terminal*>* entrada, int i);
 	void voltearTemporal(int desde, int hasta);
+	void optimizar();
 public:
 	AnalizadorSintactico();
 	~AnalizadorSintactico();

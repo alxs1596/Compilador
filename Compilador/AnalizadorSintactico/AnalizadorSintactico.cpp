@@ -711,6 +711,31 @@ void AnalizadorSintactico::voltearTemporal(int desde, int hasta) {
 	reverse(listaCuadruplos.begin() + desde, listaCuadruplos.begin() + hasta + 1);
 }
 
+void AnalizadorSintactico::optimizar()
+{/*
+	vector<int> aEliminar;
+	for (int i = 0; i < listaCuadruplos.size(); i++) {
+		ElementoGramatical* operador = listaCuadruplos[i]->Operador;
+		// No es null?
+		if (operador != NULL) {
+			// Es Asignacion?
+			if (((Terminal*)operador)->getToken()->getLexema() == "=") {
+				// El resultado es no terminal y el operando 1 es terminal?
+				if (listaCuadruplos[i]->Resultado->getTipo() == NOTERMINAL && listaCuadruplos[i]->Operando1->getTipo() == TERMINAL) {
+					// El resultado es igual al operando 1 del siguiente cuadruplo?
+					if (((NoTerminal*)listaCuadruplos[i]->Resultado)->getID() == ((NoTerminal*)listaCuadruplos[i + 1]->Operando1)->getID()) {
+						listaCuadruplos[i + 1]->Operando1 = listaCuadruplos[i]->Operando1;
+						aEliminar.push_back(i);
+					}
+				}
+			}
+		}
+	}
+	for (int i = aEliminar.size() - 1; i >= 0; i--)
+		listaCuadruplos.erase(listaCuadruplos.begin() + aEliminar[i]);
+		*/
+}
+
 void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entrada, int i)
 {
 	Terminal* terminal = (*entrada)[i];
@@ -1047,6 +1072,10 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			}
 		}
 	}
+	optimizar();
+
+	cout << listaCuadruplos[0]->Resultado << endl;
+	cout << listaCuadruplos[1]->Operando1 << endl;
 	return pila.size() == 0;
 	/*if (pila.size() == 0) {
 		return true;
