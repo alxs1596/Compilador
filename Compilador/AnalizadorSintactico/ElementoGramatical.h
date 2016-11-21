@@ -20,7 +20,7 @@ public:
 
 	~ElementoGramatical();
 
-	//virtual ElementoGramatical* clonar();
+	virtual ElementoGramatical* clonar() { return 0; }
 
 	//const NoTerminal* getPadre() { return padre; }
 	//void setPadre(NoTerminal* _p) { padre = _p; }

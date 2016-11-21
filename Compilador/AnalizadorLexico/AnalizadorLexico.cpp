@@ -417,7 +417,7 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 		while (!archivoCodigoFuente.eof())
 		{
 			getline(archivoCodigoFuente, linea);
-			codigoFuente += linea + '\n';
+			codigoFuente += linea + ' ';
 		}
 	}
 	

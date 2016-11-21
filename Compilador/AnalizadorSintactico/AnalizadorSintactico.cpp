@@ -736,7 +736,7 @@ void AnalizadorSintactico::optimizar()
 		*/
 }
 
-void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entrada, int i)
+void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** produccion , vector<Terminal*>* entrada, int i, ElementoGramatical* tope)
 {
 	Terminal* terminal = (*entrada)[i];
 	Cuadruplo* cuadruplo = reglasGramaticales[nregla]->getCuadruplo();
@@ -751,7 +751,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 		break;*/
 	case 2:
 
-		voltearHasta = listaCuadruplos.size() - 1;
+		voltearHasta = (int)listaCuadruplos.size() - 1;
 		if (voltear) {
 			voltearTemporal(voltearDesde, voltearHasta);
 			voltear = false;
@@ -760,7 +760,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 		break;
 	case 3:
 
-		voltearHasta = listaCuadruplos.size() - 1;
+		voltearHasta = (int)listaCuadruplos.size() - 1;
 		if (voltear) {
 			voltearTemporal(voltearDesde, voltearHasta);
 			voltear = false;
@@ -797,9 +797,10 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 	case 16:
 
 		voltear = true;
-		voltearDesde = listaCuadruplos.size();
+		voltearDesde = (int)listaCuadruplos.size();
 
 		cuadruplo->Resultado = listaCuadruplos[listaCuadruplos.size() - 1]->Resultado;
+		cuadruplo->Operando1 = produccion[1];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	/*case 17:
@@ -807,9 +808,10 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 	case 18:
 
 		voltear = true;
-		voltearDesde = listaCuadruplos.size();
+		voltearDesde = (int)listaCuadruplos.size();
 
 		cuadruplo->Resultado = terminal;
+		cuadruplo->Operando1 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	/*case 19:
@@ -832,39 +834,49 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 	case 26:
 
 		voltear = true;
-		voltearDesde = listaCuadruplos.size();
+		voltearDesde = (int)listaCuadruplos.size();
 
+		cuadruplo->Operando1 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	/*case 27:
 		break;*/
 	case 28:
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[0];
+		cuadruplo->Operando2 = produccion[1];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 29:
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[0];
+		cuadruplo->Operando2 = produccion[1];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 30:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 			if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 				NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-				if (t->getID() == NoTerminales::LOL) {
+				if (t == tope) {
 					listaCuadruplos[i]->Operador = terminal;
 					break;
 				}
 			}
 		}
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[1];
+		cuadruplo->Operando2 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 31:
 		//imprimirCuadruplos();
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
 					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t->getID() == NoTerminales::LOL && o == NULL) {
+					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
 						break;
@@ -874,28 +886,34 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 		//imprimirCuadruplos();
 		break;
 	case 32:
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[0];
+		cuadruplo->Operando2 = produccion[1];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 33:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					if (t->getID() == NoTerminales::LC) {
+					if (t == tope) {
 						listaCuadruplos[i]->Operador = terminal;
 						break;
 					}
 				}
 		}
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[1];
+		cuadruplo->Operando2 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 34:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
 					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t->getID() == NoTerminales::LC && o == NULL) {
+					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
 						break;
@@ -908,28 +926,34 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 	case 36:
 		break;*/
 	case 37:
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[0];
+		cuadruplo->Operando2 = produccion[1];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 38:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 			if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 				NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-				if (t->getID() == NoTerminales::LT) {
+				if (t == tope) {
 					listaCuadruplos[i]->Operador = terminal;
 					break;
 				}
 			}
 		}
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[1];
+		cuadruplo->Operando2 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 39:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
 					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t->getID() == NoTerminales::LT && o == NULL) {
+					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
 						break;
@@ -950,36 +974,43 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<Terminal*>* entra
 	case 45:
 		break;*/
 	case 46:
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[1];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 47:
+		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = terminal;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 48:
+		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = terminal;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 49:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					if (t->getID() == NoTerminales::LF) {
+					if (t == tope) {
 						listaCuadruplos[i]->Operador = terminal;
 						break;
 					}
 				}
 		}
+		cuadruplo->Resultado = tope;
+		cuadruplo->Operando1 = produccion[1];
+		cuadruplo->Operando2 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 50:
-		for (int i = listaCuadruplos.size() - 1; i >= 0; i--) {
+		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
 			if (listaCuadruplos[i]->Operando2 != NULL)
 				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
 					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
 					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t->getID() == NoTerminales::LF && o == NULL) {
+					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
 						break;
@@ -1060,12 +1091,18 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 								for (int i = listaCuadruplosTemporal.size(); i >= 0; i--)
 									listaCuadruplos.push_back(listaCuadruplosTemporal[i]);
 						}*/
-						llenarCuadruplos(regla,&terminalesEntrada, i);
+
+						ElementoGramatical** produccion = reglasGramaticales[regla]->getProduccion();
+						int nproducciones = reglasGramaticales[regla]->getNumeroProducciones();
+
+						ElementoGramatical* tope = pila.top();
+
+						llenarCuadruplos(regla, produccion,&terminalesEntrada, i, tope);
 						pila.pop();
 
 						for (int i = 0; i < reglasGramaticales[regla]->getNumeroProducciones(); i++)
-							if (reglasGramaticales[regla]->getProduccion()[reglasGramaticales[regla]->getNumeroProducciones() - i - 1] != LAMBDA)
-								pila.push(reglasGramaticales[regla]->getProduccion()[reglasGramaticales[regla]->getNumeroProducciones() - i - 1]);
+							if (produccion[nproducciones - i - 1] != LAMBDA)
+								pila.push(produccion[nproducciones - i - 1]);
 						//imprimirPila();
 					}
 				}
@@ -1137,11 +1174,11 @@ void AnalizadorSintactico::imprimirPila()
 		ElementoGramatical* e = pila.top();
 		if (e->getTipo() == TERMINAL) {
 			Terminal* t = (Terminal*)e;
-			cout << t->getToken()->getLexema() << endl;
+			cout << t->getToken()->getLexema() << "(" << e << ")" << endl;
 		}
 		else {
 			NoTerminal* t = (NoTerminal*)e;
-			cout << NombresNoTerminales[t->getID()] << endl;
+			cout << NombresNoTerminales[t->getID()] << "(" << e << ")" << endl;
 		}
 		temp.push_back(e);
 		pila.pop();
@@ -1162,40 +1199,44 @@ void AnalizadorSintactico::imprimirCuadruplos()
 	for (int i = 0; i < listaCuadruplos.size(); i++) {
 		
 		if (listaCuadruplos[i]->Resultado == NULL)
-			cout << i << "\t: NULL\t";
+			cout << i << "\t: NULL\t\t";
 		else
 		{
 			if (listaCuadruplos[i]->Resultado->getTipo() == TERMINAL)
-				cout << i << "\t: " << (((Terminal*)(listaCuadruplos[i]->Resultado))->getToken()->getLexema()) << "\t";
+				cout << i << "\t: " << (((Terminal*)(listaCuadruplos[i]->Resultado))->getToken()->getLexema());
 			else
-				cout << i << "\t: " << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Resultado))->getID()] << "\t";
+				cout << i << "\t: " << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Resultado))->getID()];
+			cout << "(" << listaCuadruplos[i]->Resultado << ")" << "\t";
 		}
 		if (listaCuadruplos[i]->Operando1 == NULL)
-			cout << "NULL\t";
+			cout << "NULL\t\t";
 		else
 		{
 			if (listaCuadruplos[i]->Operando1->getTipo() == TERMINAL)
-				cout << (((Terminal*)(listaCuadruplos[i]->Operando1))->getToken()->getLexema()) << "\t";
+				cout << (((Terminal*)(listaCuadruplos[i]->Operando1))->getToken()->getLexema());
 			else
-				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operando1))->getID()] << "\t";
+				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operando1))->getID()];
+			cout << "(" << listaCuadruplos[i]->Operando1 << ")" << "\t";
 		}
 		if (listaCuadruplos[i]->Operador == NULL)
-			cout << "NULL\t";
+			cout << "NULL\t\t";
 		else
 		{
 			if (listaCuadruplos[i]->Operador->getTipo() == TERMINAL)
-				cout << (((Terminal*)(listaCuadruplos[i]->Operador))->getToken()->getLexema()) << "\t";
+				cout << (((Terminal*)(listaCuadruplos[i]->Operador))->getToken()->getLexema());
 			else
-				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operador))->getID()] << "\t";
+				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operador))->getID()];
+			cout << "(" << listaCuadruplos[i]->Operador << ")" << "\t";
 		}
 		if (listaCuadruplos[i]->Operando2 == NULL)
-			cout << "NULL\t";
+			cout << "NULL\t\t";
 		else
 		{
 			if (listaCuadruplos[i]->Operando2->getTipo() == TERMINAL)
-				cout << (((Terminal*)(listaCuadruplos[i]->Operando2))->getToken()->getLexema()) << "\t";
+				cout << (((Terminal*)(listaCuadruplos[i]->Operando2))->getToken()->getLexema());
 			else
-				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operando2))->getID()] << "\t";
+				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operando2))->getID()];
+			cout << "(" << listaCuadruplos[i]->Operando2 << ")" << "\t";
 		}
 		cout << endl;
 	}

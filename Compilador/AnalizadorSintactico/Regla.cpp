@@ -16,7 +16,12 @@ Regla::~Regla()
 
 ElementoGramatical ** Regla::getProduccion()
 {
-	return produccion;
+	ElementoGramatical** nuevo = new ElementoGramatical*[elementosProduccion];
+	for (int i = 0; i < elementosProduccion; i++) {
+		if (produccion[i] == NULL) nuevo[i] = NULL;
+		else nuevo[i] = produccion[i]->clonar();
+	}
+	return nuevo;
 }
 
 int Regla::getNumeroProducciones()

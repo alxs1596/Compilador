@@ -39,7 +39,7 @@ private:
 	bool buscarRegla(int, ElementoGramatical*);
 	void llenarNombresNoTerminales();
 	void vaciarPila();
-	void llenarCuadruplos(int nregla, vector<Terminal*>* entrada, int i);
+	void llenarCuadruplos(int nregla, ElementoGramatical** produccion, vector<Terminal*>* entrada, int i, ElementoGramatical* tope);
 	void voltearTemporal(int desde, int hasta);
 	void optimizar();
 public:
