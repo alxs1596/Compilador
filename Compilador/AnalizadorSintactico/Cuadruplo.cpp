@@ -55,12 +55,13 @@ Cuadruplo::Cuadruplo()
 	this->Resultado = 0;
 }
 
-Cuadruplo::Cuadruplo(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2)
+Cuadruplo::Cuadruplo(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos _tipo)
 {
 	this->Operador = Operador;
 	this->Operando1 = Operando1;
 	this->Operando2 = Operando2;
 	this->Resultado = Resultado;
+	this->tipo = _tipo;
 }
 
 

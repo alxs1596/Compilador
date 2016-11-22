@@ -234,7 +234,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = A;
 	reglasGramaticales[15] = new Regla(VA, produccion, cantidadProducciones);
 
-	reglasGramaticales[15]->setPlantilla(produccion[0], T_Entero,new Terminal(new Token("Declaracion", 200, 0)), NULL);
+	reglasGramaticales[15]->setPlantilla(produccion[0], T_Entero,new Terminal(new Token("Declaracion", 200, 0)), NULL, TiposDeCuadruplos::Declaracion);
 
 	//Regla 16: <A> → = <EM>
 	cantidadProducciones = 2;
@@ -243,7 +243,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = EM;
 	reglasGramaticales[16] = new Regla(A, produccion, cantidadProducciones);
 
-	reglasGramaticales[16]->setPlantilla(NULL, produccion[1], produccion[0], NULL);
+	reglasGramaticales[16]->setPlantilla(NULL, produccion[1], produccion[0], NULL, TiposDeCuadruplos::Asignacion);
 
 	//Regla 17: <A> → LAMBDA
 
@@ -263,7 +263,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[3] = T_PuntoYComa;
 	reglasGramaticales[18] = new Regla(SA, produccion, cantidadProducciones);
 
-	reglasGramaticales[18]->setPlantilla(produccion[0], produccion[2], produccion[1], NULL);
+	reglasGramaticales[18]->setPlantilla(produccion[0], produccion[2], produccion[1], NULL, TiposDeCuadruplos::Asignacion);
 
 	//Regla 19: <SM> → Mientras ( <EM> ) <SUBBS>
 
@@ -330,7 +330,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[4] = T_PuntoYComa;
 	reglasGramaticales[25] = new Regla(SL, produccion, cantidadProducciones);
 
-	reglasGramaticales[25]->setPlantilla(produccion[2], NULL, produccion[0], NULL);
+	reglasGramaticales[25]->setPlantilla(produccion[2], NULL, produccion[0], NULL, TiposDeCuadruplos::Lectura);
 
 	//Regla: 26 SE -> EscribirPantalla( <EM> );
 	cantidadProducciones =5;
@@ -342,7 +342,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[4] = T_PuntoYComa;
 	reglasGramaticales[26] = new Regla(new NoTerminal(NoTerminales::SE), produccion, cantidadProducciones);
 	
-	reglasGramaticales[26]->setPlantilla(produccion[0], produccion[2], NULL, NULL);
+	reglasGramaticales[26]->setPlantilla(produccion[0], produccion[2], NULL, NULL, TiposDeCuadruplos::Escritura);
 
 	//Regla 27: <SHM> → Hacer <SUBBS> Mientras ( <EM> ) ;
 	cantidadProducciones = 7;
@@ -365,7 +365,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = LOL;
 	reglasGramaticales[28] = new Regla(EM, produccion, cantidadProducciones);
 
-	reglasGramaticales[28]->setPlantilla(reglasGramaticales[28]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+	reglasGramaticales[28]->setPlantilla(reglasGramaticales[28]->getNoTerminal(), produccion[0], NULL, produccion[1], TiposDeCuadruplos::Operacion);
 
 	//REGLA 29: OL -> <C> <LC>
 	cantidadProducciones = 2;
@@ -374,7 +374,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = LC;
 	reglasGramaticales[29] = new Regla(OL, produccion, cantidadProducciones);
 
-	reglasGramaticales[29]->setPlantilla(reglasGramaticales[29]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+	reglasGramaticales[29]->setPlantilla(reglasGramaticales[29]->getNoTerminal(), produccion[0], NULL, produccion[1],TiposDeCuadruplos::Operacion);
 
 
 	//Regla 30: <LOL> → <OP1> <OL> <LOL>
@@ -385,7 +385,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[2] = LOL;
 	reglasGramaticales[30] = new Regla(LOL, produccion, cantidadProducciones);
 
-	reglasGramaticales[30]->setPlantilla(reglasGramaticales[30]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+	reglasGramaticales[30]->setPlantilla(reglasGramaticales[30]->getNoTerminal(), produccion[1], NULL, produccion[2], TiposDeCuadruplos::Operacion);
 
 	//Regla 31: LOL -> Lambda
 	cantidadProducciones = 1;
@@ -400,7 +400,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = LT;
 	reglasGramaticales[32] = new Regla(C, produccion, cantidadProducciones);
 
-	reglasGramaticales[32]->setPlantilla(reglasGramaticales[32]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+	reglasGramaticales[32]->setPlantilla(reglasGramaticales[32]->getNoTerminal(), produccion[0], NULL, produccion[1], TiposDeCuadruplos::Operacion);
 
 	//Regla 33: <LC> → <OP2> <C> <LC>
 	cantidadProducciones = 3;
@@ -410,7 +410,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[2] = LC;
 	reglasGramaticales[33] = new Regla(LC, produccion, cantidadProducciones);
 
-	reglasGramaticales[33]->setPlantilla(reglasGramaticales[33]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+	reglasGramaticales[33]->setPlantilla(reglasGramaticales[33]->getNoTerminal(), produccion[1], NULL, produccion[2], TiposDeCuadruplos::Operacion);
 
 	//Regla 34: LC -> Lambda
 	cantidadProducciones = 1;
@@ -437,7 +437,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = LF;
 	reglasGramaticales[37] = new Regla(T, produccion, cantidadProducciones);
 
-	reglasGramaticales[37]->setPlantilla(reglasGramaticales[37]->getNoTerminal(), produccion[0], NULL, produccion[1]);
+	reglasGramaticales[37]->setPlantilla(reglasGramaticales[37]->getNoTerminal(), produccion[0], NULL, produccion[1], TiposDeCuadruplos::Operacion);
 
 	//Regla 38: <LT> → <OP3> <T> <LT>
 	cantidadProducciones = 3;
@@ -447,7 +447,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[2] = LT;
 	reglasGramaticales[38] = new Regla(LT, produccion, cantidadProducciones);
 
-	reglasGramaticales[38]->setPlantilla(reglasGramaticales[38]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+	reglasGramaticales[38]->setPlantilla(reglasGramaticales[38]->getNoTerminal(), produccion[1], NULL, produccion[2], TiposDeCuadruplos::Operacion);
 
 	//Regla 39: <LT> → LAMBDA
 	cantidadProducciones = 1;
@@ -500,7 +500,7 @@ void AnalizadorSintactico::llenarReglas()
 	reglasGramaticales[46] = new Regla(F, produccion, cantidadProducciones);
 
 
-	reglasGramaticales[46]->setPlantilla(reglasGramaticales[46]->getNoTerminal(), produccion[1], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
+	reglasGramaticales[46]->setPlantilla(reglasGramaticales[46]->getNoTerminal(), produccion[1], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL, TiposDeCuadruplos::Asignacion);
 
 	//Regla 47: <F> → Numero
 	cantidadProducciones = 1;
@@ -508,7 +508,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[0] = T_Numero;
 	reglasGramaticales[47] = new Regla(F, produccion, cantidadProducciones);
 
-	reglasGramaticales[47]->setPlantilla(reglasGramaticales[47]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
+	reglasGramaticales[47]->setPlantilla(reglasGramaticales[47]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL, TiposDeCuadruplos::Asignacion);
 
 	//Regla 48: <F> → id
 	cantidadProducciones = 1;
@@ -516,7 +516,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[0] = T_Id;
 	reglasGramaticales[48] = new Regla(F, produccion, cantidadProducciones);
 
-	reglasGramaticales[48]->setPlantilla(reglasGramaticales[48]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL);
+	reglasGramaticales[48]->setPlantilla(reglasGramaticales[48]->getNoTerminal(), produccion[0], new Terminal(new Token("=", TipoToken::Operador, 0)), NULL, TiposDeCuadruplos::Asignacion);
 
 	//Regla 49: <LF> → <OP4> <F> <LF>
 	cantidadProducciones = 3;
@@ -526,7 +526,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[2] = LF;
 	reglasGramaticales[49] = new Regla(LF, produccion, cantidadProducciones);
 
-	reglasGramaticales[49]->setPlantilla(reglasGramaticales[49]->getNoTerminal(), produccion[1], NULL, produccion[2]);
+	reglasGramaticales[49]->setPlantilla(reglasGramaticales[49]->getNoTerminal(), produccion[1], NULL, produccion[2], TiposDeCuadruplos::Operacion);
 
 
 	//Regla 50: <LF> → LAMBDA
@@ -712,28 +712,47 @@ void AnalizadorSintactico::voltearTemporal(int desde, int hasta) {
 }
 
 void AnalizadorSintactico::optimizar()
-{/*
+{
 	vector<int> aEliminar;
-	for (int i = 0; i < listaCuadruplos.size(); i++) {
-		ElementoGramatical* operador = listaCuadruplos[i]->Operador;
-		// No es null?
-		if (operador != NULL) {
-			// Es Asignacion?
-			if (((Terminal*)operador)->getToken()->getLexema() == "=") {
-				// El resultado es no terminal y el operando 1 es terminal?
-				if (listaCuadruplos[i]->Resultado->getTipo() == NOTERMINAL && listaCuadruplos[i]->Operando1->getTipo() == TERMINAL) {
-					// El resultado es igual al operando 1 del siguiente cuadruplo?
-					if (((NoTerminal*)listaCuadruplos[i]->Resultado)->getID() == ((NoTerminal*)listaCuadruplos[i + 1]->Operando1)->getID()) {
-						listaCuadruplos[i + 1]->Operando1 = listaCuadruplos[i]->Operando1;
-						aEliminar.push_back(i);
-					}
+
+	for (size_t i = 0; i < listaCuadruplos.size() - 1; i++)
+	{
+		Cuadruplo* actual = listaCuadruplos[i];
+		if (actual->tipo == TiposDeCuadruplos::Asignacion)
+		{
+
+			for (size_t j = i + 1; j < listaCuadruplos.size(); j++)
+			{
+				if (actual->Resultado == listaCuadruplos[j]->Operando1)
+				{
+					listaCuadruplos[j]->Operando1 = actual->Operando1;
+					aEliminar.push_back((int)i);
+					break;
+				}
+				else if (actual->Resultado == listaCuadruplos[j]->Operando2)
+				{
+					listaCuadruplos[j]->Operando2 = actual->Operando1;
+					aEliminar.push_back((int)i);
+					break;
 				}
 			}
 		}
+		else if (actual->tipo == TiposDeCuadruplos::Operacion && listaCuadruplos[i + 1]->tipo == TiposDeCuadruplos::Asignacion)
+		{
+			if (actual->Resultado == listaCuadruplos[i + 1]->Operando1)
+			{
+				listaCuadruplos[i + 1]->Operando1 = actual->Operando1;
+				listaCuadruplos[i + 1]->Operador = actual->Operador;
+				listaCuadruplos[i + 1]->Operando2 = actual->Operando2;
+				listaCuadruplos[i + 1]->tipo = TiposDeCuadruplos::Operacion;
+				aEliminar.push_back((int)i);
+			}
+		}
 	}
-	for (int i = aEliminar.size() - 1; i >= 0; i--)
+	
+	for (int i = (int)aEliminar.size() - 1; i >= 0; i--)
 		listaCuadruplos.erase(listaCuadruplos.begin() + aEliminar[i]);
-		*/
+		
 }
 
 void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** produccion , vector<Terminal*>* entrada, int i, ElementoGramatical* tope)
@@ -879,6 +898,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
+						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
 						break;
 					}
 				}
@@ -916,6 +936,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
+						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
 						break;
 					}
 				}
@@ -956,6 +977,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
+						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
 						break;
 					}
 				}
@@ -1013,6 +1035,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 					if (t == tope && o == NULL) {
 						listaCuadruplos[i]->Operador = T_Igual;
 						listaCuadruplos[i]->Operando2 = NULL;
+						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
 						break;
 					}
 				}
@@ -1111,8 +1134,6 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	}
 	optimizar();
 
-	cout << listaCuadruplos[0]->Resultado << endl;
-	cout << listaCuadruplos[1]->Operando1 << endl;
 	return pila.size() == 0;
 	/*if (pila.size() == 0) {
 		return true;

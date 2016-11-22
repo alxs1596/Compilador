@@ -21,7 +21,7 @@ public:
 	int getNumeroProducciones();
 	NoTerminal* getNoTerminal();
 
-	void setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2);
+	void setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos tipo);
 	Cuadruplo* getCuadruplo();
 
 };

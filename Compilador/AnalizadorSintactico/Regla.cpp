@@ -34,9 +34,9 @@ NoTerminal * Regla::getNoTerminal()
 	return noTerminal;
 }
 
-void Regla::setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2)
+void Regla::setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos tipo)
 {
-	Cuadruplo* c = new Cuadruplo(Resultado, Operando1, Operador, Operando2);
+	Cuadruplo* c = new Cuadruplo(Resultado, Operando1, Operador, Operando2, tipo);
 	this->plantilla = c;
 }
 

@@ -29,8 +29,6 @@ int main()
 
 	analizadorSintactico.imprimirCuadruplos();
 
-	
-
 	system("pause");
 	return 0;
 
