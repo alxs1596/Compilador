@@ -9,7 +9,10 @@ enum TiposDeCuadruplos {
 	Operacion,
 	Lectura,
 	Escritura,
-	Declaracion
+	Declaracion,
+	Mientras,
+	Si,
+	Osino
 };
 
 class Cuadruplo

@@ -761,8 +761,9 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 	Cuadruplo* cuadruplo = reglasGramaticales[nregla]->getCuadruplo();
 
 	Terminal* T_Igual = new Terminal(new Token("=", TipoToken::Operador, 0));
-	
-
+	//Terminal* T_Si = new Terminal(new Token("Si", TipoToken::Operador, 0));
+	//Terminal* T_Osino = new Terminal(new Token("Osino", TipoToken::Operador, 0));
+	 
 	switch (nregla) {
 	/*case 0:
 		break;
@@ -833,16 +834,45 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Operando1 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
-	/*case 19:
+	case 19:
+		cuadruplo = new Cuadruplo(
+			produccion[2],
+			NULL,
+			new Terminal(new Token("Mientras", TipoToken::PalabraReservada, 0)),
+			NULL,
+			TiposDeCuadruplos::Mientras);
+		listaCuadruplos.push_back(cuadruplo);
 		break;
+		/*
 	case 20:
 		break;
 	case 21:
-		break;
+		break;*/
 	case 22:
-		break;
+	// crear Bloques
+		cuadruplo = new Cuadruplo(
+			produccion[2],
+			NULL,
+			new Terminal(new Token("Si", TipoToken::PalabraReservada, 0)),
+			NULL,
+			TiposDeCuadruplos::Si);
+		listaCuadruplos.push_back(cuadruplo);
+		//teminar Bloques
+	break;
 	case 23:
-		break;
+	// crear Bloques
+		cuadruplo = new Cuadruplo(
+			produccion[1],
+			NULL,
+			new Terminal(new Token("Osino", TipoToken::PalabraReservada, 0)),
+			NULL,
+			TiposDeCuadruplos::Osino);
+		listaCuadruplos.push_back(cuadruplo);
+
+	break;
+	//teminar Bloques
+	
+		/*
 	case 24:
 		break;*/
 	case 25:
