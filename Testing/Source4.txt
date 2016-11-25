@@ -1,0 +1,7 @@
+﻿Programa(){
+
+	entero a;
+	LeerTeclado(a);
+	EscribirPantalla(a);
+
+}

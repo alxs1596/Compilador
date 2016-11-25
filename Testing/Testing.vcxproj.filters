@@ -49,8 +49,16 @@
     <Text Include="Source1.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="Source3.txt" />
+    <Text Include="Source4.txt" />
+    <Text Include="Source5.txt" />
+    <Text Include="Source6.txt" />
+    <Text Include="Source7.txt" />
+    <Text Include="Source8.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source2.txt" />
+    <None Include="Source2.txt">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>
