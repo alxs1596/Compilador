@@ -835,6 +835,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 19:
+		voltear = true;
 		cuadruplo = new Cuadruplo(
 			produccion[2],
 			NULL,
@@ -843,13 +844,28 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 			TiposDeCuadruplos::Mientras);
 		listaCuadruplos.push_back(cuadruplo);
 		break;
-		/*
+		
 	case 20:
+		voltearHasta = (int)listaCuadruplos.size() - 1;
+		if (voltear) {
+			voltearTemporal(voltearDesde, voltearHasta);
+			voltear = false;
+		}
+
+		
 		break;
 	case 21:
-		break;*/
+		voltearHasta = (int)listaCuadruplos.size() - 1;
+		if (voltear) {
+			voltearTemporal(voltearDesde, voltearHasta);
+			voltear = false;
+		}
+
+		break;
 	case 22:
 	// crear Bloques
+		voltear = true;
+		voltearDesde = (int)listaCuadruplos.size();
 		cuadruplo = new Cuadruplo(
 			produccion[2],
 			NULL,
@@ -861,6 +877,8 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 	break;
 	case 23:
 	// crear Bloques
+		voltear = true;
+		voltearDesde = (int)listaCuadruplos.size();
 		cuadruplo = new Cuadruplo(
 			produccion[1],
 			NULL,
@@ -1162,7 +1180,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			}
 		}
 	}
-	optimizar();
+	//optimizar();
 
 	return pila.size() == 0;
 	/*if (pila.size() == 0) {
