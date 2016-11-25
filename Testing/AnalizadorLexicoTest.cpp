@@ -9,7 +9,81 @@ namespace Testing
 {		
 	TEST_CLASS(AnalizadorLexicoTest)
 	{
+	private:
+		string path = "C:\\Users\\alxs1\\Source\\Repos\\Compilador 24-11-16\\Testing\\";
 	public:
+		TEST_METHOD(testLexico1)
+		{
+
+			AnalizadorLexico lexico;
+			
+			vector<Token*> tokens = lexico.ejecutar(path +  "Source1.txt");
+
+			Assert::AreEqual(14, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico2)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source2.txt");
+
+			Assert::AreEqual(21, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico3)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source3.txt");
+
+			Assert::AreEqual(24, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico4)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source4.txt");
+
+			Assert::AreEqual(18, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico5)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source5.txt");
+
+			Assert::AreEqual(42, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico6)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source6.txt");
+
+			Assert::AreEqual(72, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico7)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source7.txt");
+
+			Assert::AreEqual(50, (int)tokens.size());
+		}
+		TEST_METHOD(testLexico8)
+		{
+
+			AnalizadorLexico lexico;
+
+			vector<Token*> tokens = lexico.ejecutar(path + "Source8.txt");
+
+			Assert::AreEqual(13, (int)tokens.size());
+		}
 		//TEST_METHOD(testEsBlancoCorrecto)
 		//{
 		//	//Arrange

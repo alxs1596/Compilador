@@ -1,4 +1,4 @@
-Programa(){
+﻿Programa(){
 
 	entero a = 0;
 	Mientras(a <= 5){
