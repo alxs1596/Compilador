@@ -276,8 +276,9 @@ void AnalizadorLexico::cargarDatos()
 	matriz[14][14]->push_back(Tipos::OPERADOR);
 	matriz[14][14]->push_back(Tipos::OR);
 
-	matriz[14][18] = new std::vector<int>();
+	/*matriz[14][18] = new std::vector<int>();
 	matriz[14][18]->push_back(Tipos::SALTO_LINEA);
+	*/
 
 
 	matriz[13][15] = new std::vector<int>();
@@ -354,12 +355,7 @@ std::vector<Token*> AnalizadorLexico::analizar(string codigoFuente)
 			if (automata->esEstadoFinal())
 			{
 				int TipoToken = MapeaEstadoATipoToken(automata->estado());
-				if (TipoToken == TipoToken::ComentarioMultilinea)
-				{
-					buffer = "";
-					automata->reset();
-				}
-				if (TipoToken == TipoToken::CometarioLinea)
+				if (TipoToken == TipoToken::ComentarioMultilinea || TipoToken==TipoToken::CometarioLinea)
 				{
 					buffer = "";
 					automata->reset();
