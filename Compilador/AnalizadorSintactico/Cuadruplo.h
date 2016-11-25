@@ -3,6 +3,7 @@
 #include "ElementoGramatical.h"
 #include"Terminal.h"
 #include"NoTerminal.h"
+#include "TablaSimbolos.h"
 
 enum TiposDeCuadruplos {
 	Asignacion,
@@ -28,6 +29,8 @@ public:
 	ElementoGramatical* Operando2;
 
 	TiposDeCuadruplos tipo;
+
+	TablaSimbolos* bloque;
 
 	Cuadruplo* clonar();
 

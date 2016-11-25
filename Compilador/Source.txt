@@ -1,14 +1,16 @@
 Programa()
 {
-Mientras(5>6){
+Mientras(5){
+	entero c = 4;
 }
 EscribirPantalla(5<=6);
 entero a = 8+ 1;
 a = 5 + 2 * 4;
 a = 5 || (a && 2);
 LeerTeclado(a);
-Si(a+b)
+Si(a)
 {
+	entero d = 9;
 }
 
 }	

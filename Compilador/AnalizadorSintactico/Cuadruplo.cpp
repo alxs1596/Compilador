@@ -43,6 +43,7 @@ Cuadruplo * Cuadruplo::clonar()
 			c->Operando2 = op2->clonar();
 		}
 	}
+	c->tipo = this->tipo;
 
 	return c;
 }

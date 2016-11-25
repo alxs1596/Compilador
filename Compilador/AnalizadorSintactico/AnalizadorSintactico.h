@@ -14,6 +14,7 @@
 #include "Regla.h"
 #include "Cuadruplo.h"
 
+
 using namespace std;
 
 class AnalizadorSintactico
@@ -33,6 +34,10 @@ private:
 	int voltearDesde;
 	int voltearHasta;
 
+	TablaSimbolos* bloquePadre;
+	TablaSimbolos* bloqueActual;
+	int nbloque;
+
 	void llenarReglas();
 	void llenarMatriz();
 	int buscarEnReglas(int, string);
@@ -40,6 +45,7 @@ private:
 	void llenarNombresNoTerminales();
 	void vaciarPila();
 	void llenarCuadruplos(int nregla, ElementoGramatical** produccion, vector<Terminal*>* entrada, int i, ElementoGramatical* tope);
+	void bloques(int linea, int regla);
 	void voltearTemporal(int desde, int hasta);
 	void optimizar();
 public:

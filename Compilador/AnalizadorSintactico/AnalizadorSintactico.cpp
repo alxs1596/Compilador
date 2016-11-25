@@ -695,6 +695,10 @@ AnalizadorSintactico::AnalizadorSintactico()
 	
 	voltear = false;
 
+	bloqueActual = NULL;
+	bloquePadre = NULL;
+	nbloque = 0;
+
 	noTerminalBase = new NoTerminal(NoTerminales::P);
 }
 
@@ -717,6 +721,9 @@ void AnalizadorSintactico::optimizar()
 
 	for (size_t i = 0; i < listaCuadruplos.size() - 1; i++)
 	{
+		/*cout << "---------------------" << endl;
+		imprimirCuadruplos();
+		cout << "---------------------" << endl;*/
 		Cuadruplo* actual = listaCuadruplos[i];
 		if (actual->tipo == TiposDeCuadruplos::Asignacion)
 		{
@@ -759,6 +766,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 {
 	Terminal* terminal = (*entrada)[i];
 	Cuadruplo* cuadruplo = reglasGramaticales[nregla]->getCuadruplo();
+
 
 	Terminal* T_Igual = new Terminal(new Token("=", TipoToken::Operador, 0));
 	//Terminal* T_Si = new Terminal(new Token("Si", TipoToken::Operador, 0));
@@ -811,6 +819,9 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		break;*/
 	case 15:
 		//voltearTemporal();
+
+		cuadruplo->bloque = bloqueActual;
+
 		cuadruplo->Resultado = terminal;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
@@ -818,6 +829,8 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
+
+		cuadruplo->bloque = bloqueActual;
 
 		cuadruplo->Resultado = listaCuadruplos[listaCuadruplos.size() - 1]->Resultado;
 		cuadruplo->Operando1 = produccion[1];
@@ -830,6 +843,8 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
 
+		cuadruplo->bloque = bloqueActual;
+
 		cuadruplo->Resultado = terminal;
 		cuadruplo->Operando1 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
@@ -837,11 +852,13 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 	case 19:
 		voltear = true;
 		cuadruplo = new Cuadruplo(
-			produccion[2],
 			NULL,
+			produccion[2],
 			new Terminal(new Token("Mientras", TipoToken::PalabraReservada, 0)),
 			NULL,
 			TiposDeCuadruplos::Mientras);
+		cuadruplo->bloque = bloqueActual;
+
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 		
@@ -867,11 +884,13 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
 		cuadruplo = new Cuadruplo(
-			produccion[2],
 			NULL,
+			produccion[2],
 			new Terminal(new Token("Si", TipoToken::PalabraReservada, 0)),
 			NULL,
 			TiposDeCuadruplos::Si);
+		cuadruplo->bloque = bloqueActual;
+
 		listaCuadruplos.push_back(cuadruplo);
 		//teminar Bloques
 	break;
@@ -880,11 +899,12 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
 		cuadruplo = new Cuadruplo(
-			produccion[1],
 			NULL,
+			produccion[1],
 			new Terminal(new Token("Osino", TipoToken::PalabraReservada, 0)),
 			NULL,
 			TiposDeCuadruplos::Osino);
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 
 	break;
@@ -895,6 +915,8 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		break;*/
 	case 25:
 		//voltearTemporal();
+		cuadruplo->bloque = bloqueActual;
+
 		cuadruplo->Resultado = (*entrada)[i + 2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
@@ -902,7 +924,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
-
+		cuadruplo->bloque = bloqueActual;
 		cuadruplo->Operando1 = produccion[2];
 		listaCuadruplos.push_back(cuadruplo);
 		break;
@@ -912,12 +934,14 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[0];
 		cuadruplo->Operando2 = produccion[1];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 29:
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[0];
 		cuadruplo->Operando2 = produccion[1];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 30:
@@ -931,6 +955,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 				}
 			}
 		}
+		cuadruplo->bloque = bloqueActual;
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[1];
 		cuadruplo->Operando2 = produccion[2];
@@ -957,6 +982,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[0];
 		cuadruplo->Operando2 = produccion[1];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 33:
@@ -973,6 +999,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[1];
 		cuadruplo->Operando2 = produccion[2];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 34:
@@ -998,6 +1025,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[0];
 		cuadruplo->Operando2 = produccion[1];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 38:
@@ -1014,6 +1042,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[1];
 		cuadruplo->Operando2 = produccion[2];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 39:
@@ -1046,16 +1075,19 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 	case 46:
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[1];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 47:
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = terminal;
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 48:
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = terminal;
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 49:
@@ -1072,6 +1104,7 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 		cuadruplo->Resultado = tope;
 		cuadruplo->Operando1 = produccion[1];
 		cuadruplo->Operando2 = produccion[2];
+		cuadruplo->bloque = bloqueActual;
 		listaCuadruplos.push_back(cuadruplo);
 		break;
 	case 50:
@@ -1108,6 +1141,30 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, ElementoGramatical** pro
 	cout << "------------------" << endl;*/
 }
 
+void AnalizadorSintactico::bloques(int linea, int regla)
+{
+	// Bloques 1: BS, 20: SUBBS
+	if (regla == 1 || regla == 20)
+	{
+		if (bloquePadre == NULL)
+		{
+			bloquePadre = new TablaSimbolos(linea);
+			bloqueActual = bloquePadre;
+		}
+		else
+		{
+			TablaSimbolos* nuevo = new TablaSimbolos(bloqueActual, ++nbloque, linea);
+			if (regla != 20)
+				bloqueActual = nuevo;
+		}
+	}
+	// Bloques 3: LS => lambda
+	else if (regla == 3)
+	{
+		bloqueActual = bloqueActual->padre;
+	}
+}
+
 bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 {
 
@@ -1118,6 +1175,8 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 	vaciarPila();
 	pila.push(noTerminalBase);
 	unsigned int i = 0;
+
+
 	int regla;
 	while (i < entrada.size()) 
 	{
@@ -1168,6 +1227,8 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 
 						ElementoGramatical* tope = pila.top();
 
+						bloques(entrada[i]->getLinea(), regla);
+
 						llenarCuadruplos(regla, produccion,&terminalesEntrada, i, tope);
 						pila.pop();
 
@@ -1180,7 +1241,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 			}
 		}
 	}
-	//optimizar();
+	optimizar();
 
 	return pila.size() == 0;
 	/*if (pila.size() == 0) {
@@ -1307,6 +1368,7 @@ void AnalizadorSintactico::imprimirCuadruplos()
 				cout << NombresNoTerminales[((NoTerminal*)(listaCuadruplos[i]->Operando2))->getID()];
 			cout << "(" << listaCuadruplos[i]->Operando2 << ")" << "\t";
 		}
+		cout << listaCuadruplos[i]->tipo;
 		cout << endl;
 	}
 }

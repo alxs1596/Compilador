@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "TablaSimbolos.h"
-#include <functional>
+
 
 TablaSimbolos::TablaSimbolos(TablaSimbolos* padre)
 {
 	variables = new vector<EntradaTablaSimbolos>();
-	padre = padre;
+	this->padre = padre;
 }
 
 
@@ -17,5 +17,6 @@ bool TablaSimbolos::fueDeclarada(string lexema)
 {
 	//buscar lexema en variables
 	//si encuentra return true
-	return padre->fueDeclarada(lexema);
+	//return padre->fueDeclarada(lexema);
+	return false;
 }
