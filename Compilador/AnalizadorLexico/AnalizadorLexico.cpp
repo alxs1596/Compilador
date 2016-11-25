@@ -134,7 +134,7 @@ void AnalizadorLexico::cargarDatos()
 
 	alfabeto['-'] = Tipos::OPERADOR;
 	alfabeto['+'] = Tipos::OPERADOR;
-	alfabeto['*'] = Tipos::OPERADOR;
+	//alfabeto['*'] = Tipos::OPERADOR;
 	alfabeto['%'] = Tipos::OPERADOR;
 	alfabeto['/'] = Tipos::DIVISION;
 	alfabeto['='] = Tipos::IGUAL;
@@ -276,9 +276,9 @@ void AnalizadorLexico::cargarDatos()
 	matriz[14][14]->push_back(Tipos::OPERADOR);
 	matriz[14][14]->push_back(Tipos::OR);
 
-	/*matriz[14][18] = new std::vector<int>();
+	matriz[14][18] = new std::vector<int>();
 	matriz[14][18]->push_back(Tipos::SALTO_LINEA);
-	*/
+
 
 
 	matriz[13][15] = new std::vector<int>();
@@ -413,7 +413,7 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 		while (!archivoCodigoFuente.eof())
 		{
 			getline(archivoCodigoFuente, linea);
-			codigoFuente += linea + ' ';
+			codigoFuente += linea + '\n';
 		}
 	}
 	
