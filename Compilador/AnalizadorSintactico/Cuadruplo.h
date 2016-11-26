@@ -20,9 +20,6 @@ class Cuadruplo
 {
 public:
 
-	
-	
-
 	ElementoGramatical* Resultado;
 	ElementoGramatical* Operando1;
 	ElementoGramatical* Operador;

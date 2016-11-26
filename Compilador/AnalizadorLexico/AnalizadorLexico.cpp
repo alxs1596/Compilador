@@ -143,7 +143,7 @@ void AnalizadorLexico::cargarDatos()
 	alfabeto['!'] = Tipos::ADMIRACION;
 	alfabeto['|'] = Tipos::OR;
 	alfabeto['&'] = Tipos::AND;
-
+	
 	alfabeto[' '] = Tipos::BLANCO;
 	alfabeto['\n'] = Tipos::SALTO_LINEA;
 	alfabeto['\t'] = Tipos::BLANCO;
