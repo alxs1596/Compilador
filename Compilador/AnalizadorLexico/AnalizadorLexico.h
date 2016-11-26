@@ -26,7 +26,12 @@ public:
 
 	std::vector<Token*> analizar(string codigoFuente);
 
+	bool getError() { return error; }
+
 private:
+
+	bool error;
+
 	Automata *automata;
 	std::string buffer;
 	std::map<std::string, bool> listaPalabrasReservadas;

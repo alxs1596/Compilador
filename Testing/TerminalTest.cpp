@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Compilador/AnalizadorSintactico/Terminal.h"
-#include <regex>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -11,7 +10,7 @@ namespace Testing
 	TEST_CLASS(TerminalTest)
 	{
 	public:
-
+		/*
 		TEST_METHOD(testTerminalConstructorIdentificador)
 		{
 			
@@ -72,6 +71,6 @@ namespace Testing
 
 			Assert::AreEqual(esperado, terminal.getID());
 		}
-
+		*/
 	};
 }

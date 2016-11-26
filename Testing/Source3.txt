@@ -1,8 +1,0 @@
-﻿Programa(){
-
-	entero a = 0;
-	Mientras(a <= 5){
-		a = a + 1;
-	}
-
-}

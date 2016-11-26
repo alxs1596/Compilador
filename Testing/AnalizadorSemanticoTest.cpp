@@ -8,7 +8,7 @@ namespace Testing
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(testSemantico1)
 		{
 			// TODO: Agregar aquí el código de la prueba
 		}

@@ -11,7 +11,7 @@ namespace Testing
 	TEST_CLASS(LexicoYSintacticoTest)
 	{
 	public:
-
+		/*
 		TEST_METHOD(testCodigoFuenteDeclaracionAsignacionIncompleta)
 		{
 			//Arrange

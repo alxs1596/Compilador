@@ -13,6 +13,7 @@ namespace Testing
 	TEST_CLASS(AutomataTest)
 	{
 	public:
+		/*
 		// Agregar el estado -1 para que la prueba sea correcta
 		TEST_METHOD(testAutomataObetenerTipoEstadoIncial)
 		{
@@ -185,6 +186,6 @@ namespace Testing
 			//Assert
 			Assert::AreEqual(true, automata->esEstadoFinal());
 		}
-
+		*/
 	};
 }

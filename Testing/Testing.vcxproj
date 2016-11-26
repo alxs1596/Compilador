@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Codigos.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -180,18 +181,6 @@
     <ProjectReference Include="..\Compilador\CompiladorLib\CompiladorLib.vcxproj">
       <Project>{769ec783-6a4c-453b-b82a-256eed2dddbc}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Source1.txt" />
-    <Text Include="Source3.txt" />
-    <Text Include="Source4.txt" />
-    <Text Include="Source5.txt" />
-    <Text Include="Source6.txt" />
-    <Text Include="Source7.txt" />
-    <Text Include="Source8.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,0 @@
-Programa(){
-
-	entero a = 5 + 8 * 3;
-
-}

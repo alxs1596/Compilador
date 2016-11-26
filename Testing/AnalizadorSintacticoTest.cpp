@@ -13,7 +13,6 @@ namespace Testing
 	{
 	public:
 		
-		//Declaracion de variables
 		TEST_METHOD(testAnalizarSintactico1)
 		{
 

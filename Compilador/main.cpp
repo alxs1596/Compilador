@@ -6,6 +6,7 @@
 #include "AnalizadorLexico\AnalizadorLexico.h"
 #include "AnalizadorSintactico\AnalizadorSintactico.h"
 
+#include <sstream>
 
 int main()
 {
@@ -28,6 +29,7 @@ int main()
 	cout << (res == true ? "True" : "False") << std::endl;
 
 	analizadorSintactico.imprimirCuadruplos();
+	
 
 	system("pause");
 	return 0;

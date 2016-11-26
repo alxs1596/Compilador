@@ -1,7 +1,0 @@
-﻿Programa(){
-
-	entero a = 5;
-	entero b = 6;
-	a = b + 1;
-
-}
