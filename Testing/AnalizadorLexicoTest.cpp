@@ -11,6 +11,9 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 using namespace std;
 
+using namespace compilador;
+using namespace compilador::lexico;
+
 namespace Testing
 {		
 	TEST_CLASS(AnalizadorLexicoTest)

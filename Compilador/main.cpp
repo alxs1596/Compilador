@@ -8,6 +8,9 @@
 
 #include <sstream>
 
+using namespace compilador;
+using namespace lexico;
+
 int main()
 {
 

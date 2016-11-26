@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ErrorLexico.h"
 
+using namespace compilador::lexico;
 
 ErrorLexico::ErrorLexico()
 {

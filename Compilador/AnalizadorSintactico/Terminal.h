@@ -7,6 +7,8 @@
 
 using namespace std;
 
+using namespace compilador;
+
 class Terminal :
 	public ElementoGramatical
 {

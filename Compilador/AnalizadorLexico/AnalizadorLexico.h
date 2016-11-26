@@ -13,43 +13,46 @@
 #include "ErrorLexico.h"
 
 using namespace std;
+namespace compilador {
+	namespace lexico {
+		class AnalizadorLexico
+		{
+		public:
+			AnalizadorLexico();
+			~AnalizadorLexico();
+			std::vector<Token*> ejecutar(std::string);
+			void imprimirTokens();
+			void imprimirErrores();
+			void dibujarAutomata();
 
-class AnalizadorLexico
-{
-public:
-	AnalizadorLexico();
-	~AnalizadorLexico();
-	std::vector<Token*> ejecutar(std::string);
-	void imprimirTokens();
-	void imprimirErrores();
-	void dibujarAutomata();
+			std::vector<Token*> analizar(string codigoFuente);
 
-	std::vector<Token*> analizar(string codigoFuente);
+			bool getError() { return error; }
 
-	bool getError() { return error; }
+		private:
 
-private:
+			bool error;
 
-	bool error;
+			Automata *automata;
+			std::string buffer;
+			std::map<std::string, bool> listaPalabrasReservadas;
+			std::vector<Token*> listaTokens;
+			std::vector<ErrorLexico*> listaErrorLexico;
+			std::map<int, TipoToken> EstadoAToken;
+			std::map<int, std::string > TOKENS;
 
-	Automata *automata;
-	std::string buffer;
-	std::map<std::string, bool> listaPalabrasReservadas;
-	std::vector<Token*> listaTokens;
-	std::vector<ErrorLexico*> listaErrorLexico;
-	std::map<int, TipoToken> EstadoAToken;
-	std::map<int, std::string > TOKENS;
+			bool comentario;
 
-	bool comentario;
+			void cargarDatos();
+			void EliminarBlancos(std::string, int& index, int& linea);
+			TipoToken MapeaEstadoATipoToken(int estado);
+			bool BuscarEnPalabrasReservadas(std::string palabra);
 
-	void cargarDatos();
-	void EliminarBlancos(std::string,int& index, int& linea);
-	TipoToken MapeaEstadoATipoToken(int estado);
-	bool BuscarEnPalabrasReservadas(std::string palabra);
+			/////////////////////////////////////////////
 
-	/////////////////////////////////////////////
+			string leerArchivo(string rutaArchivo);
+			//private:
 
-	string leerArchivo(string rutaArchivo);
-//private:
-	
-};
+		};
+	}
+}

@@ -5,6 +5,9 @@
 
 using namespace std;
 
+using namespace compilador;
+using namespace compilador::lexico;
+
 AnalizadorLexico::AnalizadorLexico()
 {
 	cargarDatos();

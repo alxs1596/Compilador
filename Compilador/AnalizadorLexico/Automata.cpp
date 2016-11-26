@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Automata.h"
 
-
+using namespace compilador;
+using namespace compilador::lexico;
 
 Automata::Automata()
 {
