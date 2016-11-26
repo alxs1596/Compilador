@@ -700,6 +700,8 @@ AnalizadorSintactico::AnalizadorSintactico()
 	nbloque = 0;
 
 	noTerminalBase = new NoTerminal(NoTerminales::P);
+
+	error = true;
 }
 
 AnalizadorSintactico::~AnalizadorSintactico()

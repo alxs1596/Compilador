@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="AnalizadorSemanticoTest.cpp" />
     <ClCompile Include="AutomataTest.cpp" />
+    <ClCompile Include="Codigos.cpp" />
     <ClCompile Include="LexicoYSintacticoTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

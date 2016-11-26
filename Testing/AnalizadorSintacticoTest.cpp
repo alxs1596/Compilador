@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Compilador/AnalizadorSintactico/AnalizadorSintactico.h"
+#include "../Compilador/AnalizadorLexico/AnalizadorLexico.h"
 #include <vector>
-
+#include "Codigos.h"
 using namespace std;
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -11,8 +12,38 @@ namespace Testing
 {		
 	TEST_CLASS(AnalizadorSintacticoTest)
 	{
+	private:
+		void test(Source* source) {
+			AnalizadorLexico lexico;
+			AnalizadorSintactico sintactico;
+
+			auto tokens = lexico.analizar(source->Codigo());
+
+			auto cuadruplos = sintactico.Analizar(tokens);
+
+			bool res = sintactico.getError();
+
+			Assert::AreEqual(!source->SintacticoValido(), res);
+		}
 	public:
-		
+		TEST_METHOD(testSintactico1) { test(Codigos::Source1()); }
+		TEST_METHOD(testSintactico2) { test(Codigos::Source2()); }
+		TEST_METHOD(testSintactico3) { test(Codigos::Source3()); }
+		TEST_METHOD(testSintactico4) { test(Codigos::Source4()); }
+		TEST_METHOD(testSintactico5) { test(Codigos::Source5()); }
+		TEST_METHOD(testSintactico6) { test(Codigos::Source6()); }
+		TEST_METHOD(testSintactico7) { test(Codigos::Source7()); }
+		TEST_METHOD(testSintactico8) { test(Codigos::Source8()); }
+		TEST_METHOD(testSintactico9) { test(Codigos::Source9()); }
+		TEST_METHOD(testSintactico10) { test(Codigos::Source10()); }
+		TEST_METHOD(testSintactico11) { test(Codigos::Source11()); }
+		TEST_METHOD(testSintactico12) { test(Codigos::Source12()); }
+		TEST_METHOD(testSintactico13) { test(Codigos::Source13()); }
+		TEST_METHOD(testSintactico14) { test(Codigos::Source14()); }
+		TEST_METHOD(testSintactico15) { test(Codigos::Source15()); }
+		TEST_METHOD(testSintactico16) { test(Codigos::Source16()); }
+
+		/*
 		TEST_METHOD(testAnalizarSintactico1)
 		{
 
@@ -280,5 +311,6 @@ namespace Testing
 
 			Assert::AreEqual(esperado, respuesta);
 		}
+		*/
 	};
 }

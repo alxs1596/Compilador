@@ -47,5 +47,8 @@
     <ClCompile Include="LexicoYSintacticoTest.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="Codigos.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

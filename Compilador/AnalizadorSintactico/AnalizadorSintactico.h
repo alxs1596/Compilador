@@ -20,6 +20,9 @@ using namespace std;
 class AnalizadorSintactico
 {
 private:
+
+	bool error;
+
 	map<int, string> NombresNoTerminales;
 	vector<Terminal*> terminales;
 	NoTerminal* noTerminalBase;
@@ -61,5 +64,7 @@ public:
 	void imprimirPila();
 
 	void imprimirCuadruplos();
+
+	bool getError() { return error; }
 };
 

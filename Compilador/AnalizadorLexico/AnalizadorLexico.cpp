@@ -8,7 +8,7 @@ using namespace std;
 AnalizadorLexico::AnalizadorLexico()
 {
 	cargarDatos();
-	error = false;
+	error = true;
 }
 
 
