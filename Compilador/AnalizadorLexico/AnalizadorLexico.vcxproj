@@ -130,6 +130,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alfabeto.h" />
     <ClInclude Include="AnalizadorLexico.h" />
     <ClInclude Include="Automata.h" />
     <ClInclude Include="ErrorLexico.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Alfabeto.cpp" />
     <ClCompile Include="AnalizadorLexico.cpp" />
     <ClCompile Include="Automata.cpp" />
     <ClCompile Include="ErrorLexico.cpp" />
