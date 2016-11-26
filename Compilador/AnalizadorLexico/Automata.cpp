@@ -4,39 +4,94 @@
 using namespace compilador;
 using namespace compilador::lexico;
 
-Automata::Automata()
+void Automata::llenarMatriz()
 {
-	conjuntoEstadosFinales[1] = TipoToken::Identificador;
-	conjuntoEstadosFinales[2] = TipoToken::ConstanteEntera;
-	conjuntoEstadosFinales[3] = TipoToken::Operador;
-	conjuntoEstadosFinales[5] = TipoToken::Operador;
-	conjuntoEstadosFinales[6] = TipoToken::Operador;
-	conjuntoEstadosFinales[7] = TipoToken::Operador;
-	conjuntoEstadosFinales[8] = TipoToken::Delimitador;
-	conjuntoEstadosFinales[10] = TipoToken::LiteralCadena;
-	conjuntoEstadosFinales[13] = TipoToken::Operador;
-	conjuntoEstadosFinales[18] = TipoToken::CometarioLinea;
-	conjuntoEstadosFinales[17] = TipoToken::ComentarioMultilinea;
-}
 
-Automata::Automata(std::map<char, int> _alfabeto, int _numeroDeEstados, std::vector<int> _estadosFinales, int _estadoInicial, Matriz _matrizDeTransiciones)
-{
-	
-	Alfabeto = _alfabeto;
-	MatrizDeTransiciones = _matrizDeTransiciones;
-
-	for (int i = 0; i < _numeroDeEstados; i++)
-		Estados[i] = i;
-
-	for (unsigned int i = 0; i < _estadosFinales.size(); i++)
-	{
-		//int* p = &Estados[_estadosFinales[i]];
-		EstadosFinales[_estadosFinales[i]] = &Estados[_estadosFinales[i]];
+	for (int i = 0; i < numeroDeEstados; i++) {
+		for (int j = 0; j < numeroDeEstados; j++) {
+			matriz[i][j] = new vector<char>();
+		}
 	}
 
-	EstadoInicial = &Estados[_estadoInicial];
+	Alfabeto::agregarVectorAVector(matriz[0][1], alfabeto.Letras());
 
-	EstadoActual = EstadoInicial;
+	Alfabeto::agregarVectorAVector(matriz[1][1], alfabeto.Letras());
+	Alfabeto::agregarVectorAVector(matriz[1][1], alfabeto.Numeros());
+	Alfabeto::ordenar(matriz[1][1]);
+
+	Alfabeto::agregarVectorAVector(matriz[0][2], alfabeto.Numeros());
+
+	Alfabeto::agregarVectorAVector(matriz[2][2], alfabeto.Numeros());
+
+	matriz[0][3]->push_back('+');
+	matriz[0][3]->push_back('-');
+	matriz[0][3]->push_back('*');
+	matriz[0][3]->push_back('%');
+	Alfabeto::ordenar(matriz[0][3]);
+
+	matriz[0][4]->push_back('!');
+
+	matriz[4][3]->push_back('=');
+
+	matriz[0][5]->push_back('<');
+
+	matriz[5][3]->push_back('=');
+
+	matriz[0][6]->push_back('>');
+
+	matriz[6][3]->push_back('=');
+
+	matriz[0][7]->push_back('=');
+
+	matriz[7][3]->push_back('=');
+
+	Alfabeto::agregarVectorAVector(matriz[0][8], alfabeto.Delimitadores());
+
+	matriz[0][9]->push_back('"');
+
+	delete matriz[9][9];
+	matriz[9][9] = NULL;
+	matriz[9][9] = Alfabeto::VectorMenos(alfabeto.Todo(), '"');
+
+	matriz[9][10]->push_back('"');
+
+	matriz[0][11]->push_back('|');
+
+	matriz[11][3]->push_back('|');
+
+	matriz[0][12]->push_back('&');
+
+	matriz[12][3]->push_back('&');
+
+	matriz[0][13]->push_back('/');
+
+	matriz[13][14]->push_back('/');
+
+	delete matriz[14][14];
+	matriz[14][14] = NULL;
+	matriz[14][14] = Alfabeto::VectorMenos(alfabeto.Todo(), '\n');
+
+	matriz[14][18]->push_back('\n');
+
+	matriz[13][15]->push_back('*');
+
+	delete matriz[15][15];
+	matriz[15][15] = NULL;
+	matriz[15][15] = Alfabeto::VectorMenos(alfabeto.Todo(), '*');
+
+	matriz[15][16]->push_back('*');
+
+	delete matriz[16][15];
+	matriz[16][15] = NULL;
+	matriz[16][15] = Alfabeto::VectorMenos(alfabeto.Todo(), '/');
+
+	matriz[16][17]->push_back('/');
+}
+
+Automata::Automata()
+{
+	numeroDeEstados = 19;
+	llenarMatriz();
 }
 
 Automata::~Automata()
@@ -45,113 +100,53 @@ Automata::~Automata()
 
 bool Automata::mover(char c)
 {
-
-	for (int i = 0; i < Estados.size(); i++)
-		if (MatrizDeTransiciones[*EstadoActual][i] != 0)
-		if ((std::find(MatrizDeTransiciones[*EstadoActual][i]->begin(), MatrizDeTransiciones[*EstadoActual][i]->end(), Alfabeto[c])!= MatrizDeTransiciones[*EstadoActual][i]->end()) && Alfabeto[c] != NULL)
+	bool res = false;
+	for (int i = 0; i < numeroDeEstados; i++)
+	{
+		if (matriz[EstadoActual][i]->size() != 0)
 		{
-				EstadoActual = &Estados[i];
-				return true;
+			auto v = matriz[EstadoActual][i];
+			bool encontrado = binary_search(v->begin(), v->end(), c);
+			if (encontrado)
+			{
+				EstadoActual = i;
+				res = true;
+				break;
+			}
 		}
-	
-
-	return false;
+	}
+	return res;
 }
 
 bool Automata::esEstadoFinal()
 {
-	return EstadosFinales[*EstadoActual] == EstadoActual;
+	switch (EstadoActual)
+	{
+	case 1:
+	case 2:
+	case 3:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	case 10:
+	case 13:
+	case 17:
+	case 18:
+		return true;
+	default:
+		return false;
+	}
 }
 
 int Automata::estado()
 {
-	return *EstadoActual;
+	return EstadoActual;
 }
 
 void Automata::reset()
 {
-	EstadoActual = EstadoInicial;
+	EstadoActual = 0;
 }
 
-void Automata::imprimir()
-{
-	std::cout << "Alfabeto" << std::endl;
-	for (std::map<char,int>::iterator it = Alfabeto.begin(); it != Alfabeto.end(); ++it)
-		std::cout << it->first << ":" << it->second << std::endl;
-	std::cout << "Estados" << std::endl;
-	for (std::map<int, int>::iterator it = Estados.begin(); it != Estados.end(); ++it)
-		std::cout << it->first << ":" << &(it->second) << std::endl;
-	std::cout << "Estados finales" << std::endl;
-	for (std::map<int, int*>::iterator it = EstadosFinales.begin(); it != EstadosFinales.end(); ++it)
-		std::cout << it->first << ":" << it->second << std::endl;
-	std::cout << "Estado Inicial" << std::endl;
-	std::cout << *EstadoInicial << ":" << EstadoInicial << std::endl;
-	std::cout << "Matriz de Transiciones" << std::endl;
-	for (int i = 0; i < Estados.size(); i++) {
-		for (int j = 0; j < Estados.size(); j++) {
-			if (MatrizDeTransiciones[i][j] == 0) {
-				std::cout << "N" << " ";
-			}
-			else
-			{
-				for (int k = 0; k < MatrizDeTransiciones[i][j]->size(); k++)
-					std::cout << MatrizDeTransiciones[i][j]->operator[](k) << " ";
-			}
-			std::cout << "\t";
-		}
-		std::cout << std::endl;
-	}
-	
-}
-
-TipoToken Automata::obtenerTipo()
-{
-	//Si no es estado final devuelve 0
-	return conjuntoEstadosFinales[estado()];
-}
-
-void Automata::dibujarAutomata()
-{
-	std::map<int, std::string> T;
-	T[7] = "LETRA";
-	T[8] = "NUMERO";
-	T[9] = "OPERADOR";
-	T[10] = "DELIMITADOR";
-	T[11] = "\\\"";
-	T[12] = "!";
-	T[13] = "=";
-	T[14] = ">";
-	T[15] = "<";
-	T[16] = "|";
-	T[17] = "&";
-
-	std::ofstream archivo;
-	archivo.open("automata.gv");
-	archivo << "digraph{" << std::endl;
-
-	archivo << *EstadoInicial << "[color=red]" << std::endl;
-
-	for (std::map<int, int*>::iterator it = ++EstadosFinales.begin(); it != EstadosFinales.end(); ++it) {
-		archivo << it->first << "[color=blue]" << std::endl;
-	}
-
-	for (unsigned int i = 0; i < Estados.size(); i++) {
-		for (unsigned int j = 0; j < Estados.size(); j++) {
-			if (MatrizDeTransiciones[i][j] != nullptr) {
-				archivo << i << " -> " << j << " [label=\"";
-				for (unsigned int k = 0; k < MatrizDeTransiciones[i][j]->size(); k++) {
-					archivo << T[((*MatrizDeTransiciones[i][j])[k])] << ",";
-				}
-				archivo << "\"]" << std::endl;
-			}
-		}
-	}
-
-	archivo << "}" << std::endl;
-	archivo.close();
-
-	system("dot -Tpng automata.gv -o automata.png");
-	system("automata.png");
-
-}
 

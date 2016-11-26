@@ -23,7 +23,6 @@ namespace compilador {
 			std::vector<Token*> ejecutar(std::string);
 			void imprimirTokens();
 			void imprimirErrores();
-			void dibujarAutomata();
 
 			std::vector<Token*> analizar(string codigoFuente);
 
@@ -33,9 +32,9 @@ namespace compilador {
 
 			bool error;
 
-			Automata *automata;
+			Automata automata;
 			std::string buffer;
-			std::map<std::string, bool> listaPalabrasReservadas;
+			std::vector<std::string> listaPalabrasReservadas;
 			std::vector<Token*> listaTokens;
 			std::vector<ErrorLexico*> listaErrorLexico;
 			std::map<int, TipoToken> EstadoAToken;
