@@ -234,7 +234,7 @@ void AnalizadorSintactico::llenarReglas()
 	produccion[1] = A;
 	reglasGramaticales[15] = new Regla(VA, produccion, cantidadProducciones);
 
-	reglasGramaticales[15]->setPlantilla(produccion[0], T_Entero,new Terminal(new Token("Declaracion", 200, 0)), NULL, TiposDeCuadruplos::Declaracion);
+	reglasGramaticales[15]->setPlantilla(produccion[0], T_Entero,new Terminal(new Token("Declaracion", TipoToken::PalabraReservada, 0)), NULL, TiposDeCuadruplos::Declaracion);
 
 	//Regla 16: <A> → = <EM>
 	cantidadProducciones = 2;

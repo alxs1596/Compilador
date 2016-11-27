@@ -1,6 +1,10 @@
 #pragma once
 
 #include <string>
+#include <map>
+#include <sstream>
+
+using namespace std;
 
 namespace compilador {
 	enum TipoToken
@@ -21,16 +25,19 @@ namespace compilador {
 		Token();
 		~Token();
 
-		Token(std::string lexema, int tipo_token, int linea);
-		const std::string& getLexema() const;
-		void setLexema(const std::string& lexema);
-		int getTipo() const;
-		void setTipo(int tipo);
+		Token(string lexema, TipoToken tipo_token, int linea);
+		const string& getLexema() const;
+		void setLexema(const string& lexema);
+		TipoToken getTipo() const;
+		void setTipo(TipoToken tipo);
 		bool esIgual(Token*);
 		int getLinea();
+
+		string toString();
+
 	private:
 		std::string PalabraLexema;
-		int Tipo;
+		TipoToken Tipo;
 		int linea;
 	};
 

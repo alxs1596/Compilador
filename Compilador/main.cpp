@@ -11,27 +11,34 @@
 using namespace compilador;
 using namespace lexico;
 
+void imprimirTokens(vector<Token*> listaTokens)
+{
+	
+
+	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
+	{
+		std::cout << (*it)->toString() << std::endl;
+	}
+}
+
 int main()
 {
 
-	AnalizadorLexico analizador;
+	AnalizadorLexico lexico;
 
+	string codigoFuente = lexico.leerArchivo("Source.txt");
+
+	auto tokens = lexico.analizar(codigoFuente);
+
+	imprimirTokens(tokens);
+
+	AnalizadorSintactico sintactico;
 	
+	auto cuadruplos = sintactico.Analizar(tokens);
 
-	std::vector<Token*> vectorToken = analizador.ejecutar("Source.txt");
-	//analizador.ejecutar("Source.txt");
-	//analizador.dibujarAutomata();
-	analizador.imprimirTokens();
+	cout << (sintactico.getError() == true ? "True" : "False") << std::endl;
 
-	AnalizadorSintactico analizadorSintactico;
-
-	//analizadorSintactico.imprimirReglas();
-	
-	bool res = analizadorSintactico.Analizar(vectorToken);
-
-	cout << (res == true ? "True" : "False") << std::endl;
-
-	analizadorSintactico.imprimirCuadruplos();
+	sintactico.imprimirCuadruplos();
 	
 
 	system("pause");

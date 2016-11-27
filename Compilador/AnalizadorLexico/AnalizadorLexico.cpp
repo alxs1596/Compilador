@@ -23,18 +23,6 @@ void AnalizadorLexico::cargarDatos()
 {
 
 
-	//######################
-	//TOKENS
-
-	TOKENS[TipoToken::Identificador] = "TOKEN_IDENTIFICADOR";
-	TOKENS[TipoToken::PalabraReservada] = "TOKEN_PALABRA_RESERVADA";
-	TOKENS[TipoToken::LiteralCadena] = "TOKEN_LITERAL_DE_CADENA";
-	TOKENS[TipoToken::ConstanteEntera] = "TOKEN_VARIABLE_ENTERA";
-	TOKENS[TipoToken::Delimitador] = "TOKEN_DELIMITADOR";
-	TOKENS[TipoToken::Operador] = "TOKEN_OPERADOR";
-	TOKENS[TipoToken::CometarioLinea] = "TOKEN_COMENTARIO_LINEA";
-	TOKENS[TipoToken::ComentarioMultilinea] = "TOKEN_COMENTARIO_MULTILINEA";
-
 
 	//Palabras Reservadas
 
@@ -52,19 +40,10 @@ void AnalizadorLexico::cargarDatos()
 
 }
 
-std::vector<Token*> AnalizadorLexico::ejecutar(std::string archivo)
-{
-	listaTokens.clear();
-
-	string codigoFuente = leerArchivo(archivo);
-
-	analizar(codigoFuente);
-
-	return listaTokens;
-}
 
 std::vector<Token*> AnalizadorLexico::analizar(string codigoFuente)
 {
+	vector<Token*> listaTokens;
 	int linea = 0;
 	string buffer;
 	automata.reset();
@@ -81,7 +60,7 @@ std::vector<Token*> AnalizadorLexico::analizar(string codigoFuente)
 		{
 			if (automata.esEstadoFinal())
 			{
-				int TipoToken = MapeaEstadoATipoToken(automata.estado());
+				TipoToken TipoToken = MapeaEstadoATipoToken(automata.estado());
 				if (TipoToken == TipoToken::ComentarioMultilinea || TipoToken==TipoToken::CometarioLinea)
 				{
 					buffer = "";
@@ -148,13 +127,7 @@ string AnalizadorLexico::leerArchivo(string rutaArchivo)
 	return codigoFuente;
 }
 
-void AnalizadorLexico::imprimirTokens()
-{
-	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
-	{
-		std::cout << (*it)->getLexema() << "\t\t" << TOKENS[(*it)->getTipo()] << std::endl;
-	}
-}
+
 
 void AnalizadorLexico::imprimirErrores()
 {
