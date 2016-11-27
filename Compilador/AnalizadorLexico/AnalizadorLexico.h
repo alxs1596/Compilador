@@ -8,7 +8,6 @@
 #include <map>
 
 #include "Automata.h"
-#include "../CompiladorLib/Tipos.h"
 #include "../CompiladorLib/Token.h"
 #include "ErrorLexico.h"
 

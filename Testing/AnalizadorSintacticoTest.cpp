@@ -10,6 +10,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 using namespace compilador;
 using namespace compilador::lexico;
+using namespace compilador::sintactico;
 
 namespace Testing
 {		

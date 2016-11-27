@@ -2,7 +2,7 @@
 #include "ElementoGramatical.h"
 
 
-
+using namespace compilador::sintactico;
 
 
 ElementoGramatical::~ElementoGramatical()

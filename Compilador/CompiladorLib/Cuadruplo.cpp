@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Cuadruplo.h"
 
+using namespace compilador;
+using namespace sintactico;
 
 Cuadruplo * Cuadruplo::clonar()
 {

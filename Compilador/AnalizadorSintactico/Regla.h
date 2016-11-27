@@ -2,27 +2,34 @@
 
 #include "NoTerminal.h"
 #include "ElementoGramatical.h"
-#include "Cuadruplo.h"
+#include "../CompiladorLib/Cuadruplo.h"
 
-class Regla
-{
-private:
-	NoTerminal* noTerminal;
-	ElementoGramatical** produccion;
-	ElementoGramatical** genera;
-	int elementosProduccion;
+using namespace compilador;
 
-	Cuadruplo* plantilla;
-public:
-	Regla(NoTerminal*, ElementoGramatical**, int);
-	~Regla();
+namespace compilador {
+	namespace sintactico {
 
-	ElementoGramatical** getProduccion();
-	int getNumeroProducciones();
-	NoTerminal* getNoTerminal();
+		class Regla
+		{
+		private:
+			NoTerminal* noTerminal;
+			ElementoGramatical** produccion;
+			ElementoGramatical** genera;
+			int elementosProduccion;
 
-	void setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos tipo);
-	Cuadruplo* getCuadruplo();
+			Cuadruplo* plantilla;
+		public:
+			Regla(NoTerminal*, ElementoGramatical**, int);
+			~Regla();
 
-};
+			ElementoGramatical** getProduccion();
+			int getNumeroProducciones();
+			NoTerminal* getNoTerminal();
 
+			void setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos tipo);
+			Cuadruplo* getCuadruplo();
+
+		};
+
+	}
+}

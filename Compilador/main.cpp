@@ -8,13 +8,12 @@
 
 #include <sstream>
 
-using namespace compilador;
-using namespace lexico;
+using namespace compilador::lexico;
+using namespace compilador::sintactico;
+
 
 void imprimirTokens(vector<Token*> listaTokens)
 {
-	
-
 	for (std::vector<Token*>::iterator it = listaTokens.begin(); it != listaTokens.end(); ++it)
 	{
 		std::cout << (*it)->toString() << std::endl;
@@ -36,7 +35,7 @@ int main()
 	
 	auto cuadruplos = sintactico.Analizar(tokens);
 
-	cout << (sintactico.getError() == true ? "True" : "False") << std::endl;
+	cout << (sintactico.getError() == false ? "True" : "False") << std::endl;
 
 	sintactico.imprimirCuadruplos();
 	

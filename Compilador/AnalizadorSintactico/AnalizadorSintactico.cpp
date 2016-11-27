@@ -6,6 +6,8 @@
 
 using namespace std;
 
+using namespace compilador::sintactico;
+
 void AnalizadorSintactico::llenarReglas()
 {
 
@@ -1185,6 +1187,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 		if (pila.empty())
 		{
 			cout << "1 - Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
+			listaErrores.push_back(new ErrorSintactico());
 			return false;
 		}
 		else
@@ -1200,6 +1203,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 				if ((pila.top()->getTipo() == TERMINAL)) {
 					//imprimirPila();
 					cout << "2 - Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
+					listaErrores.push_back(new ErrorSintactico());
 					return false;	//error
 
 				}
@@ -1211,6 +1215,7 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 					if (regla == -1) {
 
 						cout << "3 - Aqui esta tu error esta en la linea : " << entrada[i]->getLinea() << endl;
+						listaErrores.push_back(new ErrorSintactico());
 						return false; // error
 					}
 					else
@@ -1244,6 +1249,8 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 		}
 	}
 	optimizar();
+
+	if (listaErrores.size() == 0) error = false;
 
 	return pila.size() == 0;
 	/*if (pila.size() == 0) {

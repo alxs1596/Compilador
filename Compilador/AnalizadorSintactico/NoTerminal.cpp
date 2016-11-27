@@ -3,7 +3,7 @@
 
 
 
-
+using namespace compilador::sintactico;
 
 NoTerminal::~NoTerminal()
 {

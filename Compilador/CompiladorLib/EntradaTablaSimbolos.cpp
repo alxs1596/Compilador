@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "EntradaTablaSimbolos.h"
 
+using namespace compilador;
 
 EntradaTablaSimbolos::EntradaTablaSimbolos(string lexema, int lineaDeclaracion)
 {

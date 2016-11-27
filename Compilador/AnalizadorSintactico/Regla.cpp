@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Regla.h"
 
+using namespace compilador::sintactico;
 
 Regla::Regla(NoTerminal * noTerminal, ElementoGramatical ** produccion, int numeroProducciones)
 {

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TablaSimbolos.h"
 
+using namespace compilador;
 
 TablaSimbolos::TablaSimbolos(TablaSimbolos* padre)
 {

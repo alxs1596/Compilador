@@ -12,59 +12,66 @@
 #include "Terminal.h"
 #include "NoTerminal.h"
 #include "Regla.h"
-#include "Cuadruplo.h"
+#include "../CompiladorLib/Cuadruplo.h"
+#include "ErrorSintactico.h"
 
 
 using namespace std;
 
-class AnalizadorSintactico
-{
-private:
+namespace compilador {
+	namespace sintactico {
 
-	bool error;
+		class AnalizadorSintactico
+		{
+		private:
 
-	map<int, string> NombresNoTerminales;
-	vector<Terminal*> terminales;
-	NoTerminal* noTerminalBase;
-	Regla** reglasGramaticales;
-	int cantidadReglas;
-	stack<ElementoGramatical*> pila;
-	map<int, map< string, int> > matriz;
-	vector<Cuadruplo*> listaCuadruplos;
-	vector<Cuadruplo*> listaCuadruplosTemporal;
+			bool error;
 
-	bool voltear;
-	int voltearDesde;
-	int voltearHasta;
+			vector<ErrorSintactico*> listaErrores;
 
-	TablaSimbolos* bloquePadre;
-	TablaSimbolos* bloqueActual;
-	int nbloque;
+			map<int, string> NombresNoTerminales;
+			vector<Terminal*> terminales;
+			NoTerminal* noTerminalBase;
+			Regla** reglasGramaticales;
+			int cantidadReglas;
+			stack<ElementoGramatical*> pila;
+			map<int, map< string, int> > matriz;
+			vector<Cuadruplo*> listaCuadruplos;
+			vector<Cuadruplo*> listaCuadruplosTemporal;
 
-	void llenarReglas();
-	void llenarMatriz();
-	int buscarEnReglas(int, string);
-	bool buscarRegla(int, ElementoGramatical*);
-	void llenarNombresNoTerminales();
-	void vaciarPila();
-	void llenarCuadruplos(int nregla, ElementoGramatical** produccion, vector<Terminal*>* entrada, int i, ElementoGramatical* tope);
-	void bloques(int linea, int regla);
-	void voltearTemporal(int desde, int hasta);
-	void optimizar();
-public:
-	AnalizadorSintactico();
-	~AnalizadorSintactico();
+			bool voltear;
+			int voltearDesde;
+			int voltearHasta;
 
-	bool Analizar(vector<Token*>);
+			TablaSimbolos* bloquePadre;
+			TablaSimbolos* bloqueActual;
+			int nbloque;
 
-	vector <Cuadruplo*> Cuadruplos();
+			void llenarReglas();
+			void llenarMatriz();
+			int buscarEnReglas(int, string);
+			bool buscarRegla(int, ElementoGramatical*);
+			void llenarNombresNoTerminales();
+			void vaciarPila();
+			void llenarCuadruplos(int nregla, ElementoGramatical** produccion, vector<Terminal*>* entrada, int i, ElementoGramatical* tope);
+			void bloques(int linea, int regla);
+			void voltearTemporal(int desde, int hasta);
+			void optimizar();
+		public:
+			AnalizadorSintactico();
+			~AnalizadorSintactico();
 
-	void imprimirReglas();
+			bool Analizar(vector<Token*>);
 
-	void imprimirPila();
+			vector <Cuadruplo*> Cuadruplos();
 
-	void imprimirCuadruplos();
+			void imprimirReglas();
 
-	bool getError() { return error; }
-};
+			void imprimirPila();
 
+			void imprimirCuadruplos();
+
+			bool getError() { return error; }
+		};
+	}
+}

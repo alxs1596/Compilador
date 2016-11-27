@@ -2,28 +2,26 @@
 #define TERMINAL true
 #define NOTERMINAL false
 
-//#include "NoTerminal.h"
+namespace compilador {
+	namespace sintactico {
 
-enum ElementosGramaticales
-{
+		class ElementoGramatical
+		{
+		private:
+			// Terminal = true, NoTerminal = false
+			bool tipo;
+			//NoTerminal* padre;
+		public:
+			ElementoGramatical(bool tipo) { this->tipo = tipo; }// this->padre = NULL;
 
-};
+			~ElementoGramatical();
 
-class ElementoGramatical
-{
-private:
-	// Terminal = true, NoTerminal = false
-	bool tipo;
-	//NoTerminal* padre;
-public:
-	ElementoGramatical(bool tipo) { this->tipo = tipo; }// this->padre = NULL;
+			virtual ElementoGramatical* clonar() { return 0; }
 
-	~ElementoGramatical();
+			//const NoTerminal* getPadre() { return padre; }
+			//void setPadre(NoTerminal* _p) { padre = _p; }
+			bool getTipo() { return tipo; }
+		};
 
-	virtual ElementoGramatical* clonar() { return 0; }
-
-	//const NoTerminal* getPadre() { return padre; }
-	//void setPadre(NoTerminal* _p) { padre = _p; }
-	bool getTipo() { return tipo; }
-};
-
+	}
+}

@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include "../CompiladorLib/Tipos.h"
 #include "../CompiladorLib/Token.h"
 #include "Alfabeto.h"
 
