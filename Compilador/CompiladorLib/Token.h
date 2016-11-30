@@ -16,7 +16,9 @@ namespace compilador {
 		ConstanteEntera = 5,
 		Operador = 6,
 		CometarioLinea = 7,
-		ComentarioMultilinea = 8
+		ComentarioMultilinea = 8,
+
+		Cuadruplos = 9
 	};
 
 	class Token

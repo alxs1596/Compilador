@@ -3,31 +3,25 @@
 
 using namespace compilador::sintactico;
 
-Regla::Regla(NoTerminal * noTerminal, ElementoGramatical ** produccion, int numeroProducciones)
+compilador::sintactico::Regla::Regla(NoTerminal * noTerminal, vector<ElementoGramatical*>* produccion)
 {
 	this->noTerminal = noTerminal;
 	this->produccion = produccion;
-	this->elementosProduccion = numeroProducciones;
-	this->plantilla = NULL;
 }
+
 
 Regla::~Regla()
 {
 }
 
-ElementoGramatical ** Regla::getProduccion()
+vector<ElementoGramatical *>* Regla::getProduccion()
 {
-	ElementoGramatical** nuevo = new ElementoGramatical*[elementosProduccion];
-	for (int i = 0; i < elementosProduccion; i++) {
-		if (produccion[i] == NULL) nuevo[i] = NULL;
-		else nuevo[i] = produccion[i]->clonar();
+	vector<ElementoGramatical*>* nuevo = new vector<ElementoGramatical*>(produccion->size());
+	for (size_t i = 0; i < produccion->size(); i++) {
+		if ((*produccion)[i] == NULL) (*nuevo)[i] = NULL;
+		else (*nuevo)[i] = (*produccion)[i]->clonar();
 	}
 	return nuevo;
-}
-
-int Regla::getNumeroProducciones()
-{
-	return elementosProduccion;
 }
 
 NoTerminal * Regla::getNoTerminal()
@@ -35,14 +29,4 @@ NoTerminal * Regla::getNoTerminal()
 	return noTerminal;
 }
 
-void Regla::setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos tipo)
-{
-	Cuadruplo* c = new Cuadruplo(Resultado, Operando1, Operador, Operando2, tipo);
-	this->plantilla = c;
-}
 
-Cuadruplo * Regla::getCuadruplo()
-{
-	if (plantilla == NULL) return NULL;
-	return plantilla->clonar();
-}

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <string>
-#include "../Compilador/AnalizadorLexico/AnalizadorLexico.h"
-#include "../Compilador/AnalizadorSintactico/AnalizadorSintactico.h"
+//#include "../Compilador/AnalizadorLexico/AnalizadorLexico.h"
+//#include "../Compilador/AnalizadorSintactico/AnalizadorSintactico.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
 

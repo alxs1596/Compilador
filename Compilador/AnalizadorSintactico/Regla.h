@@ -13,21 +13,15 @@ namespace compilador {
 		{
 		private:
 			NoTerminal* noTerminal;
-			ElementoGramatical** produccion;
+			vector<ElementoGramatical*>* produccion;
 			ElementoGramatical** genera;
-			int elementosProduccion;
 
-			Cuadruplo* plantilla;
 		public:
-			Regla(NoTerminal*, ElementoGramatical**, int);
+			Regla(NoTerminal*, vector<ElementoGramatical*>*);
 			~Regla();
 
-			ElementoGramatical** getProduccion();
-			int getNumeroProducciones();
+			vector<ElementoGramatical*>* getProduccion();
 			NoTerminal* getNoTerminal();
-
-			void setPlantilla(ElementoGramatical * Resultado, ElementoGramatical * Operando1, ElementoGramatical * Operador, ElementoGramatical * Operando2, TiposDeCuadruplos tipo);
-			Cuadruplo* getCuadruplo();
 
 		};
 

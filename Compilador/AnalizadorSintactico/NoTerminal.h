@@ -10,7 +10,7 @@ using namespace std;
 namespace compilador {
 	namespace sintactico {
 
-		enum NoTerminales
+		enum NoTerminaless
 		{
 			P = 0,
 			BS = 1,
@@ -52,15 +52,16 @@ namespace compilador {
 			public ElementoGramatical
 		{
 		private:
-			int id;
+			string id;
 			//int descripcion;
 		public:
-			NoTerminal(int id) :ElementoGramatical(NOTERMINAL), id(id) {}
+			
+			NoTerminal(string id) :ElementoGramatical(NOTERMINAL), id(id) {}
 			~NoTerminal();
 			ElementoGramatical* clonar() {
 				return new NoTerminal(this->id);
 			}
-			int getID() { return id; }
+			string getID() { return id; }
 		};
 
 	}
