@@ -565,48 +565,6 @@ void AnalizadorSintactico::imprimirCuadruplos()
 {
 	cout << endl << "Lista Cuadruplos" << endl;
 	for (int i = 0; i < listaCuadruplos.size(); i++) {
-		
-		if (listaCuadruplos[i]->Resultado == NULL)
-			cout << i << "\t: NULL\t\t";
-		else
-		{
-			if (listaCuadruplos[i]->Resultado->getTipo() == TERMINAL)
-				cout << i << "\t: " << (((Terminal*)(listaCuadruplos[i]->Resultado))->getToken()->getLexema());
-			else
-				cout << i << "\t: " << ((NoTerminal*)(listaCuadruplos[i]->Resultado))->getID();
-			cout << "(" << listaCuadruplos[i]->Resultado << ")" << "\t";
-		}
-		if (listaCuadruplos[i]->Operando1 == NULL)
-			cout << "NULL\t\t";
-		else
-		{
-			if (listaCuadruplos[i]->Operando1->getTipo() == TERMINAL)
-				cout << (((Terminal*)(listaCuadruplos[i]->Operando1))->getToken()->getLexema());
-			else
-				cout << ((NoTerminal*)(listaCuadruplos[i]->Operando1))->getID();
-			cout << "(" << listaCuadruplos[i]->Operando1 << ")" << "\t";
-		}
-		if (listaCuadruplos[i]->Operador == NULL)
-			cout << "NULL\t\t";
-		else
-		{
-			if (listaCuadruplos[i]->Operador->getTipo() == TERMINAL)
-				cout << (((Terminal*)(listaCuadruplos[i]->Operador))->getToken()->getLexema());
-			else
-				cout << ((NoTerminal*)(listaCuadruplos[i]->Operador))->getID();
-			cout << "(" << listaCuadruplos[i]->Operador << ")" << "\t";
-		}
-		if (listaCuadruplos[i]->Operando2 == NULL)
-			cout << "NULL\t\t";
-		else
-		{
-			if (listaCuadruplos[i]->Operando2->getTipo() == TERMINAL)
-				cout << (((Terminal*)(listaCuadruplos[i]->Operando2))->getToken()->getLexema());
-			else
-				cout << ((NoTerminal*)(listaCuadruplos[i]->Operando2))->getID();
-			cout << "(" << listaCuadruplos[i]->Operando2 << ")" << "\t";
-		}
-		cout << listaCuadruplos[i]->tipo;
-		cout << endl;
+		cout << listaCuadruplos[i]->toString() << endl;
 	}
 }

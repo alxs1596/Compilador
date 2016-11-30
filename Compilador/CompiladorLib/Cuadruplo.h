@@ -42,6 +42,8 @@ namespace compilador {
 			TiposDeCuadruplos _tipo,
 			TablaSimbolos* _bloque);
 		~Cuadruplo();
+
+		string toString();
 	};
 
 }
