@@ -42,6 +42,9 @@ namespace compilador {
 			void bloques(int linea, int regla);
 			void voltearTemporal(int desde, int hasta);
 			void optimizar();
+
+			void buscarCuadruploAsignarOperadorFaltante(ElementoGramatical* tope, Terminal* terminalEntrada);
+			void buscarCuadruploCambiarOperacionPorAsignacion(ElementoGramatical* tope);
 		public:
 			AnalizadorSintactico();
 			~AnalizadorSintactico();

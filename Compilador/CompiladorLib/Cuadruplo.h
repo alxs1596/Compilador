@@ -39,7 +39,8 @@ namespace compilador {
 			compilador::sintactico::ElementoGramatical* Operando1,
 			compilador::sintactico::ElementoGramatical* Operador,
 			compilador::sintactico::ElementoGramatical* Operando2,
-			TiposDeCuadruplos _tipo);
+			TiposDeCuadruplos _tipo,
+			TablaSimbolos* _bloque);
 		~Cuadruplo();
 	};
 

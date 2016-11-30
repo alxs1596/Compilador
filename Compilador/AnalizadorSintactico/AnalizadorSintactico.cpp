@@ -86,15 +86,49 @@ void AnalizadorSintactico::optimizar()
 		
 }
 
+void AnalizadorSintactico::buscarCuadruploAsignarOperadorFaltante(ElementoGramatical* tope, Terminal* terminalEntrada)
+{
+	for (int it = (int)listaCuadruplos.size() - 1; it >= 0; it--)
+	{
+		if (listaCuadruplos[it]->Operando2 != NULL)
+			if (listaCuadruplos[it]->Operando2->getTipo() == NOTERMINAL)
+			{
+				NoTerminal* t = (NoTerminal*)listaCuadruplos[it]->Operando2;
+				if (t == tope)
+				{
+					listaCuadruplos[it]->Operador = terminalEntrada;
+					break;
+				}
+			}
+	}
+}
+
+void AnalizadorSintactico::buscarCuadruploCambiarOperacionPorAsignacion(ElementoGramatical* tope)
+{
+	for (int it = (int)listaCuadruplos.size() - 1; it >= 0; it--)
+	{
+		if (listaCuadruplos[it]->Operando2 != NULL)
+			if (listaCuadruplos[it]->Operando2->getTipo() == NOTERMINAL)
+			{
+				NoTerminal* t = (NoTerminal*)listaCuadruplos[it]->Operando2;
+				ElementoGramatical* o = listaCuadruplos[it]->Operador;
+				if (t == tope && o == NULL)
+				{
+					listaCuadruplos[it]->Operador = reglasGramaticales._terminales.Igual;
+					listaCuadruplos[it]->Operando2 = NULL;
+					listaCuadruplos[it]->tipo = TiposDeCuadruplos::Asignacion;
+					break;
+				}
+			}
+	}
+}
+
+
 void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatical*> produccion , vector<Terminal*>* entrada, int i, ElementoGramatical* tope)
 {
-	/*
-	Terminal* terminal = (*entrada)[i];
+	
+	Terminal* terminalEntrada = (*entrada)[i];
 
-
-	Terminal* T_Igual = new Terminal(new Token("=", TipoToken::Operador, 0));
-	//Terminal* T_Si = new Terminal(new Token("Si", TipoToken::Operador, 0));
-	//Terminal* T_Osino = new Terminal(new Token("Osino", TipoToken::Operador, 0));
 	 
 	switch (nregla) {
 
@@ -117,21 +151,28 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 
 		break;
 	case 15:
-		cuadruplo->bloque = bloqueActual;
 
-		cuadruplo->Resultado = terminal;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				terminalEntrada, 
+				reglasGramaticales._terminales.Entero,
+				reglasGramaticales._terminales.Declaracion,
+				NULL,
+				TiposDeCuadruplos::Declaracion,
+				bloqueActual));
 		break;
 	case 16:
-
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
 
-		cuadruplo->bloque = bloqueActual;
-
-		cuadruplo->Resultado = listaCuadruplos[listaCuadruplos.size() - 1]->Resultado;
-		cuadruplo->Operando1 = produccion[1];
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				listaCuadruplos[listaCuadruplos.size() - 1]->Resultado, 
+				produccion[1],
+				reglasGramaticales._terminales.Igual, 
+				NULL, 
+				TiposDeCuadruplos::Asignacion, 
+				bloqueActual));
 		break;
 	
 	case 18:
@@ -139,34 +180,29 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
 
-		cuadruplo->bloque = bloqueActual;
-
-		cuadruplo->Resultado = terminal;
-		cuadruplo->Operando1 = produccion[2];
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				terminalEntrada, 
+				produccion[2], //EM
+				reglasGramaticales._terminales.Igual, 
+				NULL, 
+				TiposDeCuadruplos::Asignacion, 
+				bloqueActual));
 		break;
 	case 19:
 		voltear = true;
-		cuadruplo = new Cuadruplo(
-			NULL,
-			produccion[2],
-			new Terminal(new Token("Mientras", TipoToken::PalabraReservada, 0)),
-			NULL,
-			TiposDeCuadruplos::Mientras);
-		cuadruplo->bloque = bloqueActual;
 
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				NULL, 
+				produccion[2], //EM
+				reglasGramaticales._terminales.Mientras, 
+				NULL, 
+				TiposDeCuadruplos::Mientras, 
+				bloqueActual));
 		break;
 		
 	case 20:
-		voltearHasta = (int)listaCuadruplos.size() - 1;
-		if (voltear) {
-			voltearTemporal(voltearDesde, voltearHasta);
-			voltear = false;
-		}
-
-		
-		break;
 	case 21:
 		voltearHasta = (int)listaCuadruplos.size() - 1;
 		if (voltear) {
@@ -176,236 +212,187 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 
 		break;
 	case 22:
-	// crear Bloques
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
-		cuadruplo = new Cuadruplo(
-			NULL,
-			produccion[2],
-			new Terminal(new Token("Si", TipoToken::PalabraReservada, 0)),
-			NULL,
-			TiposDeCuadruplos::Si);
-		cuadruplo->bloque = bloqueActual;
-
-		listaCuadruplos.push_back(cuadruplo);
-		//teminar Bloques
-	break;
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				NULL, 
+				produccion[2], //EM
+				reglasGramaticales._terminales.Si, 
+				NULL, 
+				TiposDeCuadruplos::Si, 
+				bloqueActual));
+		break;
 	case 23:
-	// crear Bloques
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
-		cuadruplo = new Cuadruplo(
-			NULL,
-			produccion[1],
-			new Terminal(new Token("Osino", TipoToken::PalabraReservada, 0)),
-			NULL,
-			TiposDeCuadruplos::Osino);
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
-
-	break;
-	//teminar Bloques
-	
-		
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				NULL, 
+				produccion[1], //EM
+				reglasGramaticales._terminales.Osino, 
+				NULL, 
+				TiposDeCuadruplos::Osino, 
+				bloqueActual));
+		break;	
 	case 25:
-		//voltearTemporal();
-		cuadruplo->bloque = bloqueActual;
-
-		cuadruplo->Resultado = (*entrada)[i + 2];
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				(*entrada)[i + 2], 
+				NULL, 
+				reglasGramaticales._terminales.LeerTeclado, 
+				NULL, 
+				TiposDeCuadruplos::Lectura, 
+				bloqueActual));
 		break;
 	case 26:
 
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
-		cuadruplo->bloque = bloqueActual;
-		cuadruplo->Operando1 = produccion[2];
-		listaCuadruplos.push_back(cuadruplo);
+
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				reglasGramaticales._terminales.EscribirPantalla, 
+				produccion[2], //EM
+				NULL, 
+				NULL, 
+				TiposDeCuadruplos::Escritura, 
+				bloqueActual));
 		break;
 
 	case 28:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[0];
-		cuadruplo->Operando2 = produccion[1];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[0], //OL
+				NULL, 
+				produccion[1], //LOL
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 29:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[0];
-		cuadruplo->Operando2 = produccion[1];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[0], //C
+				NULL, 
+				produccion[1], //LC
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 30:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-			if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-				NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-				if (t == tope) {
-					listaCuadruplos[i]->Operador = terminal;
-					break;
-				}
-			}
-		}
-		cuadruplo->bloque = bloqueActual;
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[1];
-		cuadruplo->Operando2 = produccion[2];
-		listaCuadruplos.push_back(cuadruplo);
+		buscarCuadruploAsignarOperadorFaltante(tope, terminalEntrada);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[1], //OL
+				NULL, 
+				produccion[2], //LOL
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 31:
-		//imprimirCuadruplos();
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t == tope && o == NULL) {
-						listaCuadruplos[i]->Operador = T_Igual;
-						listaCuadruplos[i]->Operando2 = NULL;
-						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
-						break;
-					}
-				}
-		}
-		//imprimirCuadruplos();
+		buscarCuadruploCambiarOperacionPorAsignacion(tope);
 		break;
 	case 32:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[0];
-		cuadruplo->Operando2 = produccion[1];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[0], //T
+				NULL, 
+				produccion[1], //LT
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 33:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					if (t == tope) {
-						listaCuadruplos[i]->Operador = terminal;
-						break;
-					}
-				}
-		}
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[1];
-		cuadruplo->Operando2 = produccion[2];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		buscarCuadruploAsignarOperadorFaltante(tope, terminalEntrada);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope,
+				produccion[1],//C,
+				NULL,
+				produccion[2],// LC,
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 34:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t == tope && o == NULL) {
-						listaCuadruplos[i]->Operador = T_Igual;
-						listaCuadruplos[i]->Operando2 = NULL;
-						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
-						break;
-					}
-				}
-		}
+		buscarCuadruploCambiarOperacionPorAsignacion(tope);
 		break;
 
 	case 37:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[0];
-		cuadruplo->Operando2 = produccion[1];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[0],//F,
+				NULL, 
+				produccion[1],//LF,
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 38:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-			if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-				NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-				if (t == tope) {
-					listaCuadruplos[i]->Operador = terminal;
-					break;
-				}
-			}
-		}
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[1];
-		cuadruplo->Operando2 = produccion[2];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		buscarCuadruploAsignarOperadorFaltante(tope, terminalEntrada);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[1],//T,
+				NULL, 
+				produccion[2],//LT,
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 39:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t == tope && o == NULL) {
-						listaCuadruplos[i]->Operador = T_Igual;
-						listaCuadruplos[i]->Operando2 = NULL;
-						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
-						break;
-					}
-				}
-		}
+		buscarCuadruploCambiarOperacionPorAsignacion(tope);
 		break;
 
 	case 46:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[1];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[1],//EM,
+				reglasGramaticales._terminales.Igual, 
+				NULL, 
+				TiposDeCuadruplos::Asignacion, 
+				bloqueActual));
 		break;
 	case 47:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = terminal;
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				terminalEntrada, 
+				reglasGramaticales._terminales.Igual, 
+				NULL, 
+				TiposDeCuadruplos::Asignacion, 
+				bloqueActual));
 		break;
 	case 48:
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = terminal;
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				terminalEntrada, 
+				reglasGramaticales._terminales.Igual, 
+				NULL, 
+				TiposDeCuadruplos::Asignacion, 
+				bloqueActual));
 		break;
 	case 49:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					if (t == tope) {
-						listaCuadruplos[i]->Operador = terminal;
-						break;
-					}
-				}
-		}
-		cuadruplo->Resultado = tope;
-		cuadruplo->Operando1 = produccion[1];
-		cuadruplo->Operando2 = produccion[2];
-		cuadruplo->bloque = bloqueActual;
-		listaCuadruplos.push_back(cuadruplo);
+		buscarCuadruploAsignarOperadorFaltante(tope, terminalEntrada);
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				tope, 
+				produccion[1],//F,
+				NULL, 
+				produccion[2],//LF,
+				TiposDeCuadruplos::Operacion, 
+				bloqueActual));
 		break;
 	case 50:
-		for (int i = (int)listaCuadruplos.size() - 1; i >= 0; i--) {
-			if (listaCuadruplos[i]->Operando2 != NULL)
-				if (listaCuadruplos[i]->Operando2->getTipo() == NOTERMINAL) {
-					NoTerminal* t = (NoTerminal*)listaCuadruplos[i]->Operando2;
-					ElementoGramatical* o = listaCuadruplos[i]->Operador;
-					if (t == tope && o == NULL) {
-						listaCuadruplos[i]->Operador = T_Igual;
-						listaCuadruplos[i]->Operando2 = NULL;
-						listaCuadruplos[i]->tipo = TiposDeCuadruplos::Asignacion;
-						break;
-					}
-				}
-		}
+		buscarCuadruploCambiarOperacionPorAsignacion(tope);
 		break;
 
 	default:
 		break;
 	}
-	*/
+	
 }
 
 void AnalizadorSintactico::bloques(int linea, int regla)
