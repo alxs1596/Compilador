@@ -10,7 +10,7 @@ namespace compilador {
 	class TablaSimbolos
 	{
 	private:
-		vector<EntradaTablaSimbolos>* variables;
+		vector<EntradaTablaSimbolos*>* variables;
 
 	public:
 		int linea;
@@ -20,7 +20,7 @@ namespace compilador {
 		TablaSimbolos(TablaSimbolos* padre, int nbloque, int linea) : padre(padre), nbloque(nbloque), linea(linea) {}
 		TablaSimbolos(TablaSimbolos* padre);
 		~TablaSimbolos();
-		bool fueDeclarada(string lexema);
+		EntradaTablaSimbolos* fueDeclarada(string lexema);
 	};
 
 }

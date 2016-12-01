@@ -7,14 +7,17 @@ namespace compilador {
 	class EntradaTablaSimbolos
 	{
 	private:
+		
+	public:
+		EntradaTablaSimbolos(string lexema, int lineaDeclaracion);
+		~EntradaTablaSimbolos();
+
+
 		int offset; //Posicion en la pila
 		int tipo; //entero = 1
 		int lineaDeclaracion;
 		int lineaPrimeraAsignacion;
 		string lexema;
-	public:
-		EntradaTablaSimbolos(string lexema, int lineaDeclaracion);
-		~EntradaTablaSimbolos();
 	};
 
 }
