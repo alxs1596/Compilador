@@ -130,6 +130,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Compilador.h" />
     <ClInclude Include="Cuadruplo.h" />
     <ClInclude Include="EntradaTablaSimbolos.h" />
     <ClInclude Include="stdafx.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Compilador.cpp" />
     <ClCompile Include="Cuadruplo.cpp" />
     <ClCompile Include="EntradaTablaSimbolos.cpp" />
     <ClCompile Include="stdafx.cpp">
