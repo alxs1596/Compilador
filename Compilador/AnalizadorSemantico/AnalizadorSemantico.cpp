@@ -14,125 +14,133 @@ AnalizadorSemantico::~AnalizadorSemantico()
 void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 {
 
-	foreach(var cuadruplo in cuadruplos)
+	for (size_t i = 0; i < cuadruplos->size() ; i++)
 	{
-		if (cuadruplo.tipo == TiposDeCuadruplos.Declaracion)
+		Cuadruplo* cuadruplo = (*cuadruplos)[i];
+		if (cuadruplo->tipo == TiposDeCuadruplos::Declaracion)
 		{
-			var token = ((Terminal)cuadruplo.Resultado).token;
-			if (cuadruplo.Resultado.GetType() == typeof(Terminal))
-				if (cuadruplo.Bloque.fueDeclarada(token.Lexema))
+			auto token = ((Terminal*)cuadruplo->Resultado)->getToken();
+			if (cuadruplo->Resultado->getTipo() == TERMINAL)
+			{ 
+				auto entrada = cuadruplo->bloque->fueDeclarada(token->getLexema());
+				if (entrada != nullptr)
 				{
-					throw new Exception("Variable ya declarada");
+					throw new exception("Variable ya declarada");
 				}
 				else
 				{
-					EntradaTablaSimbolos entrada = new EntradaTablaSimbolos(token.Lexema, token.Linea, offset++);
-					cuadruplo.Bloque.variables.Add(entrada);
+					EntradaTablaSimbolos *entrada = new EntradaTablaSimbolos(token->getLexema(), token->getLinea(), offset++);
+					cuadruplo->bloque->variables->push_back(entrada);
+
 				}
+			}
 		}
-		else if (cuadruplo.tipo == TiposDeCuadruplos.Asignacion)
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Asignacion)
 		{
-			if (cuadruplo.Resultado.GetType() == typeof(Terminal))
+			if (cuadruplo->Resultado->getTipo() == TERMINAL)
 			{
-				var token = ((Terminal)cuadruplo.Resultado).token;
-				if (cuadruplo.Bloque.fueDeclarada(token.Lexema))
+				auto token = ((Terminal*)cuadruplo->Resultado)->getToken();
+				auto entrada = cuadruplo->bloque->fueDeclarada(token->getLexema());
+				if (entrada != nullptr)
 				{
-					var bloque = cuadruplo.Bloque;
-					while (bloque != null)
-					{
-						var res = bloque.variables.Where(x = > x.lexema == token.Lexema).ToList();
-						if (res.Count > 1) throw new Exception("Mas de una variable");
-						else if (res.Count == 1)
-						{
-							if (res[0].lineaPrimeraAsignacion == -1)
-								res[0].lineaPrimeraAsignacion = token.Linea;
-							break;
-						}
-						else if (res.Count == 0) bloque = bloque.padre;
-					}
+					auto bloque = cuadruplo->bloque;
+					if (entrada->lineaPrimeraAsignacion == -1)
+								entrada->lineaPrimeraAsignacion = token->getLinea();
+					
 				}
 				else
 				{
-					throw new Exception("Variable no declarada");
+					throw new exception("Variable no declarada");
 				}
 			}
 
 		}
-		else if (cuadruplo.tipo == TiposDeCuadruplos.Operacion)
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Operacion)
 		{
-			if (cuadruplo.Resultado.GetType() == typeof(Terminal))
+			if (cuadruplo->Resultado->getTipo() == TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Resultado;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Resultado;
+				if ((t->getToken())->getTipo() == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada((t->getToken())->getLexema());
+					if (entrada == nullptr) {
+
+						throw new exception("Variable no declarada");
+					}
+
 				}
 			}
-			if (cuadruplo.Operando1.GetType() == typeof(Terminal))
+			if (cuadruplo->Operando1->getTipo() == TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Operando1;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Operando1;
+				if (t->getToken()->getTipo() == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada((t->getToken())->getLexema());
+					if (entrada == nullptr)
+						throw new exception("Variable no declarada");
 				}
 			}
-			if (cuadruplo.Operando2.GetType() == typeof(Terminal))
+			if (cuadruplo->Operando2->getTipo() == TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Operando2;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Operando2;
+				if (t->getToken()->getTipo() == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
+					if (entrada == nullptr)
+						throw new exception("Variable no declarada");
 				}
 			}
 		}
-		else if (cuadruplo.tipo == TiposDeCuadruplos.Lectura)
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Lectura)
 		{
-			if (cuadruplo.Resultado.GetType() == typeof(Terminal))
+			if (cuadruplo->Resultado->getTipo() == TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Resultado;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Resultado;
+				if (t->getToken()->getTipo() == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
+					if (entrada == nullptr)
+						throw new exception("Variable no declarada");
 				}
 			}
 		}
-		else if (cuadruplo.tipo == TiposDeCuadruplos.Escritura)
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Escritura)
 		{
-			if (cuadruplo.Operando1.GetType() == typeof(Terminal))
+			if (cuadruplo->Operando1->getTipo()== TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Operando1;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Operando1;
+				if (t->getToken()->getTipo() == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
+						if (entrada == nullptr) {
+							throw new exception("Variable no declarada");
+						}
 				}
 			}
 		}
-		else if (cuadruplo.tipo == TiposDeCuadruplos.Mientras)
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Mientras)
 		{
-			if (cuadruplo.Operando1.GetType() == typeof(Terminal))
+			if (cuadruplo->Operando1->getTipo() == TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Operando1;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Operando1;
+				if (t->getToken()->getTipo == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
+					if (entrada == nullptr)
+						throw new exception("Variable no declarada");
 				}
 			}
 		}
-		else if (cuadruplo.tipo == TiposDeCuadruplos.Si)
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Si)
 		{
-			if (cuadruplo.Operando1.GetType() == typeof(Terminal))
+			if (cuadruplo->Operando1->getTipo == TERMINAL)
 			{
-				Terminal t = (Terminal)cuadruplo.Operando1;
-				if (t.token.Tipo == TipoToken.Identificador)
+				Terminal *t = (Terminal*)cuadruplo->Operando1;
+				if (t->getToken()->getTipo == TipoToken::Identificador)
 				{
-					if (!cuadruplo.Bloque.fueDeclarada(t.token.Lexema))
-						throw new Exception("Variable no declarada");
+					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema);
+					if (entrada == nullptr)
+						throw new exception("Variable no declarada");
 				}
 			}
 		}

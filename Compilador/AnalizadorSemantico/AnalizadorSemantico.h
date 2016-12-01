@@ -2,10 +2,13 @@
 
 #include "../CompiladorLib/Cuadruplo.h"
 #include <vector>
+#include "../AnalizadorSintactico/Terminal.h"
+
 
 using namespace std;
 
 using namespace compilador;
+using namespace compilador::sintactico;
 
 class AnalizadorSemantico
 {

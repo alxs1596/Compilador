@@ -9,7 +9,7 @@ namespace compilador {
 	private:
 		
 	public:
-		EntradaTablaSimbolos(string lexema, int lineaDeclaracion);
+		EntradaTablaSimbolos(string lexema, int lineaDeclaracion, int offset);
 		~EntradaTablaSimbolos();
 
 
