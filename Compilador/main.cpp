@@ -5,6 +5,8 @@
 
 #include "AnalizadorLexico\AnalizadorLexico.h"
 #include "AnalizadorSintactico\AnalizadorSintactico.h"
+#include "AnalizadorSemantico\AnalizadorSemantico.h"
+#include "CompiladorLib\Compilador.h"
 
 #include <sstream>
 
@@ -29,7 +31,7 @@ int main()
 
 	auto tokens = lexico.analizar(codigoFuente);
 
-	imprimirTokens(tokens);
+	//imprimirTokens(tokens);
 
 	AnalizadorSintactico sintactico;
 	
@@ -37,7 +39,19 @@ int main()
 
 	cout << (sintactico.getError() == false ? "True" : "False") << std::endl;
 
-	sintactico.imprimirCuadruplos();
+	//sintactico.imprimirCuadruplos();
+
+	AnalizadorSemantico semantico;
+
+	auto c = sintactico.Cuadruplos();
+
+	semantico.analizar(&c);
+
+	Compilador compilador;
+
+	string res = compilador.generarCodigo(c);
+
+	cout << res;
 	
 
 	system("pause");

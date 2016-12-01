@@ -15,8 +15,8 @@ namespace compilador {
 		int linea;
 		int nbloque;
 		TablaSimbolos* padre;
-		TablaSimbolos(int linea) : linea(linea) {}
-		TablaSimbolos(TablaSimbolos* padre, int nbloque, int linea) : padre(padre), nbloque(nbloque), linea(linea) {}
+		TablaSimbolos(int linea) : linea(linea) { variables = new vector<EntradaTablaSimbolos*>(); }
+		TablaSimbolos(TablaSimbolos* padre, int nbloque, int linea) : padre(padre), nbloque(nbloque), linea(linea) { variables = new vector<EntradaTablaSimbolos*>(); }
 		TablaSimbolos(TablaSimbolos* padre);
 		~TablaSimbolos();
 		vector<EntradaTablaSimbolos*>* variables;

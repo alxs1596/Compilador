@@ -123,7 +123,7 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 			if (cuadruplo->Operando1->getTipo() == TERMINAL)
 			{
 				Terminal *t = (Terminal*)cuadruplo->Operando1;
-				if (t->getToken()->getTipo == TipoToken::Identificador)
+				if (t->getToken()->getTipo() == TipoToken::Identificador)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 					if (entrada == nullptr)
@@ -133,12 +133,12 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 		}
 		else if (cuadruplo->tipo == TiposDeCuadruplos::Si)
 		{
-			if (cuadruplo->Operando1->getTipo == TERMINAL)
+			if (cuadruplo->Operando1->getTipo() == TERMINAL)
 			{
 				Terminal *t = (Terminal*)cuadruplo->Operando1;
-				if (t->getToken()->getTipo == TipoToken::Identificador)
+				if (t->getToken()->getTipo() == TipoToken::Identificador)
 				{
-					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema);
+					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 					if (entrada == nullptr)
 						throw new exception("Variable no declarada");
 				}
