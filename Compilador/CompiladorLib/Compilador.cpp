@@ -600,14 +600,14 @@ bool Compilador::compilar(string ruta)
 		
 		string codigoasm = generarCodigo(c);
 
-		compilarASM(codigoasm);
+		compilarASM(codigoasm, ruta);
 
 		return true;
 	}
 }
 
 
-void Compilador::compilarASM(string codigoASM)
+void Compilador::compilarASM(string codigoASM, string ruta)
 {
 	
 	ofstream file("ASM.asm");
@@ -616,7 +616,18 @@ void Compilador::compilarASM(string codigoASM)
 
 	file.close();
 
-	system("ML /c /coff /Cp ASM.asm");
-	system("link /subsystem:console ASM.obj");
-	system("ASM.exe");
+	system("ASM\\ml.exe /c /coff /Cp ASM.asm");
+	system("ASM\\link.exe /subsystem:console ASM.obj");
+
+	stringstream ss;
+	ss << "rename \"ASM.exe\" \"";
+	for (size_t i = 0; i < ruta.size(); i++) {
+		if (ruta[i] == '.') break;
+		ss << ruta[i];
+	}
+	ss << ".exe\"";
+	system(ss.str().c_str());
+	system("DEL ASM.asm");
+	system("DEL ASM.obj");
+	//system("ASM.exe");
 }

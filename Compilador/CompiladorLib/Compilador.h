@@ -46,7 +46,7 @@ private:
 
 	string generarCodigo(vector<Cuadruplo*> cuadruplos);
 
-	void compilarASM(string codigoASM);
+	void compilarASM(string codigoASM, string);
 
 public:
 	Compilador();

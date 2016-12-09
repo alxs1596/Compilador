@@ -42,7 +42,7 @@ int main(int argc,      // Number of strings in array argv
 	
 
 	
-	system("pause");
+	//system("pause");
 	return 0;
 
 }
