@@ -52,16 +52,16 @@ namespace compilador {
 			public ElementoGramatical
 		{
 		private:
-			string id;
+			//string id;
 			//int descripcion;
 		public:
 			
-			NoTerminal(string id) :ElementoGramatical(NOTERMINAL), id(id) {}
+			NoTerminal(string id) :ElementoGramatical(NOTERMINAL) { this->id = id; }
 			~NoTerminal();
 			ElementoGramatical* clonar() {
 				return new NoTerminal(this->id);
 			}
-			string getID() { return id; }
+			//string getID() { return id; }
 		};
 
 	}

@@ -1,14 +1,8 @@
 Programa()
 {
-	
-	entero a = 5;
-	Si (a == 5){
-		entero b = 4;
-		entero c;
-		c = 5;
-		entero d = 7;
-	}
-	entero f = 1;
-	entero i;
-	i = 9;
+	entero a;
+
+	LeerTeclado(a);
+
+	EscribirPantalla(a);
 }	

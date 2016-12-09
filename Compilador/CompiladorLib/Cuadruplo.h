@@ -16,7 +16,12 @@ namespace compilador {
 		Declaracion,
 		Mientras,
 		Si,
-		Osino
+		Osino,
+		EtiquetaInicioMientras,
+		EtiquetaFinMientras,
+		EtiquetaFinSi,
+		EtiquetaFinOsino,
+		Destruccion
 	};
 
 	class Cuadruplo

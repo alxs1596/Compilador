@@ -118,6 +118,7 @@ string compilador::Cuadruplo::toString()
 		//ss << "(" << Operando2 << ")";
 	}
 	ss << "\tBloque: " << bloque->nbloque;
+	ss << "\tTipo: " << tipo;
 
 	return ss.str();
 }

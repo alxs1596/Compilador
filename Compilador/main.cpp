@@ -22,38 +22,26 @@ void imprimirTokens(vector<Token*> listaTokens)
 	}
 }
 
-int main()
+
+
+int main(int argc,      // Number of strings in array argv  
+	char *argv[],   // Array of command-line argument strings  
+	char *envp[])  // Array of environment variable strings  
 {
 
-	AnalizadorLexico lexico;
+	if (argc < 2) {
+		cout << "Ruta no ingresada" << endl;
+		return 0;
+	}
 
-	string codigoFuente = lexico.leerArchivo("Source.txt");
-
-	auto tokens = lexico.analizar(codigoFuente);
-
-	//imprimirTokens(tokens);
-
-	AnalizadorSintactico sintactico;
-	
-	auto cuadruplos = sintactico.Analizar(tokens);
-
-	cout << (sintactico.getError() == false ? "True" : "False") << std::endl;
-
-	//sintactico.imprimirCuadruplos();
-
-	AnalizadorSemantico semantico;
-
-	auto c = sintactico.Cuadruplos();
-
-	semantico.analizar(&c);
+	string ruta = argv[1];
 
 	Compilador compilador;
+	compilador.compilar(ruta);
 
-	string res = compilador.generarCodigo(c);
-
-	cout << res;
 	
 
+	
 	system("pause");
 	return 0;
 

@@ -24,6 +24,10 @@ AnalizadorSintactico::AnalizadorSintactico()
 	nbloque = 0;
 
 	error = true;
+
+	mientras = NULL;
+	si = NULL;
+	osino = NULL;
 }
 
 AnalizadorSintactico::~AnalizadorSintactico()
@@ -149,6 +153,45 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 			voltear = false;
 		}
 
+		listaCuadruplos.push_back(new Cuadruplo(NULL,NULL,NULL,NULL,TiposDeCuadruplos::Destruccion, bloqueActual));
+
+		if (mientras != NULL) {
+			listaCuadruplos.push_back(
+				new Cuadruplo(
+					NULL,
+					mientras,
+					NULL,
+					NULL,
+					TiposDeCuadruplos::EtiquetaFinMientras,
+					bloqueActual));
+			mientras = NULL;
+		}
+
+		if (si != NULL) {
+			listaCuadruplos.push_back(
+				new Cuadruplo(
+					NULL,
+					si,
+					NULL,
+					NULL,
+					TiposDeCuadruplos::EtiquetaFinSi,
+					bloqueActual));
+			osino = si;
+			si = NULL;
+		}
+		else 
+		if (osino != NULL) {
+			listaCuadruplos.push_back(
+				new Cuadruplo(
+					NULL,
+					osino,
+					NULL,
+					NULL,
+					TiposDeCuadruplos::EtiquetaFinOsino,
+					bloqueActual));
+			osino = NULL;
+		}
+
 		break;
 	case 15:
 
@@ -190,14 +233,26 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 				bloqueActual));
 		break;
 	case 19:
+		mientras = new Terminal(new Token("ETIQUETA_MIENTRAS", TipoToken::Cuadruplos, 0));
+
+		listaCuadruplos.push_back(
+			new Cuadruplo(
+				NULL,
+				mientras,
+				NULL,
+				NULL,
+				TiposDeCuadruplos::EtiquetaInicioMientras,
+				bloqueActual));
+
 		voltear = true;
+		voltearDesde = (int)listaCuadruplos.size();
 
 		listaCuadruplos.push_back(
 			new Cuadruplo(
 				NULL, 
 				produccion[2], //EM
 				reglasGramaticales._terminales.Mientras, 
-				NULL, 
+				listaCuadruplos[listaCuadruplos.size() - 1]->Operando1, 
 				TiposDeCuadruplos::Mientras, 
 				bloqueActual));
 		break;
@@ -212,6 +267,9 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 
 		break;
 	case 22:
+
+		si = new Terminal(new Token("ETIQUETA_SI", TipoToken::Cuadruplos, 0));
+
 		voltear = true;
 		voltearDesde = (int)listaCuadruplos.size();
 		listaCuadruplos.push_back(
@@ -219,17 +277,17 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 				NULL, 
 				produccion[2], //EM
 				reglasGramaticales._terminales.Si, 
-				NULL, 
+				si, 
 				TiposDeCuadruplos::Si, 
 				bloqueActual));
 		break;
 	case 23:
-		voltear = true;
-		voltearDesde = (int)listaCuadruplos.size();
+		//voltear = true;
+		//voltearDesde = (int)listaCuadruplos.size();
 		listaCuadruplos.push_back(
 			new Cuadruplo(
 				NULL, 
-				produccion[1], //EM
+				osino, 
 				reglasGramaticales._terminales.Osino, 
 				NULL, 
 				TiposDeCuadruplos::Osino, 
@@ -388,11 +446,50 @@ void AnalizadorSintactico::llenarCuadruplos(int nregla, vector<ElementoGramatica
 	case 50:
 		buscarCuadruploCambiarOperacionPorAsignacion(tope);
 		break;
-
+	case 56:
+		listaCuadruplos.push_back(new Cuadruplo(NULL, NULL, NULL, NULL, TiposDeCuadruplos::Destruccion, bloqueActual));
+		if (mientras != NULL) {
+			listaCuadruplos.push_back(
+				new Cuadruplo(
+					NULL,
+					mientras,
+					NULL,
+					NULL,
+					TiposDeCuadruplos::EtiquetaFinMientras,
+					bloqueActual));
+			mientras = NULL;
+		}
+		if (si != NULL) {
+			listaCuadruplos.push_back(
+				new Cuadruplo(
+					NULL,
+					si,
+					NULL,
+					NULL,
+					TiposDeCuadruplos::EtiquetaFinSi,
+					bloqueActual));
+			osino = si;
+			si = NULL;
+		}
+		else
+		if (osino != NULL) {
+			listaCuadruplos.push_back(
+				new Cuadruplo(
+					NULL,
+					osino,
+					NULL,
+					NULL,
+					TiposDeCuadruplos::EtiquetaFinOsino,
+					bloqueActual));
+			osino = NULL;
+		}
+		break;
 	default:
 		break;
 	}
-	
+	/*cout << endl << "------------ Regla: " << nregla;
+	imprimirCuadruplos();
+	cout << "------------" << endl;*/
 }
 
 void AnalizadorSintactico::bloques(int linea, int regla)
@@ -408,12 +505,12 @@ void AnalizadorSintactico::bloques(int linea, int regla)
 		else
 		{
 			TablaSimbolos* nuevo = new TablaSimbolos(bloqueActual, ++nbloque, linea);
-			if (regla != 20)
+			//if (regla != 20)
 				bloqueActual = nuevo;
 		}
 	}
-	// Bloques 3: LS => lambda
-	else if (regla == 3)
+	// Bloques 3: LS => lambda 56: SUBBSVacio => LAMBDA
+	else if (regla == 3 || regla == 56)
 	{
 		bloqueActual = bloqueActual->padre;
 	}
@@ -476,9 +573,12 @@ bool AnalizadorSintactico::Analizar(vector<Token*> entrada)
 
 						ElementoGramatical* tope = pila.top();
 
-						bloques(entrada[i]->getLinea(), regla);
+						
 
 						llenarCuadruplos(regla, produccion,&terminalesEntrada, i, tope);
+
+						bloques(entrada[i]->getLinea(), regla);
+
 						pila.pop();
 
 						for (size_t i = 0; i < reglasGramaticales.reglas[regla]->getProduccion()->size(); i++)

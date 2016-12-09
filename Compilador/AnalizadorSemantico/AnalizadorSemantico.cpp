@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "AnalizadorSemantico.h"
 
+using namespace compilador::semantico;
 
 AnalizadorSemantico::AnalizadorSemantico()
 {
@@ -25,7 +26,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				auto entrada = cuadruplo->bloque->fueDeclarada(token->getLexema());
 				if (entrada != nullptr)
 				{
-					throw new exception("Variable ya declarada");
+					//throw new exception("Variable ya declarada");
+					errores.push_back(new ErrorSemantico("Variable ya declarada", token->getLinea()));
 				}
 				else
 				{
@@ -50,7 +52,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				}
 				else
 				{
-					throw new exception("Variable no declarada");
+					//throw new exception("Variable no declarada");
+					errores.push_back(new ErrorSemantico("Variable no declarada", token->getLinea()));
 				}
 			}
 
@@ -65,7 +68,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 					auto entrada = cuadruplo->bloque->fueDeclarada((t->getToken())->getLexema());
 					if (entrada == nullptr) {
 
-						throw new exception("Variable no declarada");
+						//throw new exception("Variable no declarada");
+						errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 					}
 
 				}
@@ -77,7 +81,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada((t->getToken())->getLexema());
 					if (entrada == nullptr)
-						throw new exception("Variable no declarada");
+						//throw new exception("Variable no declarada");
+						errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 				}
 			}
 			if (cuadruplo->Operando2->getTipo() == TERMINAL)
@@ -87,7 +92,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 					if (entrada == nullptr)
-						throw new exception("Variable no declarada");
+						//throw new exception("Variable no declarada");
+						errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 				}
 			}
 		}
@@ -100,7 +106,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 					if (entrada == nullptr)
-						throw new exception("Variable no declarada");
+						//throw new exception("Variable no declarada");
+						errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 				}
 			}
 		}
@@ -113,7 +120,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 						if (entrada == nullptr) {
-							throw new exception("Variable no declarada");
+							//throw new exception("Variable no declarada");
+							errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 						}
 				}
 			}
@@ -127,7 +135,8 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 					if (entrada == nullptr)
-						throw new exception("Variable no declarada");
+						//throw new exception("Variable no declarada");
+						errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 				}
 			}
 		}
@@ -140,9 +149,17 @@ void AnalizadorSemantico::analizar(vector<Cuadruplo*>* cuadruplos)
 				{
 					auto entrada = cuadruplo->bloque->fueDeclarada(t->getToken()->getLexema());
 					if (entrada == nullptr)
-						throw new exception("Variable no declarada");
+						//throw new exception("Variable no declarada");
+						errores.push_back(new ErrorSemantico("Variable no declarada", t->getToken()->getLinea()));
 				}
 			}
 		}
+		else if (cuadruplo->tipo == TiposDeCuadruplos::Destruccion) {
+			for (size_t i = 0; i < cuadruplo->bloque->variables->size(); i++) {
+				offset--;
+			}
+		}
 	}
+
+	if (errores.size() > 0) error = true;
 }

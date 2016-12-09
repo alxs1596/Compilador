@@ -3,6 +3,7 @@
 #include "../CompiladorLib/Cuadruplo.h"
 #include <vector>
 #include "../AnalizadorSintactico/Terminal.h"
+#include "ErrorSemantico.h"
 
 
 using namespace std;
@@ -10,15 +11,23 @@ using namespace std;
 using namespace compilador;
 using namespace compilador::sintactico;
 
-class AnalizadorSemantico
-{
-public:
+namespace compilador {
+	namespace semantico {
+		class AnalizadorSemantico
+		{
+		public:
 
-	int offset = 1;
+			bool error;
 
-	AnalizadorSemantico();
-	~AnalizadorSemantico();
+			vector <ErrorSemantico*> errores;
 
-	void analizar(vector<Cuadruplo*>* cuadruplos);
-};
+			int offset = 1;
 
+			AnalizadorSemantico();
+			~AnalizadorSemantico();
+
+			void analizar(vector<Cuadruplo*>* cuadruplos);
+		};
+
+	}
+}

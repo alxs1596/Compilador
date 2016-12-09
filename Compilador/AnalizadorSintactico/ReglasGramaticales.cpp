@@ -137,9 +137,10 @@ ReglasGramaticales::ReglasGramaticales() {
 	produccion->push_back(_noterminales.SUBBS);
 	reglas.push_back(new Regla(_noterminales.SM, produccion));
 
-	// Regla 20 : <SUBBS> → <S>
+	// Regla 20 : <SUBBS> → <S> <SUBBSVacio>
 	produccion = new vector<ElementoGramatical*>();
 	produccion->push_back(_noterminales.S);
+	produccion->push_back(_noterminales.SUBBSVacio);
 	reglas.push_back(new Regla(_noterminales.SUBBS, produccion));
 
 	// Regla 21 : <SUBBS> → <BS>
@@ -355,6 +356,11 @@ ReglasGramaticales::ReglasGramaticales() {
 	produccion = new vector<ElementoGramatical*>();
 	produccion->push_back(_terminales.Modulo);
 	reglas.push_back(new Regla(_noterminales.OP4, produccion));
+
+	//Regla 56: <SUBBSVacio> → LAMBDA
+	produccion = new vector<ElementoGramatical*>();
+	produccion->push_back(LAMBDA);
+	reglas.push_back(new Regla(_noterminales.SUBBSVacio, produccion));
 
 	llenarMatriz();
 }

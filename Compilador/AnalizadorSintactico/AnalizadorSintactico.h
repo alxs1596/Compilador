@@ -32,6 +32,10 @@ namespace compilador {
 			int voltearDesde;
 			int voltearHasta;
 
+			Terminal* mientras;
+			Terminal* si;
+			Terminal* osino;
+
 			TablaSimbolos* bloquePadre;
 			TablaSimbolos* bloqueActual;
 			int nbloque;

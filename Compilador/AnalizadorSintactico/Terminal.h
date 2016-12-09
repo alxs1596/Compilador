@@ -28,14 +28,14 @@ namespace compilador {
 			~Terminal();
 
 			Token* getToken() { return token; }
-			string getID() { return id; }
+			//string getID() { return id; }
 
 			ElementoGramatical* clonar() {
 				return new Terminal(new Token(this->token->getLexema(), this->token->getTipo(), this->token->getLinea()));
 			}
 
 		private:
-			string id;
+			//string id;
 			Token* token;
 		};
 

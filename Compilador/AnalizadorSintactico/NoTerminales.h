@@ -42,8 +42,9 @@ namespace compilador {
 			NoTerminal* OP4 = new NoTerminal("OP4");
 			NoTerminal* LOL = new NoTerminal("LOL");
 			NoTerminal* LC = new NoTerminal("LC");
+			NoTerminal* SUBBSVacio = new NoTerminal("SUBBSVacio");
 			NoTerminal* noTerminalBase = P;
-			const int Count = 30;
+			const int Count = 31;
 
 			vector<NoTerminal*>* Todos();
 		};

@@ -37,6 +37,7 @@ vector<NoTerminal*>* NoTerminales::Todos()
 	r->push_back(OP4);
 	r->push_back(LOL);
 	r->push_back(LC);
+	r->push_back(SUBBSVacio);
 
 	return r;
 }
